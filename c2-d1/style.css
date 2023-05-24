@@ -1,0 +1,13 @@
+.main-app {
+  height: 100vh;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.botonera {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.input {
+  width: 100px;
+  text-align: center;
+}
