@@ -11,7 +11,7 @@
       <tr v-for="(elemento) in lista" :key="elemento.id">
         <th scope="row">{{ elemento.id }}</th>
         <td>{{ elemento.articulo }}</td>
-        <td>$\{{ elemento.precio }}</td>
+        <td>${{ elemento.precio }}</td>
       </tr>
     </tbody>
   </table>
