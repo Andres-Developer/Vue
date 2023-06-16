@@ -1,6 +1,9 @@
 <template>
   <div>
     <HeaderBar />
+    <div class="container">
+      <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
+    </div>
     <router-view />
   </div>
 </template>
@@ -12,7 +15,7 @@ export default {
   name: 'App',
   components: {
     HeaderBar
-}
+  }
 };
 </script>
 

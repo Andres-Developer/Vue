@@ -1,6 +1,6 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand to="/" href="#">Home</b-navbar-brand>
+  <b-navbar class="" toggleable="lg" type="dark" variant="warning">
+    <b-navbar-brand to="/" href="#" class="fs-3 text-white fw-bold">Pizzería</b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="me-auto">
