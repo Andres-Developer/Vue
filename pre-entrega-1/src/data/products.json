@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Pizza Tuna",
+    "description": "Para los amantes del mar, verduras frescas, atún y nuestro toque especial",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdtn_c.png",
+    "price": 45.9,
+    "stock": 1
+  },
+  {
+    "id": 2,
+    "title": "Pizza Lasagna",
+    "description": "Una pizza espectacular con salsa bolognesa, cebolla y queso; cubierta por una fina masa, salsa bechamel, queso, tomate confitado y queso parmesano gratinado",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/plne_c.png",
+    "price": 47.9,
+    "stock": 1
+  },
+  {
+    "id": 3,
+    "title": "Parrillera",
+    "description": "Pizza mediana con dos capas de masa delgada, carne de res, salchicha italiana, topping de cerdo, queso, chorizo ahumado y chorizo coctel bañados con una deliciosa salsa BBQ y tocineta crispy",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/zpsc_c.png",
+    "price": 47.9,
+    "stock": 1
+  },
+  {
+    "id": 4,
+    "title": "Pollo y champiñones BB",
+    "description": "Pollo y champiñones en salsa BBQ.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdpb_c.png",
+    "price": 43.9,
+    "stock": 1
+  },
+  {
+    "id": 5,
+    "title": "Napolitana",
+    "description": "Rodajas de tomate fresco y orégano.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdnp_c.png",
+    "price": 39.9,
+    "stock": 1
+  },
+  {
+    "id": 6,
+    "title": "Primavera",
+    "description": "Champiñón, orégano y rodajas de tomate fresco.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdpr_c.png",
+    "price": 39.9,
+    "stock": 1
+  },
+  {
+    "id": 7,
+    "title": "Maiz Tocineta",
+    "description": "Queso, maíz y tocineta.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdmt_c.png",
+    "price": 42.9,
+    "stock": 1
+  },
+  {
+    "id": 8,
+    "title": "Mexicana",
+    "description": "Totopos, guacamole, bolognesa al ají, tomate al ají y crema de fríjoles refritos.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdmx_c.png",
+    "price": 46.9,
+    "stock": 1
+  },
+  {
+    "id": 9,
+    "title": "Especial de Carnes",
+    "description": "Salami, cabano, salchicha italiana, topping de cerdo y jamón.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdec_c.png",
+    "price": 45.9,
+    "stock": 1
+  },
+  {
+    "id": 10,
+    "title": "Carbonara",
+    "description": "Tocineta, champiñones, cebolla y salsa carbonara.",
+    "image": "https://images.telepizza.com/vol/jn/images/content/productos/pdca_c.png",
+    "price": 43.9,
+    "stock": 1
+  }
+]
