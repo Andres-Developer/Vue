@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderBar />
+    <HeaderBar :count="productCount"/>
     <div class="container">
       <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
     </div>
@@ -22,6 +22,7 @@ export default {
     return {
       products,
       productsInCart: [],
+      productCount: 0,  // implementar un watch para que se actualice cuando se agregue o elimine un producto 
     };
   },
   methods: {
@@ -38,6 +39,14 @@ export default {
       // console.log("deleteToCartClickHandler INDEX:", index);
       this.productsInCart.splice(index, 1);
       // console.log("Nuevo:", this.productsInCart);
+    }
+  },
+  watch: {
+    productsInCart: {
+      handler() {
+        this.productCount = this.productsInCart.length;
+      },
+      deep: true,
     }
   },
 };
