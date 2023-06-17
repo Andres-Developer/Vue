@@ -38,11 +38,7 @@ export default {
   methods: {
     handleClick(product) {
       // console.log('handleClick:', product);
-      this.isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
-      console.log('selectedProduct:', this.isSelected);
-      if (!this.isSelected) {
-        this.$emit('add-to-cart', product);
-      }
+      this.$emit('add-to-cart', product);
     },
   },
   computed: {

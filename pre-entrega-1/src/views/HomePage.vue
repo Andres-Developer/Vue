@@ -1,35 +1,33 @@
 <template>
   <div class="container-fluid">
     <div class="d-flex flex-wrap">
-      <CardItem :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"/>
+      <CardItem :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler" />
     </div>
   </div>
 </template>
 
 <script>
 import CardItem from '@/components/CardItem.vue';
-import products from '../data/products.json';
+// import products from '../data/products.json';
 
 export default {
   name: 'HomePage',
   components: {
     CardItem
-},
+  },
   props: {
-    // someProp: String
+    products: Array,
+    productsInCart: Array,
   },
   data() {
     return {
-      products,
-      productsInCart: [],
     };
   },
 
   methods: {
-    addToCartClickHandler({...product}) {
-      console.log('addToCartClickHandler:', this.productsInCart);
-      this.productsInCart.push(product);
-    },
+    addToCartClickHandler({ ...product }) {
+      this.$emit('add-to-cart', product);
+    },    
   },
   computed: {
     /* someComputed() {

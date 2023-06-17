@@ -4,18 +4,34 @@
     <div class="container">
       <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
     </div>
-    <router-view />
+    <router-view :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"/>
   </div>
 </template>
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
+import products from './data/products.json';
 
 export default {
   name: 'App',
   components: {
     HeaderBar
-  }
+  },
+  data() {
+    return {
+      products,
+      productsInCart: [],
+    };
+  },
+  methods: {
+    addToCartClickHandler({ ...product }) {
+      console.log('addToCartClickHandler:', this.productsInCart);
+      const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
+      if (!isSelected) {
+        this.productsInCart.push(product);
+      }
+    },
+  },
 };
 </script>
 
