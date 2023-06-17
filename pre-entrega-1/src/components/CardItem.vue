@@ -1,6 +1,6 @@
 <template>
   <b-card v-for="product in products" :key="product.id" :title="product.title" :img-src="product.image" img-alt="Image"
-    img-top tag="article" class="m-2" style="width: 18rem; min-width: 18rem; height: 35rem;">
+    img-top tag="article" class="m-2 card-style">
     <b-card-text>
       {{ product.description }}
     </b-card-text>
@@ -52,4 +52,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card-style {
+  width: 18rem;
+  min-width: 18rem;
+  height: 35rem;
+}
+</style>
