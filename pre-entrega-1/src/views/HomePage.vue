@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="d-flex flex-wrap">
-      <CardItem :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler" />
+      <CardItem :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"/>
     </div>
   </div>
 </template>
@@ -27,6 +27,9 @@ export default {
   methods: {
     addToCartClickHandler({ ...product }) {
       this.$emit('add-to-cart', product);
+    },    
+    deleteToCartClickHandler(id) {
+      this.$emit('delete-to-cart', id);
     },    
   },
   computed: {

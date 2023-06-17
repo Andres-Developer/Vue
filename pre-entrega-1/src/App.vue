@@ -4,7 +4,8 @@
     <div class="container">
       <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
     </div>
-    <router-view :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"/>
+    <router-view :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"
+      @delete-to-cart="deleteToCartClickHandler" />
   </div>
 </template>
 
@@ -31,6 +32,13 @@ export default {
         this.productsInCart.push(product);
       }
     },
+    deleteToCartClickHandler(id) {
+      // console.log("deleteToCartClickHandler ID:", id);
+      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+      // console.log("deleteToCartClickHandler INDEX:", index);
+      this.productsInCart.splice(index, 1);
+      // console.log("Nuevo:", this.productsInCart);
+    }
   },
 };
 </script>
