@@ -7,7 +7,7 @@
         <b-navbar-nav class="ms-auto">
           <b-nav-item :to="{ name: 'cart-content' }" href="#" class="me-auto">
             <img alt="cart" src="./../assets/cart-header.svg" width="35">
-            <span v-if="count>0" class="position-absolute top-3  translate-middle badge rounded-pill bg-danger">
+            <span v-if="count > 0" class="position-absolute top-3  translate-middle badge rounded-pill bg-danger">
               {{ count }}
             </span>
           </b-nav-item>

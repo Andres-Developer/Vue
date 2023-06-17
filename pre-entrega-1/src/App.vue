@@ -1,6 +1,7 @@
 <template>
   <div>
-    <HeaderBar :count="productCount"/>
+    <metainfo />
+    <HeaderBar :count="productCount" />
     <div class="container">
       <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
     </div>
@@ -18,6 +19,11 @@ export default {
   components: {
     HeaderBar
   },
+  metaInfo() {
+    return {
+      title: this.productCount ? `Pizzería (${this.productCount})` : `Pizzería`
+    };
+  },
   data() {
     return {
       products,
@@ -25,6 +31,7 @@ export default {
       productCount: 0,  // implementar un watch para que se actualice cuando se agregue o elimine un producto 
     };
   },
+
   methods: {
     addToCartClickHandler({ ...product }) {
       console.log('addToCartClickHandler:', this.productsInCart);
