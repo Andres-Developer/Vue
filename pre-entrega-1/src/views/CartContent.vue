@@ -1,21 +1,21 @@
 <template>
-  <div></div>
+<div>Contenido del carrito</div>
 </template>
 
 <script>
 // import ComponentName from './ComponentName.vue'
 
 export default {
-  name: 'CardsContainer',
+name: 'CartContent',
   components: {
     // ComponentName
   },
   props: {
     // someProp: String
   },
-  data() {
-    return {
-    };
+  data() { 
+   return {
+   }
   },
 
   methods: {
@@ -32,4 +32,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

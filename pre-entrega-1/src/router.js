@@ -1,13 +1,13 @@
 import {createRouter, createWebHistory} from "vue-router";
 
 import HomePage from "./views/HomePage.vue";
-import QuienesSomos from "./views/QuienesSomos.vue";
 import PostId from "./views/PostId.vue";
+import CartContentVue from "./views/CartContent.vue";
 // import NotFound from "./views/NotFound.vue";
 
 const routes = [
   { path: '/', component: HomePage, name: "home" },
-  { path: "/somos-increibles", component: QuienesSomos, name: "quienes-somos" },
+  { path: "/cart", component: CartContentVue, name: "cart-content" },
   { path: "/posts/:id", component: PostId, name: "post-id" },
   // { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ]
