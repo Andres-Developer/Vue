@@ -37,8 +37,8 @@ export default {
       console.log('addToCartClickHandler:', this.productsInCart);
       const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
       if (!isSelected) {
-        const { id, title, price } = product;
-        this.productsInCart.push({ id, title, price, quantity: 1 });
+        const { id, title, image, price } = product;
+        this.productsInCart.push({ id, title, price, image, quantity: 1 });
       }
     },
     deleteToCartClickHandler(id) {

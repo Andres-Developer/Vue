@@ -1,8 +1,8 @@
 <template>
   <div>
-    {{ this.product.id }} -
+    <img :src="this.product.image" alt="pizza" width="60"> -
     {{ this.product.title }} - 
-    {{ this.product.price }} -
+    $ {{ this.product.price }} -
     {{ this.product.quantity }}
   </div>
 </template>
