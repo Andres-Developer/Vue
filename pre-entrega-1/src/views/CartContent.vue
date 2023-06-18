@@ -11,7 +11,12 @@ name: 'CartContent',
     // ComponentName
   },
   props: {
-    // someProp: String
+    productCount: Number,
+  },
+  metaInfo() {
+    return {
+      title: this.productCount ? `🛒 Tu compra  (${this.productCount})` : `🛒 Tu compra`
+    };
   },
   data() { 
    return {

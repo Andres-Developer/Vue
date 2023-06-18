@@ -5,7 +5,7 @@
     <div class="container">
       <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
     </div>
-    <router-view :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"
+    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount" @add-to-cart="addToCartClickHandler"
       @delete-to-cart="deleteToCartClickHandler" />
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: this.productCount ? `Pizzería (${this.productCount})` : `Pizzería`
+      title: this.productCount ? `🍕 Pizzería (${this.productCount})` : `🍕 Pizzería`
     };
   },
   data() {
