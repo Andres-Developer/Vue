@@ -1,26 +1,29 @@
 <template>
-<div>Contenido del carrito</div>
+  <div>Contenido del carrito</div>
+  <CartProduct v-for="product in productsInCart" :key="product.id" :product="product" />
 </template>
 
 <script>
 // import ComponentName from './ComponentName.vue'
+import CartProduct from '@/components/CartProduct.vue';
 
 export default {
-name: 'CartContent',
+  name: 'CartContent',
   components: {
-    // ComponentName
+    CartProduct
   },
   props: {
     productCount: Number,
+    productsInCart: Array,
   },
   metaInfo() {
     return {
       title: this.productCount ? `🛒 Tu compra  (${this.productCount})` : `🛒 Tu compra`
     };
   },
-  data() { 
-   return {
-   }
+  data() {
+    return {
+    };
   },
 
   methods: {
@@ -37,6 +40,4 @@ name: 'CartContent',
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
