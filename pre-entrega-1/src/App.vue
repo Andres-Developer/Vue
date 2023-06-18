@@ -28,7 +28,7 @@ export default {
     return {
       products,
       productsInCart: [],
-      productCount: 0,  // implementar un watch para que se actualice cuando se agregue o elimine un producto 
+      productCount: 0,
     };
   },
 

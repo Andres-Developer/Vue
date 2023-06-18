@@ -19,13 +19,11 @@
 </template>
 
 <script>
-// import ComponentName from './ComponentName.vue'
 
 export default {
   name: 'CardItem',
   emits: ['add-to-cart'],
   components: {
-    // ComponentName
   },
   props: {
     product: Object,
@@ -33,7 +31,6 @@ export default {
   },
   data() {
     return {
-      isSelected: false,
     };
   },
 

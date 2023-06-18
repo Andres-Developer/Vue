@@ -1,8 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { createMetaManager } from 'vue-meta';
-import { plugin as vueMetaPlugin } from 'vue-meta'
+import { createMetaManager, plugin as vueMetaPlugin } from 'vue-meta';
 
 
 import BootstrapVueNext from 'bootstrap-vue-next';
