@@ -5,8 +5,8 @@
     <div class="container">
       <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
     </div>
-    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount" @add-to-cart="addToCartClickHandler"
-      @delete-to-cart="deleteToCartClickHandler" />
+    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount"
+      @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler" />
   </div>
 </template>
 
@@ -67,6 +67,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 body {
   overflow-y: scroll;
 }
