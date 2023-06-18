@@ -5,7 +5,7 @@
       {{ product.description }}
     </b-card-text>
     <div class="h4"> $ {{ product.price }}</div>
-    <div v-if="this.productsInCart.some((Eproduct) => Eproduct.id === product.id)">
+    <div v-if="checkSelectedProduct">
       <b-button variant="success">Agregada!</b-button>
       <div type="button" @click="[deleteToCartHandleClick(product.id)]">X Eliminar</div>
     </div>
@@ -45,7 +45,10 @@ export default {
     },
   },
   computed: {
-
+    checkSelectedProduct() {
+      // console.log('checkSelectedProduct:', this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id));
+      return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
+    },
   },
 
 };
