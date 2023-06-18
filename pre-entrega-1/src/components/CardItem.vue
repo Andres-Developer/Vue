@@ -1,5 +1,5 @@
 <template>
-  <b-card v-for="product in products" :key="product.id" :title="product.title" :img-src="product.image" img-alt="Image"
+  <b-card :title="product.title" :img-src="product.image" img-alt="Image"
     img-top tag="article" class="m-2 card-style">
     <b-card-text>
       {{ product.description }}
@@ -28,7 +28,7 @@ export default {
     // ComponentName
   },
   props: {
-    products: Array,
+    product: Object,
     productsInCart: Array,
   },
   data() {

@@ -1,14 +1,14 @@
 <template>
   <div class="container-fluid">
     <div class="d-flex flex-wrap">
-      <CardItem :products="products" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"/>
+      <CardItem v-for="product in products" :key="product.id" :product="product" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"
+        @delete-to-cart="deleteToCartClickHandler" />
     </div>
   </div>
 </template>
 
 <script>
 import CardItem from '@/components/CardItem.vue';
-// import products from '../data/products.json';
 
 export default {
   name: 'HomePage',
@@ -27,10 +27,10 @@ export default {
   methods: {
     addToCartClickHandler({ ...product }) {
       this.$emit('add-to-cart', product);
-    },    
+    },
     deleteToCartClickHandler(id) {
       this.$emit('delete-to-cart', id);
-    },    
+    },
   },
   computed: {
     /* someComputed() {
