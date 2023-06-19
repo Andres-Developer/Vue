@@ -22,7 +22,7 @@
 
 export default {
   name: 'CardItem',
-  emits: ['add-to-cart'],
+  emits: ['add-to-cart','delete-to-cart'],
   components: {
   },
   props: {

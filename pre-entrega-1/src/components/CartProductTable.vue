@@ -55,6 +55,7 @@
 
 export default {
   name: 'CartProductTable',
+  emits: ['add-product-quantity','substract-product-quantity','delete-to-cart'],
   components: {
     // ComponentName
   },

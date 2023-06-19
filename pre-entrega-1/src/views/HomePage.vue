@@ -12,6 +12,7 @@ import CardItem from '@/components/CardItem.vue';
 
 export default {
   name: 'HomePage',
+  emits: ['add-to-cart','delete-to-cart'],
   components: {
     CardItem
   },
