@@ -1,8 +1,14 @@
 <template>
   <div class="h1 mt-5 mb-5">Contenido del carrito</div>
-  <CartProductTable :productsInCart="productsInCart" :grandTotal="grandTotal" @delete-to-cart="deleteToCartClickHandler"
-    @add-product-quantity="addProductQuantityHandleClick"
-    @substract-product-quantity="substractProductQuantityHandleClick" />
+  <div class="container">
+    <CartProductTable :productsInCart="productsInCart" :grandTotal="grandTotal" @delete-to-cart="deleteToCartClickHandler"
+      @add-product-quantity="addProductQuantityHandleClick"
+      @substract-product-quantity="substractProductQuantityHandleClick" />
+    <div class="d-flex mt-5 justify-content-center gap-5">
+      <b-button variant="secondary" to="/">volver</b-button>
+      <b-button variant="primary" to="/checkout" disabled>ir a pagar</b-button>
+    </div>
+  </div>
 </template>
 
 <script>
