@@ -5,7 +5,7 @@
       @add-product-quantity="addProductQuantityHandleClick"
       @substract-product-quantity="substractProductQuantityHandleClick" />
     <div class="d-flex mt-5 justify-content-center gap-5">
-      <b-button variant="secondary" to="/">volver</b-button>
+      <b-button variant="secondary" to="/">Seguir comprando</b-button>
       <b-button variant="primary" to="/checkout" disabled>ir a pagar</b-button>
     </div>
   </div>
