@@ -1,6 +1,5 @@
 <template>
-  <b-card :title="product.title" :img-src="product.image" img-alt="Image"
-    img-top tag="article" class="m-2 card-style">
+  <b-card :title="product.title" :img-src="product.image" img-alt="Image" img-top tag="article" class="m-2 card-style">
     <b-card-text>
       {{ product.description }}
     </b-card-text>
@@ -22,7 +21,7 @@
 
 export default {
   name: 'CardItem',
-  emits: ['add-to-cart','delete-to-cart'],
+  emits: ['add-to-cart', 'delete-to-cart'],
   components: {
   },
   props: {
@@ -36,17 +35,14 @@ export default {
 
   methods: {
     addToCartHandleClick(product) {
-      // console.log('handleClick:', product);
       this.$emit('add-to-cart', product);
     },
     deleteToCartHandleClick(id) {
-      // console.log('handleClick:', product);
       this.$emit('delete-to-cart', id);
     },
   },
   computed: {
     checkSelectedProduct() {
-      // console.log('checkSelectedProduct:', this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id));
       return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
     },
   },

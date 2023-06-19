@@ -2,11 +2,10 @@
   <div>
     <metainfo />
     <HeaderBar :count="productCount" />
-    <div class="container">
-      <div class="h1">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
-    </div>
-    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount"
-      @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler" />
+    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount" :grandTotal="grandTotal"
+      @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
+      @add-product-quantity="addProductQuantityHandleClick"
+      @substract-product-quantity="substractProductQuantityHandleClick" />
   </div>
 </template>
 
@@ -29,6 +28,7 @@ export default {
       products,
       productsInCart: [],
       productCount: 0,
+      grandTotal: 0,
     };
   },
 
@@ -38,7 +38,9 @@ export default {
       const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
       if (!isSelected) {
         const { id, title, image, price } = product;
-        this.productsInCart.push({ id, title, price, image, quantity: 1 });
+        const quantity = 1;
+        const subtotal = price * quantity;
+        this.productsInCart.push({ id, title, price, image, quantity, subtotal });
       }
     },
     deleteToCartClickHandler(id) {
@@ -47,12 +49,38 @@ export default {
       // console.log("deleteToCartClickHandler INDEX:", index);
       this.productsInCart.splice(index, 1);
       // console.log("Nuevo:", this.productsInCart);
-    }
+    },
+    addProductQuantityHandleClick(id) {
+      // console.log('addQuantity ID: ', id);
+      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+      // console.log('addQuantity INDEX: ', index);
+      this.productsInCart[index].quantity += 1;
+      this.subtotalCalc(index);
+    },
+    substractProductQuantityHandleClick(id) {
+      // console.log('substractQuantity ID: ', id);
+      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+      // console.log('substractQuantity INDEX: ', index);
+      if (this.productsInCart[index].quantity > 1) {
+        this.productsInCart[index].quantity -= 1;
+        this.subtotalCalc(index);
+      }
+    },
+    subtotalCalc(index) {
+      this.productsInCart[index].subtotal = this.productsInCart[index].price * this.productsInCart[index].quantity;
+    },
+  },
+  computed: {
   },
   watch: {
     productsInCart: {
       handler() {
-        this.productCount = this.productsInCart.length;
+        this.productCount = this.productsInCart.reduce((acc, current) => {
+          return acc + current.quantity;
+        }, 0);
+        this.grandTotal = this.productsInCart.reduce((acc, current) => {
+          return acc + current.subtotal;
+        }, 0);
       },
       deep: true,
     }

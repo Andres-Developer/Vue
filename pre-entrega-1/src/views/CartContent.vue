@@ -1,20 +1,22 @@
 <template>
-  <div>Contenido del carrito</div>
-  <CartProductTable :productsInCart="productsInCart"/>
+  <div class="h1 mt-5 mb-5">Contenido del carrito</div>
+  <CartProductTable :productsInCart="productsInCart" :grandTotal="grandTotal" @delete-to-cart="deleteToCartClickHandler"
+    @add-product-quantity="addProductQuantityHandleClick"
+    @substract-product-quantity="substractProductQuantityHandleClick" />
 </template>
 
 <script>
-// import ComponentName from './ComponentName.vue'
 import CartProductTable from '@/components/CartProductTable.vue';
 
 export default {
   name: 'CartContent',
-  emits: ['add-product-quantity','substract-product-quantity','delete-to-cart'],
+  emits: ['add-product-quantity', 'substract-product-quantity', 'delete-to-cart'],
   components: {
     CartProductTable
   },
   props: {
     productCount: Number,
+    grandTotal: Number,
     productsInCart: Array,
   },
   metaInfo() {
@@ -28,16 +30,21 @@ export default {
   },
 
   methods: {
-    /* someMethod() {
-      this.someData
-    } */
+    deleteToCartClickHandler(id) {
+      if (window.confirm("¿Estás seguro de eliminar este producto del carrito?")
+      ) {
+        this.$emit('delete-to-cart', id);
+      }
+    },
+    addProductQuantityHandleClick(id) {
+      this.$emit('add-product-quantity', id);
+    },
+    substractProductQuantityHandleClick(id) {
+      this.$emit('substract-product-quantity', id);
+    },
   },
   computed: {
-    /* someComputed() {
-      return this.someData
-    } */
   },
-
 };
 </script>
 
