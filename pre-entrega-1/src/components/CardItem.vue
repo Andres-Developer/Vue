@@ -4,8 +4,9 @@
       {{ product.description }}
     </b-card-text>
     <div class="h4"> $ {{ product.price }}</div>
+    <b-button variant="primary" :to="{ name: 'product-detail-id', params: { id: product.id } }">ver detalle</b-button>
     <div v-if="checkSelectedProduct">
-      <b-button variant="success">Agregada!</b-button>
+      <b-button variant="success" style="pointer-events: none;">Agregada!</b-button>
       <div type="button" @click="[deleteToCartHandleClick(product.id)]">X Eliminar</div>
     </div>
     <b-button v-else variant="danger" @click="[addToCartHandleClick(product)]">
