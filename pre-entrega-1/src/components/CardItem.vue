@@ -1,20 +1,27 @@
 <template>
-  <b-card :title="product.title" :img-src="product.image" img-alt="Image" img-top tag="article" class="m-2 card-style">
+  <b-card img-alt="Image" img-top tag="article" class="m-2 card-style">
+    <img :src="product.image" alt="">
+    <div class="h4">{{ product.title }}</div>
     <b-card-text>
-      {{ product.description }}
+      <!-- {{ product.description }} -->
     </b-card-text>
     <div class="h4"> $ {{ product.price }}</div>
-    <b-button variant="primary" :to="{ name: 'product-detail-id', params: { id: product.id } }">ver detalle</b-button>
-    <div v-if="checkSelectedProduct">
-      <b-button variant="success" style="pointer-events: none;">Agregada!</b-button>
-      <div type="button" @click="[deleteToCartHandleClick(product.id)]">X Eliminar</div>
-    </div>
-    <b-button v-else variant="danger" @click="[addToCartHandleClick(product)]">
-      <div class="d-flex justify-content-center align-items-center gap-2">
-        <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
-        <div class="fs-5"> Agregar al carrito </div>
+    <div class="d-flex flex-column gap-2">
+      <b-button variant="primary" :to="{ name: 'product-detail-id', params: { id: product.id } }" class="fs-5">
+        + info</b-button>
+      <div v-if="checkSelectedProduct">
+        <b-button variant="success" style="pointer-events: none;" class="w-100 fs-5" >Agregada!</b-button>
+        <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="mt-2">🗑️ Eliminar</div>
       </div>
-    </b-button>
+      <div v-else>
+        <b-button variant="danger" @click="[addToCartHandleClick(product)]" class="w-100">
+          <div class="d-flex justify-content-center align-items-center gap-2">
+            <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
+            <div class="fs-5"> Agregar al carrito </div>
+          </div>
+        </b-button>
+      </div>
+    </div>
   </b-card>
 </template>
 
@@ -55,6 +62,6 @@ export default {
 .card-style {
   width: 18rem;
   min-width: 18rem;
-  height: 35rem;
+  height: 26rem;
 }
 </style>
