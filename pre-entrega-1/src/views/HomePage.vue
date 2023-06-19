@@ -1,8 +1,11 @@
 <template>
+  <div class="container">
+    <div class="h1 mt-5 mb-5">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
+  </div>
   <div class="container-fluid">
     <div class="d-flex flex-wrap">
-      <CardItem v-for="product in products" :key="product.id" :product="product" :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"
-        @delete-to-cart="deleteToCartClickHandler" />
+      <CardItem v-for="product in products" :key="product.id" :product="product" :productsInCart="productsInCart"
+        @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler" />
     </div>
   </div>
 </template>
@@ -12,7 +15,7 @@ import CardItem from '@/components/CardItem.vue';
 
 export default {
   name: 'HomePage',
-  emits: ['add-to-cart','delete-to-cart'],
+  emits: ['add-to-cart', 'delete-to-cart'],
   components: {
     CardItem
   },
@@ -34,11 +37,7 @@ export default {
     },
   },
   computed: {
-    /* someComputed() {
-      return this.someData
-    } */
   },
-
 };
 </script>
 
