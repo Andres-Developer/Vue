@@ -1,16 +1,16 @@
 <template>
   <div>Contenido del carrito</div>
-  <CartProduct v-for="product in productsInCart" :key="product.id" :product="product" />
+  <CartProductTable :productsInCart="productsInCart"/>
 </template>
 
 <script>
 // import ComponentName from './ComponentName.vue'
-import CartProduct from '@/components/CartProduct.vue';
+import CartProductTable from '@/components/CartProductTable.vue';
 
 export default {
   name: 'CartContent',
   components: {
-    CartProduct
+    CartProductTable
   },
   props: {
     productCount: Number,
