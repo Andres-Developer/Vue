@@ -13,7 +13,7 @@
               <div v-if="checkSelectedProduct">
                 <div class="mt-4 mb-3 text-success">Has añadido <strong>{{ localQuantity }} </strong> pizzas al carrito
                   por:</div>
-                <div class="h4"> $ {{ getProductFromCart.price }}</div>
+                <div class="h4"> $ {{ localPrice }}</div>
                 <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
                 <div class="mt-4 d-flex flex-column gap-3">
                   <b-button to="/cart" variant="success" class="fs-5"> 🛒 ir al carrito</b-button>
