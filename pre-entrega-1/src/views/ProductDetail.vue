@@ -1,6 +1,6 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
-    <b-card no-body class="overflow-hidden" style="width: 640px; height: 500px;">
+    <b-card no-body class="overflow-hidden" style="width: 640px; max-height: 550px;">
       <b-row class="g-0">
         <b-col md="6">
           <b-card-img :src="product.image" alt="Image" class="rounded-0" />
@@ -11,15 +11,15 @@
               {{ product.description }}
 
               <div v-if="checkSelectedProduct">
-                <div class="mt-4 mb-3 text-success">Has añadido <strong>{{ localQuantity }} </strong> pizzas al carrito por:</div>
-                <div class="h4"> $ {{ getProductFromCart.subtotal.toFixed(2) }}</div>
-                <div class="d-flex justify-content-center align-items-center gap-2">
-                  <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
+                <div class="mt-4 mb-3 text-success">Has añadido <strong>{{ localQuantity }} </strong> pizzas al carrito
+                  por:</div>
+                <div class="h4"> $ {{ getProductFromCart.price }}</div>
+                <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
+                <div class="mt-4 d-flex flex-column gap-3">
+                  <b-button to="/cart" variant="success" class="fs-5"> 🛒 ir al carrito</b-button>
                 </div>
-                <b-button to="/cart" class="mt-5" variant="success"> 🛒 ir al carrito</b-button>
               </div>
               <div v-else>
-
                 <div class="d-flex justify-content-center align-items-center mt-5">
                   <b-button @click="substractLocalQuantity" variant="light">
                     -
@@ -30,13 +30,16 @@
                   </b-button>
                   <div class="fs-3"> $ {{ localPrice || product.price }}</div>
                 </div>
-                <b-button variant="danger" @click="[addToCartHandleClick({ ...product, quantity: localQuantity })]" class="mt-5">
+                <b-button variant="danger" @click="[addToCartHandleClick({ ...product, quantity: localQuantity })]"
+                  class="mt-4">
                   <div class="d-flex justify-content-center align-items-center gap-2">
                     <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
-                    <div class="fs-5"> Agregar al carrito </div>
+                    <div class="w-100 fs-5"> Agregar al carrito </div>
                   </div>
                 </b-button>
               </div>
+              <b-button variant="secondary" to="/" class="w-100 fs-5 mt-3">Seguir comprando</b-button>
+
             </b-card-text>
           </b-card-body>
         </b-col>
@@ -64,7 +67,7 @@ export default {
       localPrice: 0,
     };
   },
-  created() {
+  mounted() {
     this.product = products.find((product) => product.id === this.id);
     if (this.checkSelectedProduct) {
       this.localQuantity = this.getProductFromCart.quantity;
