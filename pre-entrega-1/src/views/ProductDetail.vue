@@ -1,6 +1,6 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
-    <b-card no-body class="overflow-hidden" style="width: 640px; max-height: 550px;">
+    <b-card no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
       <b-row class="g-0">
         <b-col md="6">
           <b-card-img :src="product.image" alt="Image" class="rounded-0" />
