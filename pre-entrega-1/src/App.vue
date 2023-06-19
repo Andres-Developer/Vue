@@ -38,7 +38,7 @@ export default {
       const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
       if (!isSelected) {
         const { id, title, image, price, quantity } = product;
-        const subtotal = price * quantity;
+        const subtotal = price * (quantity || 1);
         this.productsInCart.push({ id, title, price, image, quantity: quantity || 1, subtotal });
       }
     },
