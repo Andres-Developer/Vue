@@ -12,7 +12,7 @@
 
               <div v-if="checkSelectedProduct">
                 <div class="mt-4 mb-3 text-success">Has añadido <strong>{{ localQuantity }} </strong> pizzas al carrito por:</div>
-                <div class="h4"> $ {{ getProductFromCart.subtotal }}</div>
+                <div class="h4"> $ {{ getProductFromCart.subtotal.toFixed(2) }}</div>
                 <div class="d-flex justify-content-center align-items-center gap-2">
                   <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
                 </div>
@@ -74,7 +74,6 @@ export default {
 
   methods: {
     addToCartHandleClick(product) {
-      console.log(product);
       this.$emit('add-to-cart', product);
     },
     deleteToCartHandleClick(id) {
