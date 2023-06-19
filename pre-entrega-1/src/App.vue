@@ -2,8 +2,8 @@
   <div>
     <metainfo />
     <HeaderBar :count="productCount" />
-    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount" :grandTotal="grandTotal"
-      @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
+    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount"
+      :grandTotal="grandTotal" @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
       @add-product-quantity="addProductQuantityHandleClick"
       @substract-product-quantity="substractProductQuantityHandleClick" />
   </div>
@@ -37,10 +37,9 @@ export default {
       console.log('addToCartClickHandler:', this.productsInCart);
       const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
       if (!isSelected) {
-        const { id, title, image, price } = product;
-        const quantity = 1;
+        const { id, title, image, price, quantity } = product;
         const subtotal = price * quantity;
-        this.productsInCart.push({ id, title, price, image, quantity, subtotal });
+        this.productsInCart.push({ id, title, price, image, quantity: quantity || 1, subtotal });
       }
     },
     deleteToCartClickHandler(id) {
