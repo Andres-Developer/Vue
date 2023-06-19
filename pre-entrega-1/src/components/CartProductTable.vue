@@ -1,5 +1,5 @@
 <template>
-  <b-table-simple responsive class="container table-width ">
+  <b-table-simple responsive class="container table-width">
     <b-thead>
       <b-tr variant="light">
         <b-th>Producto</b-th>
@@ -10,11 +10,13 @@
       </b-tr>
     </b-thead>
     <b-tbody>
-      <b-tr v-for="product in productsInCart" :key="product.id">
-        <b-th sticky-column class="d-flex justify-content-start gap-2 align-items-center">
-          <img :src="product.image" alt="pizza" width="60">
-          {{ product.title }}
-        </b-th>
+      <b-tr v-for="product in productsInCart" :key="product.id" class="align-middle">
+        <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
+          <router-link :to="{ name: 'product-detail-id', params: { id: product.id } }">
+            <img :src="product.image" alt="pizza" width="60">
+            {{ product.title }}
+          </router-link>
+        </b-td>
         <b-td>$ {{ product.price }}</b-td>
         <b-td>
           <b-button @click="substractProductQuantityHandleClick(product.id)" variant="light">
@@ -82,5 +84,12 @@ export default {
 .table-width {
   min-width: 400px;
   max-width: 700px;
+}
+a{
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
 }
 </style>
