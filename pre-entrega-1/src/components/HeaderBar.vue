@@ -3,7 +3,7 @@
     <div class="container d-flex">
       <b-navbar-brand to="/" class="fs-3 text-white fw-bold">Pizzería</b-navbar-brand>
       <b-navbar-nav class="ms-auto">
-        <div class="d-flex align-items-center gap-2">
+        <div class="container-login-register-cart d-flex align-items-center">
           <b-nav-item :to="{ name: 'login-user' }" class="me-auto">
             Login
           </b-nav-item>
@@ -35,5 +35,15 @@ export default {
 <style scoped>
 #fixOffset {
   height: 66px;
+}
+
+.container-login-register-cart {
+  width: 190px;
+}
+
+@media (min-width: 426px) {
+  .container-login-register-cart {
+    width: 200px;
+  }
 }
 </style>
