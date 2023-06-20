@@ -14,7 +14,13 @@
           required: 'Por favor ingresa una contraseña',
         }" placeholder="Escribe una contraseña" />
 
-      <FormKit type="submit" label="Ingresar" />
+      <div class="d-flex mt-4 justify-content-evenly align-items-end">
+        <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset' }" />
+        <div>
+          <div>¿No tienes cuenta?</div>
+          <b-button to="/register">Registrarme</b-button>
+        </div>
+      </div>
     </div>
   </FormKit>
   <div v-else class="mt-5 text-success">

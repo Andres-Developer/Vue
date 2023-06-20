@@ -2,7 +2,8 @@
 <template>
   <h2 class="mt-5">Registro de nuevo usuario</h2>
   <FormKit type="form" id="registration-example" v-if="!submitted" submit-label="Register" @submit="submitHandler"
-    :actions="false" v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
+    :actions="false" v-model="formData" incomplete-message="Por favor completa todos los campos"
+    :classes="{ form: '$reset my-form' }">
     <div class="outer-container">
       <h5 class="mb-5">Diligencia el siguiente formulario para registrarte</h5>
       <FormKit type="text" name="name" label="Nombre" placeholder="Ingresa tu nombre"
@@ -15,8 +16,8 @@
           email: 'Ingresa un email en formato válido',
           required: 'Por favor ingresa un e-mail',
         }" />
-      <FormKit type="password" name="password" label="Contraseña" 
-      :validation="[['required'],['length',6], ['matches',/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_])[A-Za-z\d@$!%*#?&_]{6,}$/]]"
+      <FormKit type="password" name="password" label="Contraseña"
+        :validation="[['required'], ['length', 6], ['matches', /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_])[A-Za-z\d@$!%*#?&_]{6,}$/]]"
         prefix-icon="password" suffix-icon="eyeClosed" @suffix-icon-click="handleEyeIconClick" :validation-messages="{
           matches: 'El password debe tener una mayúscula, una minúscula, un número y un carácter especial',
           length: 'Debes ingresar al menos 6 caracteres',
@@ -28,7 +29,14 @@
           required: 'Por favor ingresa una confirmación de contraseña',
           confirm: 'Las contraseñas no coinciden',
         }" />
-      <FormKit type="submit" label="Registrar" />
+      <div class="d-flex mt-4 justify-content-evenly align-items-end">
+        <FormKit type="submit" label="Registrar" :classes="{ outer: '$reset' }" />
+        <div>
+          <div>¿Ya estás registrado?</div>
+          <b-button to="/login">Ingresar</b-button>
+        </div>
+      </div>
+
     </div>
   </FormKit>
   <div v-else class="mt-5 text-success">
@@ -47,14 +55,14 @@ export default {
   data() {
     return {
       submitted: false,
-      formData:{}
+      formData: {}
     };
   },
   methods: {
     async submitHandler() {
       await new Promise((r) => setTimeout(r, 1000));
       this.submitted = true;
-      console.log("formData: ", this.formData)
+      console.log("formData: ", this.formData);
     },
     handleEyeIconClick(node) {
       node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
