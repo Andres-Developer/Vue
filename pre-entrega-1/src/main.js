@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { createMetaManager, plugin as vueMetaPlugin } from 'vue-meta';
+import { plugin, defaultConfig  } from "@formkit/vue";
+import "@formkit/themes/genesis";
 
 
 import BootstrapVueNext from 'bootstrap-vue-next';
@@ -14,4 +16,13 @@ createApp(App)
   .use(vueMetaPlugin)
   .use(router)
   .use(BootstrapVueNext)
+  .use(plugin, defaultConfig({
+    config: {
+      classes: {
+        wrapper: {
+          $reset: true
+        }
+      }
+    }
+  }))
   .mount('#app');
