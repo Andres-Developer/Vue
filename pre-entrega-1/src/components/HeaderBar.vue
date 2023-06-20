@@ -4,9 +4,9 @@
       <b-navbar-brand to="/" class="fs-3 text-white fw-bold">Pizzería</b-navbar-brand>
       <b-navbar-nav class="ms-auto">
         <div class="d-flex align-items-center">
-          <!-- <b-nav-item :to="{ name: 'login-user' }" class="me-auto">
+          <b-nav-item :to="{ name: 'login-user' }" class="me-auto">
             Login
-          </b-nav-item> -->
+          </b-nav-item>
           <b-nav-item :to="{ name: 'register-user' }" class="me-auto">
             Registrarse
           </b-nav-item>
