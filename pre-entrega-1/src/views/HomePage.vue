@@ -3,7 +3,7 @@
     <div class="h1 mt-5 mb-5">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
   </div>
   <div class="container-fluid">
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap justify-content-center">
       <CardItem v-for="product in products" :key="product.id" :product="product" :productsInCart="productsInCart"
         @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler" />
     </div>
