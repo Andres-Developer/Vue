@@ -85,8 +85,13 @@ export default {
   min-width: 400px;
   max-width: 700px;
 }
-a{
+
+a {
   text-decoration: none;
+}
+
+a:link {
+  color: black
 }
 
 a:visited {
