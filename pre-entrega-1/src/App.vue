@@ -1,5 +1,9 @@
 <template>
   <div>
+
+    {{ this.productCount = productCountCalc }}
+    {{ this.grandTotal = grandTotalCalc }}
+
     <metainfo />
     <HeaderBar :count="productCount" />
     <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount"
@@ -70,19 +74,18 @@ export default {
     },
   },
   computed: {
+    productCountCalc() {
+      return this.productsInCart.reduce((acc, current) => {
+        return acc + current.quantity;
+      }, 0);
+    },
+    grandTotalCalc() {
+      return this.productsInCart.reduce((acc, current) => {
+        return acc + current.subtotal;
+      }, 0);
+    },
   },
   watch: {
-    productsInCart: {
-      handler() {
-        this.productCount = this.productsInCart.reduce((acc, current) => {
-          return acc + current.quantity;
-        }, 0);
-        this.grandTotal = this.productsInCart.reduce((acc, current) => {
-          return acc + current.subtotal;
-        }, 0);
-      },
-      deep: true,
-    }
   },
 };
 </script>
