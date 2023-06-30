@@ -1,0 +1,119 @@
+<template>
+  <div>
+
+    {{ this.productCount = productCountCalc }}
+    {{ this.grandTotal = grandTotalCalc }}
+
+    <metainfo />
+    <HeaderBar :count="productCount" />
+    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount"
+      :grandTotal="grandTotal" @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
+      @add-product-quantity="addProductQuantityHandleClick"
+      @substract-product-quantity="substractProductQuantityHandleClick" />
+  </div>
+</template>
+
+<script>
+import HeaderBar from './components/HeaderBar.vue';
+// import products from './data/products.json';
+
+export default {
+  name: 'App',
+  components: {
+    HeaderBar
+  },
+  metaInfo() {
+    return {
+      title: this.productCount ? `🍕 Pizzería (${this.productCount})` : `🍕 Pizzería`
+    };
+  },
+  data() {
+    return {
+      products:[],
+      loading: false,
+      productsInCart: [],
+      productCount: 0,
+      grandTotal: 0,
+    };
+  },
+  created() {
+    this.getProducts();
+  },
+
+  methods: {
+    getProducts() {
+      this.loading = true;
+      fetch('https://649cf71b9bac4a8e669d1e68.mockapi.io/products')
+        .then((response) => response.json())
+        .then((data) => {
+          this.products = data;
+          this.loading = false; 
+          // console.log("Productos cargados", this.products);
+        })
+    },
+    addToCartClickHandler({ ...product }) {
+      console.log('addToCartClickHandler:', this.productsInCart);
+      const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
+      if (!isSelected) {
+        const { id, title, image, price, quantity } = product;
+        const subtotal = price * (quantity || 1);
+        this.productsInCart.push({ id, title, price, image, quantity: quantity || 1, subtotal });
+      }
+    },
+    deleteToCartClickHandler(id) {
+      // console.log("deleteToCartClickHandler ID:", id);
+      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+      // console.log("deleteToCartClickHandler INDEX:", index);
+      this.productsInCart.splice(index, 1);
+      // console.log("Nuevo:", this.productsInCart);
+    },
+    addProductQuantityHandleClick(id) {
+      // console.log('addQuantity ID: ', id);
+      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+      // console.log('addQuantity INDEX: ', index);
+      this.productsInCart[index].quantity += 1;
+      this.subtotalCalc(index);
+    },
+    substractProductQuantityHandleClick(id) {
+      // console.log('substractQuantity ID: ', id);
+      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+      // console.log('substractQuantity INDEX: ', index);
+      if (this.productsInCart[index].quantity > 1) {
+        this.productsInCart[index].quantity -= 1;
+        this.subtotalCalc(index);
+      }
+    },
+    subtotalCalc(index) {
+      this.productsInCart[index].subtotal = this.productsInCart[index].price * this.productsInCart[index].quantity;
+    },
+  },
+  computed: {
+    productCountCalc() {
+      return this.productsInCart.reduce((acc, current) => {
+        return acc + current.quantity;
+      }, 0);
+    },
+    grandTotalCalc() {
+      return this.productsInCart.reduce((acc, current) => {
+        return acc + current.subtotal;
+      }, 0);
+    },
+  },
+  watch: {
+  },
+};
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+body {
+  overflow-y: scroll;
+}
+</style>
