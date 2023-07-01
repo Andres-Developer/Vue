@@ -19,7 +19,7 @@
         </b-td>
         <b-td>$ {{ product.price }}</b-td>
         <b-td>
-          <b-button @click="substractProductQuantityHandleClick(product.id)" variant="light">
+          <b-button @click="subtractProductQuantityHandleClick(product.id)" variant="light">
             -
           </b-button>
           {{ product.quantity }}
@@ -67,8 +67,8 @@ export default {
     addProductQuantityHandleClick(id) {
       this.cartStore.addProductQuantity(id);
     },
-    substractProductQuantityHandleClick(id) {
-      this.cartStore.substractProductQuantity(id);
+    subtractProductQuantityHandleClick(id) {
+      this.cartStore.subtractProductQuantity(id);
     },
     deleteProductHandleClick(id) {
       if (window.confirm("¿Estás seguro de eliminar este producto del carrito?")
