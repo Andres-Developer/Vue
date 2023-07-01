@@ -8,7 +8,6 @@
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
-import productsStore from './stores/productsStore';
 import cartStore from './stores/cartStore';
 
 export default {
@@ -23,12 +22,10 @@ export default {
   },
   data() {
     return {
-      productsStore,
       cartStore,
     };
   },
   created() {
-    this.productsStore.getProducts();
   },
 };
 </script>

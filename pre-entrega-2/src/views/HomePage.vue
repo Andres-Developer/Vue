@@ -28,6 +28,7 @@ export default {
     };
   },
   created() {
+    this.productsStore.getProducts();
   },
   mounted() {
   },
