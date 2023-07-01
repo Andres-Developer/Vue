@@ -25,32 +25,10 @@ export default {
     return {
       productsStore,
       cartStore,
-      productsInCart: cartStore.productsInCart,
     };
   },
   created() {
     this.productsStore.getProducts();
-  },
-  mounted() {
-  },
-
-  methods: {
-    addToCartClickHandler({ ...product }) {
-      this.cartStore.addProductToCart(product);
-    },
-    deleteToCartClickHandler(id) {
-      this.cartStore.deleteProductFromCart(id);
-    },
-    addProductQuantityHandleClick(id) {
-      this.cartStore.addProductQuantity(id);
-    },
-    substractProductQuantityHandleClick(id) {
-      this.cartStore.substractProductQuantity(id);
-    },
-  },
-  computed: {
-  },
-  watch: {
   },
 };
 </script>
@@ -63,7 +41,6 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 body {
   overflow-y: scroll;
 }
