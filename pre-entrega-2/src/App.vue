@@ -6,8 +6,8 @@
 
     <metainfo />
     <HeaderBar :count="productCount" />
-    <router-view :products="products" :productsInCart="productsInCart" :productCount="productCount"
-      :grandTotal="grandTotal" @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
+    <router-view :productsInCart="productsInCart" :productCount="productCount" :grandTotal="grandTotal"
+      @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
       @add-product-quantity="addProductQuantityHandleClick"
       @substract-product-quantity="substractProductQuantityHandleClick" />
   </div>
@@ -15,9 +15,7 @@
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
-import { getRequest } from './services/httpRequests';
-import { loadingWithTimeout } from './utils/loadingTools';
-// import products from './data/products.json';
+import productsStore from './stores/productsStore';
 
 export default {
   name: 'App',
@@ -31,25 +29,20 @@ export default {
   },
   data() {
     return {
-      products: [],
-      loading: false,
+      productsStore,
       productsInCart: [],
       productCount: 0,
       grandTotal: 0,
     };
   },
   created() {
-    this.getProducts();
+    this.productsStore.getProducts();
+  },
+  mounted() {
   },
 
   methods: {
-    async getProducts() {
-      const BASE_URL = process.env.VUE_APP_BASE_URL;
-      const ENDPOINT = '/products';
-      this.loading = true;
-      this.products = await getRequest(BASE_URL + ENDPOINT);
-      this.loading = await loadingWithTimeout(100);
-    },
+
     addToCartClickHandler({ ...product }) {
       // console.log('addToCartClickHandler:', this.productsInCart);
       const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
