@@ -4,9 +4,7 @@
   </div>
   <div v-if="!productsStore.loading" class="container-fluid">
     <div class="d-flex flex-wrap justify-content-center">
-      <CardItem v-for="product in this.productsStore.products" :key="product.id" :product="product"
-        :productsInCart="productsInCart" @add-to-cart="addToCartClickHandler"
-        @delete-to-cart="deleteToCartClickHandler" />
+      <CardItem v-for="product in this.productsStore.products" :key="product.id" :product="product" />
     </div>
   </div>
   <div v-else>LOADING...</div>
@@ -18,12 +16,11 @@ import productsStore from '@/stores/productsStore';
 
 export default {
   name: 'HomePage',
-  emits: ['add-to-cart', 'delete-to-cart'],
+  emits: [],
   components: {
     CardItem
   },
   props: {
-    productsInCart: Array,
   },
   data() {
     return {
@@ -35,12 +32,6 @@ export default {
   mounted() {
   },
   methods: {
-    addToCartClickHandler({ ...product }) {
-      this.$emit('add-to-cart', product);
-    },
-    deleteToCartClickHandler(id) {
-      this.$emit('delete-to-cart', id);
-    },
   },
   computed: {
   },

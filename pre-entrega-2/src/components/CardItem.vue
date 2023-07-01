@@ -30,7 +30,7 @@ import cartStore from '@/stores/cartStore';
 
 export default {
   name: 'CardItem',
-  emits: ['add-to-cart', 'delete-to-cart'],
+  emits: [],
   components: {
   },
   props: {
