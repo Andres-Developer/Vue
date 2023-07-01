@@ -15,7 +15,7 @@ import CartProductTable from '@/components/CartProductTable.vue';
 
 export default {
   name: 'CartContent',
-  emits: ['add-product-quantity', 'substract-product-quantity', 'delete-to-cart'],
+  emits: [],
   components: {
     CartProductTable
   },
