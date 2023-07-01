@@ -13,7 +13,7 @@
       <b-tr v-for="product in productsInCart" :key="product.id" class="align-middle">
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
           <router-link :to="{ name: 'product-detail-id', params: { id: product.id } }">
-            <img :src="product.image+'/?random='+product.id" alt="pizza" width="60">
+            <img :src="product.image + '/?random=' + product.id" alt="pizza">
             {{ product.title }}
           </router-link>
         </b-td>
@@ -38,7 +38,7 @@
     <b-tfoot>
       <b-tr variant="light">
         <b-th colspan="3" class="text-end">Total: </b-th>
-        <b-th>$ {{ this.grandTotal.toFixed(2) }}</b-th>
+        <b-th>$ {{ this.cartStore.grandTotal.toFixed(2) }}</b-th>
         <b-th></b-th>
       </b-tr>
     </b-tfoot>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import cartStore from '@/stores/cartStore';
 
 export default {
   name: 'CartProductTable',
@@ -54,23 +55,26 @@ export default {
   },
   props: {
     product: Object,
-    productsInCart: Array,
-    grandTotal: Number,
   },
   data() {
     return {
+      cartStore,
+      productsInCart: cartStore.productsInCart,
     };
   },
 
   methods: {
     addProductQuantityHandleClick(id) {
-      this.$emit('add-product-quantity', id);
+      this.cartStore.addProductQuantity(id);
     },
     substractProductQuantityHandleClick(id) {
-      this.$emit('substract-product-quantity', id);
+      this.cartStore.substractProductQuantity(id);
     },
     deleteProductHandleClick(id) {
-      this.$emit('delete-to-cart', id);
+      if (window.confirm("¿Estás seguro de eliminar este producto del carrito?")
+      ) {
+        this.cartStore.deleteProductFromCart(id);
+      }
     },
   },
   computed: {
@@ -84,6 +88,15 @@ export default {
 .table-width {
   min-width: 400px;
   max-width: 700px;
+}
+
+tr td {
+  height: 62.5px;
+}
+
+td img {
+  max-height: 62.5px;
+  width: 60px;
 }
 
 a {

@@ -50,17 +50,20 @@
 <script>
 import { getRequest } from '@/services/httpRequests';
 import { loadingWithTimeout } from '@/utils/loadingTools';
+import cartStore from '@/stores/cartStore';
+import productsStore from '@/stores/productsStore';
 
 export default {
   name: 'ProductDetail',
   components: {
   },
   props: {
-    productsInCart: Array,
-    products: Array,
   },
   data() {
     return {
+      productsStore,
+      cartStore,
+      productsInCart: cartStore.productsInCart,
       loading: false,
       product: {},
       productFromCart: {},
@@ -90,10 +93,10 @@ export default {
       }
     },
     addToCartHandleClick(product) {
-      this.$emit('add-to-cart', product);
+      this.cartStore.addProductToCart(product);
     },
     deleteToCartHandleClick(id) {
-      this.$emit('delete-to-cart', id);
+      this.cartStore.deleteProductFromCart(id);
     },
     addLocalQuantity() {
       this.localQuantity += 1;
@@ -106,9 +109,6 @@ export default {
   computed: {
     id() {
       return Number(this.$route.params.id);
-    },
-    logProducts() {
-      return console.log("productos: ", this.products);
     },
     checkSelectedProduct() {
       return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);

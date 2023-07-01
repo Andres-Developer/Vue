@@ -1,9 +1,7 @@
 <template>
   <div class="h1 mt-5 mb-5">Contenido del carrito</div>
   <div class="container">
-    <CartProductTable :productsInCart="productsInCart" :grandTotal="grandTotal" @delete-to-cart="deleteToCartClickHandler"
-      @add-product-quantity="addProductQuantityHandleClick"
-      @substract-product-quantity="substractProductQuantityHandleClick" />
+    <CartProductTable />
     <div class="d-flex mt-5 justify-content-center gap-5">
       <b-button variant="secondary" to="/">Seguir comprando</b-button>
       <b-button variant="primary" to="/checkout" disabled>ir a pagar</b-button>
@@ -12,6 +10,7 @@
 </template>
 
 <script>
+import cartStore from '@/stores/cartStore';
 import CartProductTable from '@/components/CartProductTable.vue';
 
 export default {
@@ -21,33 +20,19 @@ export default {
     CartProductTable
   },
   props: {
-    productCount: Number,
-    grandTotal: Number,
-    productsInCart: Array,
   },
   metaInfo() {
     return {
-      title: this.productCount ? `🛒 Tu compra  (${this.productCount})` : `🛒 Tu compra`
+      title: this.cartStore.productCount ? `🛒 Tu compra  (${this.cartStore.productCount})` : `🛒 Tu compra`
     };
   },
   data() {
     return {
+      cartStore,
     };
   },
 
   methods: {
-    deleteToCartClickHandler(id) {
-      if (window.confirm("¿Estás seguro de eliminar este producto del carrito?")
-      ) {
-        this.$emit('delete-to-cart', id);
-      }
-    },
-    addProductQuantityHandleClick(id) {
-      this.$emit('add-product-quantity', id);
-    },
-    substractProductQuantityHandleClick(id) {
-      this.$emit('substract-product-quantity', id);
-    },
   },
   computed: {
   },

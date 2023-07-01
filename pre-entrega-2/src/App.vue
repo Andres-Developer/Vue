@@ -1,21 +1,15 @@
 <template>
   <div>
-
-    {{ this.productCount = productCountCalc }}
-    {{ this.grandTotal = grandTotalCalc }}
-
     <metainfo />
-    <HeaderBar :count="productCount" />
-    <router-view :productsInCart="productsInCart" :productCount="productCount" :grandTotal="grandTotal"
-      @add-to-cart="addToCartClickHandler" @delete-to-cart="deleteToCartClickHandler"
-      @add-product-quantity="addProductQuantityHandleClick"
-      @substract-product-quantity="substractProductQuantityHandleClick" />
+    <HeaderBar />
+    <router-view />
   </div>
 </template>
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
 import productsStore from './stores/productsStore';
+import cartStore from './stores/cartStore';
 
 export default {
   name: 'App',
@@ -24,15 +18,14 @@ export default {
   },
   metaInfo() {
     return {
-      title: this.productCount ? `🍕 Pizzería (${this.productCount})` : `🍕 Pizzería`
+      title: this.cartStore.productCount ? `🍕 Pizzería (${this.cartStore.productCount})` : `🍕 Pizzería`
     };
   },
   data() {
     return {
       productsStore,
-      productsInCart: [],
-      productCount: 0,
-      grandTotal: 0,
+      cartStore,
+      productsInCart: cartStore.productsInCart,
     };
   },
   created() {
@@ -42,54 +35,20 @@ export default {
   },
 
   methods: {
-
     addToCartClickHandler({ ...product }) {
-      // console.log('addToCartClickHandler:', this.productsInCart);
-      const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
-      if (!isSelected) {
-        const { id, title, image, price, quantity } = product;
-        const subtotal = price * (quantity || 1);
-        this.productsInCart.push({ id, title, price, image, quantity: quantity || 1, subtotal });
-      }
+      this.cartStore.addProductToCart(product);
     },
     deleteToCartClickHandler(id) {
-      // console.log("deleteToCartClickHandler ID:", id);
-      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
-      // console.log("deleteToCartClickHandler INDEX:", index);
-      this.productsInCart.splice(index, 1);
-      // console.log("Nuevo:", this.productsInCart);
+      this.cartStore.deleteProductFromCart(id);
     },
     addProductQuantityHandleClick(id) {
-      // console.log('addQuantity ID: ', id);
-      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
-      // console.log('addQuantity INDEX: ', index);
-      this.productsInCart[index].quantity += 1;
-      this.subtotalCalc(index);
+      this.cartStore.addProductQuantity(id);
     },
     substractProductQuantityHandleClick(id) {
-      // console.log('substractQuantity ID: ', id);
-      const index = this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
-      // console.log('substractQuantity INDEX: ', index);
-      if (this.productsInCart[index].quantity > 1) {
-        this.productsInCart[index].quantity -= 1;
-        this.subtotalCalc(index);
-      }
-    },
-    subtotalCalc(index) {
-      this.productsInCart[index].subtotal = this.productsInCart[index].price * this.productsInCart[index].quantity;
+      this.cartStore.substractProductQuantity(id);
     },
   },
   computed: {
-    productCountCalc() {
-      return this.productsInCart.reduce((acc, current) => {
-        return acc + current.quantity;
-      }, 0);
-    },
-    grandTotalCalc() {
-      return this.productsInCart.reduce((acc, current) => {
-        return acc + current.subtotal;
-      }, 0);
-    },
   },
   watch: {
   },
