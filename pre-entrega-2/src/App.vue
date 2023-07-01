@@ -15,6 +15,8 @@
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
+import { getRequest } from './services/httpRequests';
+import { loadingWithTimeout } from './utils/loadingTools';
 // import products from './data/products.json';
 
 export default {
@@ -29,7 +31,7 @@ export default {
   },
   data() {
     return {
-      products:[],
+      products: [],
       loading: false,
       productsInCart: [],
       productCount: 0,
@@ -41,18 +43,15 @@ export default {
   },
 
   methods: {
-    getProducts() {
+    async getProducts() {
+      const BASE_URL = process.env.VUE_APP_BASE_URL;
+      const ENDPOINT = '/products';
       this.loading = true;
-      fetch('https://649cf71b9bac4a8e669d1e68.mockapi.io/products')
-        .then((response) => response.json())
-        .then((data) => {
-          this.products = data;
-          this.loading = false; 
-          // console.log("Productos cargados", this.products);
-        })
+      this.products = await getRequest(BASE_URL + ENDPOINT);
+      this.loading = await loadingWithTimeout(100);
     },
     addToCartClickHandler({ ...product }) {
-      console.log('addToCartClickHandler:', this.productsInCart);
+      // console.log('addToCartClickHandler:', this.productsInCart);
       const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
       if (!isSelected) {
         const { id, title, image, price, quantity } = product;
@@ -117,3 +116,4 @@ body {
   overflow-y: scroll;
 }
 </style>
+./utils/loadingTools

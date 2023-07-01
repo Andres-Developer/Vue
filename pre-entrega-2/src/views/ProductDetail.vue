@@ -1,9 +1,9 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
-    <b-card no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
+    <b-card v-if="!loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
       <b-row class="g-0">
         <b-col md="6">
-          <b-card-img :src="product.image+'/?random='+product.id"  alt="Image" class="rounded-0" />
+          <b-card-img :src="product.image + '/?random=' + product.id" alt="Image" class="rounded-0" />
         </b-col>
         <b-col md="6">
           <b-card-body :title="product.title">
@@ -43,10 +43,13 @@
         </b-col>
       </b-row>
     </b-card>
+    <div v-else>LOADING...</div>
   </div>
 </template>
 
 <script>
+import { getRequest } from '@/services/httpRequests';
+import { loadingWithTimeout } from '@/utils/loadingTools';
 
 export default {
   name: 'ProductDetail',
@@ -66,28 +69,21 @@ export default {
     };
   },
   created() {
-    this.loadProduct();
+    this.getProduct();
   },
   mounted() {
-    // if (this.checkSelectedProduct) {
-    //   this.localQuantity = this.getProductFromCart.quantity;
-    //   this.localPrice = this.getProductFromCart.subtotal;
-    // }
-
   },
 
   methods: {
-    loadProduct() {
+    async getProduct() {
+      const BASE_URL = process.env.VUE_APP_BASE_URL;
+      const ENDPOINT = `/products/${this.id}`;
       this.loading = true;
-      fetch(`https://649cf71b9bac4a8e669d1e68.mockapi.io/products/${this.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          this.product = data;
-          this.loading = false;
-          this.loadProductSelectedFromCart();
-        });
+      this.product = await getRequest(BASE_URL + ENDPOINT);
+      this.loading = await loadingWithTimeout(100);
+      this.getProductSelectedFromCart();
     },
-    loadProductSelectedFromCart() {
+    getProductSelectedFromCart() {
       if (this.checkSelectedProduct) {
         this.localQuantity = this.getProductFromCart.quantity;
         this.localPrice = this.getProductFromCart.subtotal;
