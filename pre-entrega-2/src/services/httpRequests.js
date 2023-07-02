@@ -1,4 +1,4 @@
-import { fetchClient as client} from "./httpClients";
+import { fetchClient as client } from "./httpClients";
 
 const getRequest = async (url) => {
   try {
@@ -9,4 +9,13 @@ const getRequest = async (url) => {
   }
 };
 
-export { getRequest };
+const postRequest = async (url, body) => {
+  try {
+    const data = await client.post(url, body);
+    return data;
+  } catch (error) {
+    console.log("error with postRequest", error);
+  }
+};
+
+export { getRequest, postRequest };
