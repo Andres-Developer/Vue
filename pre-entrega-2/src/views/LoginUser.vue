@@ -1,8 +1,7 @@
 <template>
   <h2 class="mt-5">Login de usuario</h2>
-  <FormKit type="form" id="registration-example" v-if="!submitted" submit-label="Register" @submit="submitHandler"
-    :actions="false" v-model="formData" incomplete-message="Por favor completa todos los campos"
-    :classes="{ form: '$reset my-form' }">
+  <FormKit type="form" id="registration-example" submit-label="Register" @submit="submitHandler" :actions="false"
+    v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
     <div class="outer-container">
       <FormKit type="text" name="email" label="e-mail" placeholder="usuario@email.com" validation="required|email"
         :validation-messages="{
@@ -15,20 +14,21 @@
         }" placeholder="Escribe una contraseña" />
 
       <div class="d-flex mt-4 justify-content-evenly align-items-end">
-        <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset' }" />
+        <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset' }"
+          @click="() => { this.loginFail = false; }" />
         <div>
           <div>¿No tienes cuenta?</div>
           <b-button to="/register">Registrarme</b-button>
         </div>
       </div>
     </div>
+    <div v-if="loginFail" class="formkit-message">e-mail o password incorrectos </div>
   </FormKit>
-  <div v-else class="mt-5 text-success">
-    <h2>¡Ha iniciado sesión correctamente!</h2>
-  </div>
 </template>
 
 <script>
+import userStore from '@/stores/userStore';
+
 export default {
   name: 'LoginUser',
   components: {
@@ -37,15 +37,19 @@ export default {
   },
   data() {
     return {
-      submitted: false,
+      userStore,
+      loginFail: false,
       formData: {}
     };
   },
   methods: {
     async submitHandler() {
-      await new Promise((r) => setTimeout(r, 1000));
-      this.submitted = true;
-      console.log("formData: ", this.formData);
+      this.loginFail = false;
+      await this.userStore.loginUser(this.formData);
+      if (!this.userStore.user) {
+        this.loginFail = true;
+      }
+      this.$router.push({ name: this.userStore.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {
       node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
