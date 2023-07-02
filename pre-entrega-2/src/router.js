@@ -31,8 +31,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 
   const isUserAuthenticated = userStore.checkUserAuthenticated();
-  console.log("isUserAuthenticated before each: ", isUserAuthenticated);
-  console.log("user before each: ", userStore.user);
+  // console.log("isUserAuthenticated before each: ", isUserAuthenticated);
+  // console.log("user before each: ", userStore.user);
 
   if (to.matched.some(record => record.meta.isAuth)) {
     if (!isUserAuthenticated) {
