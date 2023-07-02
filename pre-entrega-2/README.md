@@ -1,10 +1,14 @@
-# pre-entrega-2
+# Pre Entrega-2: Pizzería en Vue
 
 ## Project setup
 ```
 yarn install
 ```
 
+### Modify *.env* variables
+```
+VUE_APP_BASE_URL=https://xxxx.mockapi.io/
+```
 ### Compiles and hot-reloads for development
 ```
 yarn serve
