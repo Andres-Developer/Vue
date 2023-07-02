@@ -3,7 +3,7 @@
   <FormKit type="form" id="registration-example" submit-label="Register" @submit="submitHandler" :actions="false"
     v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
     <div class="outer-container">
-      <FormKit type="text" name="email" label="e-mail" placeholder="usuario@email.com" validation="required|email"
+      <FormKit type="text" name="email" label="e-mail" placeholder="admin@gmail.com o cliente@gmail.com" validation="required|email"
         :validation-messages="{
           email: 'Ingresa un email en formato válido',
           required: 'Por favor ingresa un e-mail',
@@ -11,7 +11,7 @@
       <FormKit type="password" name="password" label="Contraseña" :validation="[['required']]" prefix-icon="password"
         suffix-icon="eyeClosed" @suffix-icon-click="handleEyeIconClick" :validation-messages="{
           required: 'Por favor ingresa una contraseña',
-        }" placeholder="Escribe una contraseña" />
+        }" placeholder="123456" />
 
       <div class="d-flex mt-4 justify-content-evenly align-items-end">
         <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset' }"
