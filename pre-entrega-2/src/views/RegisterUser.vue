@@ -1,31 +1,36 @@
 
 <template>
   <h2 class="mt-5">Registro de nuevo usuario</h2>
-  <FormKit type="form" id="registration-example" v-if="!submitted" submit-label="Register" @submit="submitHandler"
-    :actions="false" v-model="formData" incomplete-message="Por favor completa todos los campos"
-    :classes="{ form: '$reset my-form' }">
+  <FormKit type="form" id="registration-example" submit-label="Register" @submit="submitHandler" :actions="false"
+    v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
     <div class="outer-container">
       <h5 class="mb-5">Diligencia el siguiente formulario para registrarte</h5>
-      <FormKit type="text" name="name" label="Nombre" placeholder="Ingresa tu nombre"
+      <FormKit type="text" name="firstname" label="Nombre" placeholder="Ingresa tu nombre"
         help="¿Cómo quieres que te llamemos?" validation="required|length:3" :validation-messages="{
           length: 'Debes ingresar al menos 3 caracteres',
           required: 'Por favor ingresa un nombre',
         }" />
+      <FormKit type="text" name="lastname" label="Apellido" placeholder="Ingresa tu apellido" help="¿Cuál es tu apellido?"
+        validation="required|length:3" :validation-messages="{
+          length: 'Debes ingresar al menos 3 caracteres',
+          required: 'Por favor ingresa un apellido',
+        }" />
       <FormKit type="text" name="email" label="e-mail" placeholder="usuario@email.com" help="¿Cuál es tu email?"
-        validation="required|email" :validation-messages="{
+        validation="required|email" validation-visibility="dirty" :validation-messages="{
           email: 'Ingresa un email en formato válido',
           required: 'Por favor ingresa un e-mail',
         }" />
       <FormKit type="password" name="password" label="Contraseña"
         :validation="[['required'], ['length', 6], ['matches', /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_])[A-Za-z\d@$!%*#?&_]{6,}$/]]"
-        prefix-icon="password" suffix-icon="eyeClosed" @suffix-icon-click="handleEyeIconClick" :validation-messages="{
+        prefix-icon="password" suffix-icon="eyeClosed" @suffix-icon-click="handleEyeIconClick"
+        validation-visibility="dirty" :validation-messages="{
           matches: 'El password debe tener una mayúscula, una minúscula, un número y un carácter especial',
           length: 'Debes ingresar al menos 6 caracteres',
           required: 'Por favor ingresa una contraseña',
         }" placeholder="Escribe una contraseña" help="Elige un password" />
       <FormKit type="password" name="password_confirm" label="Confirma tu contraseña" placeholder="Repite tu contraseña"
         validation="required|confirm" help="Confirma tu contraseña" prefix-icon="password" suffix-icon="eyeClosed"
-        @suffix-icon-click="handleEyeIconClick" :validation-messages="{
+        @suffix-icon-click="handleEyeIconClick" validation-visibility="dirty" :validation-messages="{
           required: 'Por favor ingresa una confirmación de contraseña',
           confirm: 'Las contraseñas no coinciden',
         }" />
@@ -36,16 +41,15 @@
           <b-button to="/login">Ingresar</b-button>
         </div>
       </div>
-
     </div>
+    <div v-if="registerFail" class="text-danger h5"> El usuario ya se encuentra registrado </div>
   </FormKit>
-  <div v-else class="mt-5 text-success">
-    <h2>Se ha registrado exitosamente!</h2>
-  </div>
 </template>
 
 
 <script>
+import userStore from '@/stores/userStore';
+
 export default {
   name: 'RegisterUser',
   components: {
@@ -54,15 +58,25 @@ export default {
   },
   data() {
     return {
+      userStore,
+      registerFail: false,
       submitted: false,
       formData: {}
     };
   },
   methods: {
     async submitHandler() {
-      await new Promise((r) => setTimeout(r, 1000));
-      this.submitted = true;
-      console.log("formData: ", this.formData);
+      this.registerFail = false;
+
+      const formDataObject = { ...this.formData }; // {...this.formData} to convert Proxy to object
+      delete formDataObject.password_confirm; // remove password_confirm from formDataObject
+
+      await this.userStore.registerUser(formDataObject);
+      if (!this.userStore.user) {
+        this.registerFail = true;
+        return;
+      }
+      this.$router.push({ name: this.userStore.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {
       node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';

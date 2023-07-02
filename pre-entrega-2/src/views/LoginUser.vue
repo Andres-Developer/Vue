@@ -3,8 +3,8 @@
   <FormKit type="form" id="registration-example" submit-label="Register" @submit="submitHandler" :actions="false"
     v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
     <div class="outer-container">
-      <FormKit type="text" name="email" label="e-mail" placeholder="admin@gmail.com o cliente@gmail.com" validation="required|email"
-        :validation-messages="{
+      <FormKit type="text" name="email" label="e-mail" placeholder="admin@gmail.com o cliente@gmail.com"
+        validation="required|email" validation-visibility="dirty" :validation-messages="{
           email: 'Ingresa un email en formato válido',
           required: 'Por favor ingresa un e-mail',
         }" />
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div v-if="loginFail" class="formkit-message">e-mail o password incorrectos </div>
+    <div v-if="loginFail" class="text-danger h5">e-mail o password incorrectos </div>
   </FormKit>
 </template>
 

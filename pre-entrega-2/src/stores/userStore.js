@@ -1,4 +1,4 @@
-import { getRequest } from "@/services/httpRequests";
+import { getRequest, postRequest } from "@/services/httpRequests";
 import { loadingWithTimeout } from "@/utils/loadingTools";
 
 const userStore = {
@@ -36,7 +36,7 @@ const userStore = {
     this.loading = await loadingWithTimeout(1000);
 
     if (user.length === 0) {
-      this.user = null; // no user found
+      this.user = null;
       return false;
     }
     if (user[0].password !== password) {  // user found but password doesn't match
@@ -50,6 +50,30 @@ const userStore = {
     this.user = user[0]; // set user object   
 
     localStorage.setItem("user", JSON.stringify(this.user));
+  },
+
+  async registerUser(formData) { 
+
+    const BASE_URL = process.env.VUE_APP_BASE_URL;
+    const ENDPOINT = `/users?email=${formData.email}`;
+
+    this.loading = true;
+    const user = await getRequest(BASE_URL + ENDPOINT);
+    this.loading = await loadingWithTimeout(1000);
+
+    if (user.length !== 0) {
+      return false; // User already exists
+    }
+    const newUser = await postRequest(BASE_URL + "/users", formData);
+
+    delete newUser.password; // remove password from user object
+    delete newUser.createdAt; // remove createdAt from user object
+
+    this.user = newUser;
+
+    localStorage.setItem("user", JSON.stringify(this.user));
+
+    return newUser;
   },
 
   logoutUser() {
