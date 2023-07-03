@@ -41,7 +41,7 @@
             <FormKit type="submit" label="Actualizar" :classes="{ outer: '$reset' }"
               @click="() => { this.loginFail = false; }" />
             <div>
-              <b-button to="/admin">Cancelar</b-button>
+              <b-button to="/admin">Volver</b-button>
             </div>
           </div>
         </div>
