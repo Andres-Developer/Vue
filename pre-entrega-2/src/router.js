@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
         next('/admin');
         return;
       }
-      if (!userStore.user.isAdmin && to.path === '/admin') {
+      if (!userStore.user.isAdmin && (to.matched.some(record => record.meta.onlyAdmin))) {
         next('/client');
         return;
       }
