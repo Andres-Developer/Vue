@@ -59,6 +59,26 @@ const fetchClient = {
     } catch (error) {
       console.log("Error with PUT in fetchClient: \n", error);
     }
+  },
+  async delete(url) {
+    const options = {
+      method: "DELETE",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+      }
+    } catch (error) {
+      console.log("Error with DELETE in fetchClient: \n", error);
+    }
   }
 };
 

@@ -27,4 +27,14 @@ const putRequest = async (url, body) => {
   }
 };
 
-export { getRequest, postRequest, putRequest };
+const deleteRequest = async (url) => {
+  try {
+    const data = await client.delete(url);
+    return data;
+  } catch (error) {
+    console.error("Error with deleteRequest: \n", error);
+  }
+};
+
+
+export { getRequest, postRequest, putRequest, deleteRequest };
