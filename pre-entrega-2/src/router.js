@@ -18,7 +18,7 @@ const routes = [
   { path: "/register", component: RegisterUser, name: "register-user" },
   { path: "/login", component: LoginUser, name: "login-user" },
   { path: "/admin", component: AdminDashboard, name: "admin", meta: { isAuth: true, onlyAdmin: true } },
-  { path: "/admin/product/:id", component: ProductEdit, name: "admin-edit", meta: { isAuth: true, onlyAdmin: true } },
+  { path: "/admin/product/:id", component: ProductEdit, name: "admin-product-edit", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/client", component: ClientDashboard, name: "client", meta: { isAuth: true } },
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];
