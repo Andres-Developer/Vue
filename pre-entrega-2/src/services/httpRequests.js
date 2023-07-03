@@ -5,7 +5,7 @@ const getRequest = async (url) => {
     const data = await client.get(url);
     return data;
   } catch (error) {
-    console.log("error with getRequest", error);
+    console.error("Error with getRequest: \n", error);
   }
 };
 
@@ -14,7 +14,7 @@ const postRequest = async (url, body) => {
     const data = await client.post(url, body);
     return data;
   } catch (error) {
-    console.log("error with postRequest", error);
+    console.error("Error with postRequest: \n", error);
   }
 };
 
