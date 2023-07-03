@@ -1,4 +1,5 @@
 const fetchClient = {
+  clientName: "FetchClient",
   async get(url) {
     try {
       const response = await fetch(url);
@@ -6,10 +7,10 @@ const fetchClient = {
         const data = await response.json();
         return data;
       } else {
-        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+        throw JSON.stringify({ code: response.status, message: response.statusText });
       }
     } catch (error) {
-      console.error("Error with GET in fetchClient: \n", error);
+      throw new Error(error + ' in ' + this.clientName);
     }
   },
   async post(url, body) {
@@ -30,10 +31,10 @@ const fetchClient = {
         const data = await response.json();
         return data;
       } else {
-        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+        throw JSON.stringify({ code: response.status, message: response.statusText });
       }
     } catch (error) {
-      console.log("Error with POST in fetchClient: \n", error);
+      throw new Error(error + ' in ' + this.clientName);
     }
   },
   async put(url, body) {
@@ -54,10 +55,10 @@ const fetchClient = {
         const data = await response.json();
         return data;
       } else {
-        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+        throw JSON.stringify({ code: response.status, message: response.statusText });
       }
     } catch (error) {
-      console.log("Error with PUT in fetchClient: \n", error);
+      throw new Error(error + ' in ' + this.clientName);
     }
   },
   async delete(url) {
@@ -74,12 +75,14 @@ const fetchClient = {
         const data = await response.json();
         return data;
       } else {
-        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+        throw JSON.stringify({ code: response.status, message: response.statusText });
       }
     } catch (error) {
-      console.log("Error with DELETE in fetchClient: \n", error);
+      throw new Error(error + ' in ' + this.clientName);
     }
   }
 };
+
+
 
 export { fetchClient };
