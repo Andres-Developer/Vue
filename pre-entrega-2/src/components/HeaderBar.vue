@@ -14,9 +14,10 @@
             </b-nav-item>
           </div>
           <div v-else class="gap-2 gap-sm-1 d-flex align-items-center justify-content-between ">
-            <router-link :to="{ name: this.userStore.isAdmin ? 'admin' : 'client' }"
+            <router-link :to="{ name: this.userStore.user.isAdmin ? 'admin' : 'client' }"
               class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
-              <div class="btn btn-success btn-chip">{{ this.userStore.user.firstname }}</div>
+              <div class="btn btn-primary btn-chip">{{this.userStore.user.isAdmin ? 'Administrar' : 'Mis pedidos' }}</div>
+              <!-- <div class="btn btn-success btn-chip">{{ this.userStore.user.firstname }}</div> -->
               <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
             </router-link>
             <div type="button" class="btn btn-danger btn-chip" @click="userLogout">logout</div>
