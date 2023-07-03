@@ -2,10 +2,14 @@ const fetchClient = {
   async get(url) {
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      return data;
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+      }
     } catch (error) {
-      console.log("error with GET in fetchClient", error);
+      console.error("Error with GET in fetchClient: \n", error);
     }
   },
   async post(url, body) {
@@ -23,10 +27,14 @@ const fetchClient = {
 
     try {
       const response = await fetch(url, options);
-      const data = await response.json();
-      return data;
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error(JSON.stringify({ code: response.status, message: response.statusText }));
+      }
     } catch (error) {
-      console.log("error with POST in fetchClient", error);
+      console.log("Error with POST in fetchClient: \n", error);
     }
   }
 };
