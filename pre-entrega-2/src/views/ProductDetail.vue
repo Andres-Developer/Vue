@@ -1,12 +1,12 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
     <b-card v-if="!loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
-      <b-row class="g-0">
-        <b-col md="6">
+      <div class="row g-0">
+        <div class="col-md-6 d-flex align-items-center justify-content-center p-3">
           <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
             :src="product.image + '/?random=' + product.id" alt="Image" />
-        </b-col>
-        <b-col md="6">
+        </div>
+        <div  class="col-md-6 d-flex align-items-center">
           <b-card-body :title="product.title">
             <b-card-text>
               {{ product.description }}
@@ -41,8 +41,8 @@
               <b-button variant="secondary" to="/" class="w-100 fs-5 mt-3">Seguir comprando</b-button>
             </b-card-text>
           </b-card-body>
-        </b-col>
-      </b-row>
+        </div>
+      </div>
     </b-card>
     <div v-else>LOADING...</div>
   </div>
@@ -137,6 +137,7 @@ export default {
   object-fit: cover; */
   opacity: 0;
   transition: opacity 1s ease;
+  max-width: 360px;
 }
 .custom-height {
   height: calc(100vh - 66px)
