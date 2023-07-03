@@ -1,12 +1,12 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
     <b-card v-if="!loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
-      <div class="row g-0">
+      <div v-if="product" class="row g-0">
         <div class="col-md-6 d-flex align-items-center justify-content-center p-3">
           <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
             :src="product.image + '/?random=' + product.id" alt="Image" />
         </div>
-        <div  class="col-md-6 d-flex align-items-center">
+        <div class="col-md-6 d-flex align-items-center">
           <b-card-body :title="product.title">
             <b-card-text>
               {{ product.description }}
@@ -43,6 +43,7 @@
           </b-card-body>
         </div>
       </div>
+      <div v-else> Producto NO encontrado</div>
     </b-card>
     <div v-else>LOADING...</div>
   </div>
@@ -66,7 +67,7 @@ export default {
       cartStore,
       productsInCart: cartStore.productsInCart,
       loading: false,
-      product: {},
+      product: null,
       localQuantity: 1,
       localPrice: 0,
     };
@@ -130,7 +131,6 @@ export default {
 </script>
 
 <style scoped>
-
 .product-image {
   /* height: 16rem;
   width: 14rem;
@@ -139,6 +139,7 @@ export default {
   transition: opacity 1s ease;
   max-width: 360px;
 }
+
 .custom-height {
   height: calc(100vh - 66px)
 }
