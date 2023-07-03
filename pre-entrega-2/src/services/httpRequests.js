@@ -18,4 +18,13 @@ const postRequest = async (url, body) => {
   }
 };
 
-export { getRequest, postRequest };
+const putRequest = async (url, body) => {
+  try {
+    const data = await client.put(url, body);
+    return data;
+  } catch (error) {
+    console.error("Error with putRequest: \n", error);
+  }
+};
+
+export { getRequest, postRequest, putRequest };
