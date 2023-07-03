@@ -29,7 +29,6 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-
   const isUserAuthenticated = userStore.checkUserAuthenticated();
   // console.log("isUserAuthenticated before each: ", isUserAuthenticated);
   // console.log("user before each: ", userStore.user);
@@ -37,13 +36,22 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.isAuth)) {
     if (!isUserAuthenticated) {
       next('/login');
+    } else {
+      if (userStore.user.isAdmin && to.path === '/client') {
+        next('/admin');
+        return;
+      }
+      if (!userStore.user.isAdmin && to.path === '/admin') {
+        next('/client');
+        return;
+      }
     }
   }
-  if (isUserAuthenticated && (to.path === '/login' || to.path === '/register' || to.path === '/admin')) {
-    if (userStore.user.isAdmin) {
+  else {
+    if (isUserAuthenticated && (to.path === '/login' || to.path === '/register')) {
       next('/admin');
+      return;
     }
-    next('/client');
   }
   next();
 });
