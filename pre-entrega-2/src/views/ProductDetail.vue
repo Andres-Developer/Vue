@@ -3,7 +3,8 @@
     <b-card v-if="!loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
       <b-row class="g-0">
         <b-col md="6">
-          <b-card-img :src="product.image + '/?random=' + product.id" alt="Image" class="rounded-0" />
+          <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
+            :src="product.image + '/?random=' + product.id" alt="Image" />
         </b-col>
         <b-col md="6">
           <b-card-body :title="product.title">
@@ -129,6 +130,14 @@ export default {
 </script>
 
 <style scoped>
+
+.product-image {
+  /* height: 16rem;
+  width: 14rem;
+  object-fit: cover; */
+  opacity: 0;
+  transition: opacity 1s ease;
+}
 .custom-height {
   height: calc(100vh - 66px)
 }

@@ -1,6 +1,7 @@
 <template>
   <b-card img-alt="Image" img-top tag="article" class="m-2 card-style">
-    <img :src="product.image + '/?random=' + product.id" alt="" height="180">
+    <img loading="lazy" class="product-image" @load="$event.target.style.opacity = 1"
+      :src="product.image + '/?random=' + product.id" alt="" height="180">
     <div class="h4">{{ product.title }}</div>
     <b-card-text>
       <!-- {{ product.description }} -->
@@ -59,6 +60,14 @@ export default {
 </script>
 
 <style scoped>
+.product-image {
+  /* height: 16rem;
+  width: 14rem;
+  object-fit: cover; */
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
 .card-style {
   width: 18rem;
   min-width: 18rem;
