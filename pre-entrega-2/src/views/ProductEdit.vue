@@ -46,7 +46,10 @@
           </div>
         </div>
       </div>
-      <div v-else class="product-edition-container"> Producto con id <strong>{{ id }}</strong>: NO fue encontrado</div>
+      <div v-else-if="(typeof(this.id) === 'number')" class="product-edition-container"> Producto con id <strong>{{ id }}</strong>:  NO fue encontrado</div>
+      <div v-else> Producto con id: <strong>{{ id }}</strong> no fue encontrado.
+        <div> Debes ingresar una id tipo <strong>numérica</strong> </div>
+      </div>
     </FormKit>
     <div v-else>LOADING...</div>
   </div>
@@ -80,6 +83,10 @@ export default {
 
   methods: {
     async getProduct() {
+      if (!(typeof(this.id) === 'number')) {
+        console.log("type:", typeof(this.id));
+        return null
+      }
       const BASE_URL = process.env.VUE_APP_BASE_URL;
       const ENDPOINT = `/products/${this.id}`;
       this.loading = true;
@@ -101,7 +108,7 @@ export default {
   },
   computed: {
     id() {
-      return this.$route.params.id;
+      return (Number(this.$route.params.id) || this.$route.params.id );
     },
   },
 
