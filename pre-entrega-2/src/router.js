@@ -7,6 +7,7 @@ import LoginUser from "./views/LoginUser.vue";
 import RegisterUser from "./views/RegisterUser.vue";
 import userStore from "./stores/userStore";
 import AdminDashboard from "./views/AdminDashboard.vue";
+import ProductEdit from "./views/ProductEdit.vue";
 import ClientDashboard from "./views/ClientDashboard.vue";
 import NotFound from "./views/NotFound.vue";
 
@@ -16,7 +17,8 @@ const routes = [
   { path: "/product/:id", component: ProductDetail, name: "product-detail-id" },
   { path: "/register", component: RegisterUser, name: "register-user" },
   { path: "/login", component: LoginUser, name: "login-user" },
-  { path: "/admin", component: AdminDashboard, name: "admin", meta: { isAuth: true } },
+  { path: "/admin", component: AdminDashboard, name: "admin", meta: { isAuth: true, onlyAdmin: true } },
+  { path: "/admin/product/:id", component: ProductEdit, name: "admin-edit", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/client", component: ClientDashboard, name: "client", meta: { isAuth: true } },
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];
