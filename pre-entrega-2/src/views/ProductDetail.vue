@@ -43,7 +43,7 @@
           </b-card-body>
         </div>
       </div>
-      <div v-else> Producto NO encontrado</div>
+      <div v-else> Producto con id <strong>{{ id }}</strong>:  NO fue encontrado</div>
     </b-card>
     <div v-else>LOADING...</div>
   </div>
