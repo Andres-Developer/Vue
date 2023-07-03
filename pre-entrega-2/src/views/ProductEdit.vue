@@ -1,9 +1,10 @@
 <template>
-  <div class="custom-height container d-flex justify-content-center align-items-center">
+  <div class="custom-height container d-flex flex-column justify-content-center align-items-center">
+    <div class="h1">Edición de producto</div>
     <FormKit v-if="!loading" type="form" id="product-edition" submit-label="Register" @submit="submitHandler"
       @click="cleanUpdatedMessage" :actions="false" v-model="formData"
       incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
-      <div class="success" v-if="updated">¡Eidicón exitosa!</div>
+      <div class="success" v-if="updated">¡Edición exitosa!</div>
       <div v-if="product" class="row product-edition-container">
         <div class="col-md-5 d-flex align-items-center justify-content-center p-3">
           <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
