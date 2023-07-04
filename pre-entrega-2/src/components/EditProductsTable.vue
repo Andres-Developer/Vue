@@ -76,7 +76,7 @@ export default {
       }
     },
     editProductHandleClick(id) {
-      this.$router.push({ name: 'admin-product-edit', params: { id } });
+      this.$router.push({ name: 'admin-edit-product', params: { id } });
     },
     cleanDeletedMessage() {
       this.deletedSuccess = false;

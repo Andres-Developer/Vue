@@ -1,13 +1,13 @@
 <template>
   <div class="custom-height container d-flex flex-column justify-content-center align-items-center">
-    <div class="h1">Edición de producto</div>
+    <div class="h1">{{ this.creationProduct ? 'Creación' : 'Edición' }} de producto</div>
     <FormKit v-if="!loading" type="form" id="product-edition" submit-label="Register" @submit="submitHandler"
       @click="cleanUpdatedMessage" :actions="false" v-model="formData"
       incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
-      <div class="success" v-if="updated">¡Edición exitosa!</div>
+      <div class="success" v-if="updated || creationSuccess">¡ {{ this.creationSuccess ? 'Creación' : 'Edición' }} exitosa!</div>
       <div v-if="product" class="row product-edition-container">
         <div class="col-md-5 d-flex align-items-center justify-content-center p-3">
-          <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
+          <b-card-img v-if="!this.creationProduct" loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
             :src="product.image + '/?random=' + product.id" alt="Image" />
         </div>
         <div class="col-md-7">
@@ -38,16 +38,18 @@
               required: 'Por favor ingresa un imagen del producto',
             }" />
           <div class="d-flex mt-4 justify-content-evenly align-items-end">
-            <FormKit type="submit" label="Actualizar" :classes="{ outer: '$reset' }"
-              @click="() => { this.loginFail = false; }" />
+            <FormKit type="submit" :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
+              :classes="{ outer: '$reset' }" @click="() => { this.loginFail = false; }" />
             <div>
               <b-button to="/admin">Volver</b-button>
             </div>
           </div>
         </div>
       </div>
-      <div v-else-if="(typeof(this.id) === 'number')" class="product-edition-container"> Producto con id <strong>{{ id }}</strong>:  NO fue encontrado</div>
-      <div v-else> Producto con id: <strong>{{ id }}</strong> no fue encontrado.
+      <div v-else-if="(typeof (this.id) === 'number')" class="product-edition-container"> Producto con id <strong>
+          {{ id }} </strong>: No fue encontrado</div>
+      <div v-else>
+        <div v-if="this.id">Producto con id: <strong>{{ id }}</strong> no fue encontrado</div>
         <div> Debes ingresar una id tipo <strong>numérica</strong> </div>
       </div>
     </FormKit>
@@ -56,13 +58,13 @@
 </template>
 
 <script>
-import { getRequest, putRequest } from '@/services/httpRequests';
+import { getRequest, postRequest, putRequest } from '@/services/httpRequests';
 import { loadingWithTimeout } from '@/utils/loadingTools';
 import productsStore from '@/stores/productsStore';
 
 
 export default {
-  name: 'ProductEdit',
+  name: 'ProductCreateEdit',
   components: {
 
   },
@@ -75,30 +77,52 @@ export default {
       loading: false,
       updated: false,
       product: null,
+      creationProduct: false,
+      creationSuccess: false,
     };
   },
   created() {
+    if (this.$route.params.param === 'new' ) {
+      this.product = {};
+      this.creationProduct = true;
+      return;
+    }
     this.getProduct();
+
+    console.log("param:", this.$route.params.param);
+    console.log("id:", this.$route.params.id);
+    console.log("this.id computed:", this.id);
   },
 
   methods: {
     async getProduct() {
-      if (!(typeof(this.id) === 'number')) {
-        console.log("type:", typeof(this.id));
-        return null
+      if (this.id === null) {
+        return null;
+      }
+      if (!(typeof (this.id) === 'number')) {
+        console.log("type:", typeof (this.id));
+        return null;
       }
       const BASE_URL = process.env.VUE_APP_BASE_URL;
       const ENDPOINT = `/products/${this.id}`;
       this.loading = true;
       this.product = await getRequest(BASE_URL + ENDPOINT);
-      this.loading = await loadingWithTimeout(100);   
+      this.loading = await loadingWithTimeout(100);
     },
     async submitHandler() {
       const BASE_URL = process.env.VUE_APP_BASE_URL;
-      const ENDPOINT = `/products/${this.id}`;
- 
-      this.product = await putRequest(BASE_URL + ENDPOINT, this.formData);
+      this.creationSuccess = false;
 
+      if(this.creationProduct){
+        const ENDPOINT = `/products`;
+        this.product = await postRequest(BASE_URL + ENDPOINT, this.formData);
+        this.creationProduct = false;
+        this.creationSuccess = true;
+        return;
+      }
+
+      const ENDPOINT = `/products/${this.id || this.product.id}`;
+      this.product = await putRequest(BASE_URL + ENDPOINT, this.formData);
       this.updated = true;
     },
 
@@ -108,7 +132,10 @@ export default {
   },
   computed: {
     id() {
-      return (Number(this.$route.params.id) || this.$route.params.id );
+      if (!this.$route.params.id) {
+        return null;
+      }
+      return (Number(this.$route.params.id) || this.$route.params.id);
     },
   },
 
