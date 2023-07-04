@@ -1,5 +1,6 @@
-import { getRequest, postRequest } from "@/services/httpRequests";
+import { getRequest, postRequest, putRequest } from "@/services/httpRequests";
 import { loadingWithTimeout } from "@/utils/loadingTools";
+import cartStore from '@/stores/cartStore';
 
 const userStore = {
 
@@ -52,7 +53,7 @@ const userStore = {
     localStorage.setItem("user", JSON.stringify(this.user));
   },
 
-  async registerUser(formData) { 
+  async registerUser(formData) {
 
     const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/users?email=${formData.email}`;
@@ -79,7 +80,30 @@ const userStore = {
   logoutUser() {
     this.user = null;
     localStorage.removeItem("user");
-  }
+  },
+
+  async addOrder() {
+    const order = {};
+    order.products = cartStore.productsInCart;
+    order.grandTotal = cartStore.grandTotal;
+    order.dateOfPurchase = new Date();
+    order.id = this.user.orders.length + 1;
+    this.user.orders.push(order);
+
+    const user = await this.editUser(this.user);
+    localStorage.setItem("user", JSON.stringify(this.user));
+
+    return user;
+  },
+
+  async editUser(userData) {
+    const BASE_URL = process.env.VUE_APP_BASE_URL;
+    const ENDPOINT = `/users/${this.user.id}`;
+    this.loading = true;
+    const user = await putRequest(BASE_URL + ENDPOINT, userData);
+    this.loading = await loadingWithTimeout(1000);
+    return user;
+  },
 };
 
 export default userStore;

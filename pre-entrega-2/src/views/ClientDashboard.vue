@@ -1,18 +1,23 @@
 <template>
-  <div> Hello from ['ClientDashboard']</div>
+  <div class="h1 mt-5 mb-5">Mis pedidos</div>
+  <OrderTable v-for="order in this.userStore.user?.orders" :key="order.id" :order="order"/>
 </template>
 
 <script>
+import userStore from '@/stores/userStore';
+import OrderTable from '@/components/OrderTable.vue';
 
 export default {
-name: 'ClientDashboard',
+  name: 'ClientDashboard',
   components: {
+    OrderTable
   },
   props: {
   },
-  data() { 
-   return {
-   }
+  data() {
+    return {
+      userStore,
+    };
   },
   methods: {
   },
@@ -21,6 +26,4 @@ name: 'ClientDashboard',
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

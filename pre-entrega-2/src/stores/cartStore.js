@@ -36,6 +36,9 @@ const cartStore = {
   subTotalCalc(index) {
     this.productsInCart[index].subtotal = this.productsInCart[index].price * this.productsInCart[index].quantity;
   },
+  clearCart() {
+    this.productsInCart = [];
+  }
 };
 
 export default cartStore;
