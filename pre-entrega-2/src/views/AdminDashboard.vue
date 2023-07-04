@@ -1,11 +1,11 @@
 <template>
   <div class="h1 mt-5 mb-3">Listado de productos</div>
   <div class="container">
-    <div class="btn btn-success btn-chip mb-4" @click="()=> $router.push('admin/product/new')">+ Crear Producto</div>
+    <div class="btn btn-success btn-chip mb-4" @click="() => $router.push('admin/product/new')">+ Crear Producto</div>
     <EditProductsTable />
-    <div class="d-flex mt-5 justify-content-center gap-5">
-      <b-button variant="secondary" to="/">Volver al listado general</b-button>
-      <!-- <b-button variant="primary" to="/checkout" disabled>ir a pagar</b-button> -->
+    <div class="d-flex mt-5 justify-content-center gap-5 mb-5">
+      <div class="btn btn-success btn-chip" @click="() => $router.push('admin/product/new')">+ Crear Producto</div>
+      <div to="/" class="btn btn-secondary btn-chip" @click="() => $router.push('/')">Volver al listado general</div>
     </div>
   </div>
 </template>
