@@ -11,7 +11,7 @@
             :src="product.image + '/?random=' + product.id" alt="Image" />
         </div>
         <div class="col-md-7">
-          <FormKit v-if="creationSuccess" type="text" name="id" label="id" placeholder=""
+          <FormKit v-if="creationSuccess || !this.creationProduct" type="text" name="id" label="id" placeholder=""
             :value="product.id" disabled />
           <FormKit type="text" name="title" label="Nombre del producto" placeholder="Ingresa un nombre"
             :value="product.title" validation="required|length:3" validation-visibility="dirty" :validation-messages="{
