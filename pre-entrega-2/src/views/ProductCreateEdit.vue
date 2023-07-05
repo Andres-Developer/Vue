@@ -41,9 +41,9 @@
             }" />
           <div class="d-flex mt-4 justify-content-evenly align-items-end">
             <FormKit type="submit" :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
-              :classes="{ outer: '$reset' }" @click="() => { this.loginFail = false; }" />
+              :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }" @click="() => { this.loginFail = false; }"/>
             <div>
-              <b-button to="/admin/products-management">Volver</b-button>
+              <b-button to="/admin/products-management" class="btn-chip p-3 d-flex align-items-center">Volver </b-button>
             </div>
           </div>
         </div>
