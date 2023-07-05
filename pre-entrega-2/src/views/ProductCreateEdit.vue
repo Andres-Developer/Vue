@@ -91,12 +91,7 @@ export default {
       return;
     }
     this.getProduct();
-
-    console.log("param:", this.$route.params.param);
-    console.log("id:", this.$route.params.id);
-    console.log("this.id computed:", this.id);
   },
-
   methods: {
     async getProduct() {
       if (this.id === null) {

@@ -14,9 +14,7 @@ const productsStore = {
     this.loading = await loadingWithTimeout(50);
   },
   async deleteProduct(id) {
-    console.log("entró a deleteProduct");
     const response = await this.deleteProductFromAPI(id);
-    console.log("respone es: ", response);
     const index = this.getIndexOfProduct(id);
     this.products.splice(index, 1);
     return response;
