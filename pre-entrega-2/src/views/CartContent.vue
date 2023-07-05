@@ -50,7 +50,7 @@ export default {
         await this.userStore.addOrder();
         this.loading = false;
         this.cartStore.clearCart();
-        this.$router.push({ name: 'client' });
+        this.$router.push({ name: userStore.user.isAdmin ? 'self-orders' : 'client' });
       }
     },
   },
