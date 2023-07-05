@@ -2,9 +2,10 @@
   <div class="custom-height container d-flex justify-content-center align-items-center">
     <b-card v-if="!this.productsStore.loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
       <div v-if="product" class="row g-0">
-        <div class="col-md-6 d-flex align-items-center justify-content-center p-3">
+        <div class="col-md-6 d-flex flex-column align-items-center justify-content-center p-3">
           <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
             :src="product.image + '/?random=' + product.id" alt="Image" />
+          <div class="mt-2"><strong> Stock:</strong> {{ product.stock }}</div>
         </div>
         <div class="col-md-6 d-flex align-items-center">
           <b-card-body :title="product.title">
