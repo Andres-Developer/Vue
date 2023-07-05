@@ -104,6 +104,29 @@ const userStore = {
     this.loading = await loadingWithTimeout(1000);
     return user;
   },
+
+  async getClientOrders() {
+    const BASE_URL = process.env.VUE_APP_BASE_URL;
+    const ENDPOINT = `/users`;
+    this.loading = true;
+    const users = await getRequest(BASE_URL + ENDPOINT);
+
+    const userWithOrders = users.filter(user => user.orders.length !== 0);
+
+    this.loading = await loadingWithTimeout(1000);
+
+
+    return userWithOrders;
+  },
+
+  async getSingleUser(id) {
+    const BASE_URL = process.env.VUE_APP_BASE_URL;
+    const ENDPOINT = `/users/${id}`;
+    this.loading = true;
+    const user = await getRequest(BASE_URL + ENDPOINT);
+    this.loading = await loadingWithTimeout(1000);
+    return user;
+  }
 };
 
 export default userStore;

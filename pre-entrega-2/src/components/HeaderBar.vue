@@ -15,11 +15,11 @@
           <div v-else class="gap-2 gap-sm-1 d-flex align-items-center justify-content-between ">
             <div v-if="this.userStore.user.isAdmin" class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
               <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin')">{{ 'Administrar' }}</div>
-              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin/self-orders')">{{ 'Mis pedidos' }}</div>
+              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin/self-orders')">{{ 'Mis órdenes' }}</div>
               <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
             </div>
             <div v-else class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
-              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/client')">{{ 'Mis pedidos' }}</div>
+              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/client')">{{ 'Mis órdenes' }}</div>
               <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
             </div>
             <div type="button" class="btn btn-danger btn-chip" @click="userLogout">logout</div>
