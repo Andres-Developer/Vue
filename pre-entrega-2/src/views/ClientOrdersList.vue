@@ -43,8 +43,6 @@ export default {
     (async () => {
       this.singleUser = await this.userStore.getSingleUser(this.id);
       this.clientOrders = this.singleUser?.orders;
-      // console.log(this.clientOrders);
-      console.log("single user: ", this.singleUser);
     })();
   },
   methods: {
