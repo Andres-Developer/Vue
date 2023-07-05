@@ -1,5 +1,5 @@
 <template>
-  <b-table-simple responsive class="container table-width">
+  <b-table-simple>
     <b-thead>
       <b-tr variant="light">
         <b-th>id</b-th>
@@ -92,10 +92,6 @@ export default {
 </script>
 
 <style scoped>
-.table-width {
-  min-width: 400px !important;
-  max-width: 700px !important;
-}
 
 tr td {
   height: 62.5px;

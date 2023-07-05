@@ -1,6 +1,6 @@
 <template>
   <div class="h1 mt-5 mb-5">Contenido del carrito</div>
-  <div class="container">
+  <div class="container d-flex flex-column justify-content-center table-width">
     <CartProductTable v-if="!loading" />
     <div v-else class="h5 mt-5 pt-5">Loading...</div>
     <div v-if="!loading" class="d-flex mt-5 justify-content-center gap-5">
@@ -59,4 +59,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-width {
+  /* min-width: 400px !important;
+  max-width: 700px !important; */
+  width: 900px !important;
+}
+
+</style>
