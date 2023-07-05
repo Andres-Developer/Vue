@@ -4,6 +4,7 @@
     class="container table-width">
     <b-thead>
       <b-tr variant="light">
+        <b-th>id</b-th>
         <b-th>Producto</b-th>
         <b-th>Precio</b-th>
         <b-th>Stock</b-th>
@@ -13,6 +14,7 @@
     </b-thead>
     <b-tbody>
       <b-tr v-for="product in this.productsStore.products" :key="product.id" class="align-middle">
+        <b-td><strong>{{ product.id }}</strong></b-td>
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
           <router-link :to="{ name: 'product-detail-id', params: { id: product.id } }">
             <img :src="product.image + '/?random=' + product.id" alt="pizza">
@@ -38,11 +40,10 @@
     <b-tfoot>
       <b-tr variant="light">
         <b-th colspan="3" class="text-end">
-          <!-- Total: -->
         </b-th>
         <b-th>
-          <!-- $ {{ }} -->
         </b-th>
+        <b-th></b-th>
         <b-th></b-th>
       </b-tr>
     </b-tfoot>
