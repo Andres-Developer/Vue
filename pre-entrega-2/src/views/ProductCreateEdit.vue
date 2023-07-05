@@ -81,6 +81,7 @@ export default {
       product: null,
       creationProduct: false,
       creationSuccess: false,
+      formData: {}
     };
   },
   created() {
