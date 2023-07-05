@@ -1,5 +1,5 @@
 <template>
-  <b-table-simple responsive class="container table-width mb-5">
+  <b-table-simple responsive class="container mb-5">
     <b-thead>
       <b-tr variant="light">
         <b-th>Fecha de creación: </b-th>

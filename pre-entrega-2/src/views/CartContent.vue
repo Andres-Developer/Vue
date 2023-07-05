@@ -60,10 +60,4 @@ export default {
 </script>
 
 <style scoped>
-.table-width {
-  /* min-width: 400px !important;
-  max-width: 700px !important; */
-  width: 900px !important;
-}
-
 </style>

@@ -47,4 +47,7 @@ body {
   border-radius: 3rem !important;
   height: 35px;
 }
+.table-width {
+  max-width: 900px !important;
+}
 </style>
