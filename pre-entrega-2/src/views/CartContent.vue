@@ -3,7 +3,7 @@
   <div class="container">
     <CartProductTable v-if="!loading" />
     <div v-else>LOADING...</div>
-    <div class="d-flex mt-5 justify-content-center gap-5">
+    <div v-if="!loading" class="d-flex mt-5 justify-content-center gap-5">
       <b-button variant="secondary" to="/">Seguir comprando</b-button>
       <b-button variant="primary" @click="handleCheckoutClick"
         :disabled="this.cartStore.productsInCart.length === 0 ? true : false">ir a pagar</b-button>
