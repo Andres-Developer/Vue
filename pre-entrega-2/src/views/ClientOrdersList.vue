@@ -4,7 +4,7 @@
     <div v-if="singleUser">
       <div class="h4 mb-5 text-success">
         {{ this.singleUser.firstname + " " + this.singleUser.lastname }}
-        <img :src="this.singleUser.avatar" alt="client" height="60">
+        <img :src="this.singleUser.avatar" alt="client" height="60" class="user-avatar">
       </div>
       <div to="/" class="btn btn-secondary btn-chip mb-4" @click="() => $router.push('/admin/client-orders')">Volver
       </div>

@@ -18,7 +18,7 @@
       <b-tr v-for="client in this.clientsWithOrders" :key="client.id" class="align-middle">
         <b-td><strong>{{ client.id }}</strong></b-td>
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
-            <img :src="client.avatar" alt="client" height="60">
+            <img :src="client.avatar" alt="client" height="60" class="user-avatar">
         </b-td>
         <b-td> {{ client.firstname + " " + client.lastname }}</b-td>
         <b-td>

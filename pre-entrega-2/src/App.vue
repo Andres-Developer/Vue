@@ -50,4 +50,8 @@ body {
 .table-width {
   max-width: 900px !important;
 }
+
+.user-avatar{
+  border-radius:50%
+}
 </style>
