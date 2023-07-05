@@ -43,7 +43,7 @@
             <FormKit type="submit" :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
               :classes="{ outer: '$reset' }" @click="() => { this.loginFail = false; }" />
             <div>
-              <b-button to="/admin">Volver</b-button>
+              <b-button to="/admin/products-management">Volver</b-button>
             </div>
           </div>
         </div>

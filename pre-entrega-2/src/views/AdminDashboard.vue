@@ -1,23 +1,23 @@
 <template>
-  <div class="h1 mt-5 mb-3">Listado de productos</div>
-  <div class="container">
-    <div class="btn btn-success btn-chip mb-4" @click="() => $router.push('admin/product/new')">+ Crear Producto</div>
-    <EditProductsTable />
-    <div class="d-flex mt-5 justify-content-center gap-5 mb-5">
-      <div class="btn btn-success btn-chip" @click="() => $router.push('admin/product/new')">+ Crear Producto</div>
-      <div to="/" class="btn btn-secondary btn-chip" @click="() => $router.push('/')">Volver al listado general</div>
-    </div>
+  <div class="h1 mt-5 mb-5">Panel de administración</div>
+
+  <div class="vw-100 d-flex justify-content-center">
+    <BCard title="Crea o edita nuevos productos" img-src="https://picsum.photos/600/300/?image=25" img-alt="Image" img-top
+      tag="article" style="max-width: 20rem;">
+      <BButton @click="() => $router.push('/admin/products-management')" variant="primary" class="btn-chip">Administración
+        de Productos</BButton>
+    </BCard>
   </div>
 </template>
 
 <script>
-import EditProductsTable from '@/components/EditProductsTable.vue';
+
 
 
 export default {
   name: 'AdminDashboard',
   components: {
-    EditProductsTable
+
   },
   props: {
   },

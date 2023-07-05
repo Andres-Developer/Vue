@@ -7,6 +7,7 @@ import LoginUser from "./views/LoginUser.vue";
 import RegisterUser from "./views/RegisterUser.vue";
 import userStore from "./stores/userStore";
 import AdminDashboard from "./views/AdminDashboard.vue";
+import ProductsManagement from "./views/ProductsManagement.vue";
 import ProductCreateEdit from "./views/ProductCreateEdit.vue";
 import ClientDashboard from "./views/ClientDashboard.vue";
 import NotFound from "./views/NotFound.vue";
@@ -18,9 +19,11 @@ const routes = [
   { path: "/register", component: RegisterUser, name: "register-user" },
   { path: "/login", component: LoginUser, name: "login-user" },
   { path: "/admin", component: AdminDashboard, name: "admin", meta: { isAuth: true, onlyAdmin: true } },
+  { path: "/admin/products-management", component: ProductsManagement, name: "products-management", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/admin/product/:param", component: ProductCreateEdit, name: "admin-create-product", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/admin/product/edit/:id*", component: ProductCreateEdit, name: "admin-edit-product", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/admin/self-orders", component: ClientDashboard, name: "self-orders", meta: { isAuth: true, onlyAdmin: true } },
+  // { path: "/admin/orders", component: AdminDashboard, name: "admin", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/client", component: ClientDashboard, name: "client", meta: { isAuth: true } },
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];
