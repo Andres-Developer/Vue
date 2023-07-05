@@ -2,7 +2,9 @@
   <b-table-simple responsive class="container table-width">
     <b-thead>
       <b-tr variant="light">
+        <b-th>id</b-th>
         <b-th>Producto</b-th>
+        <b-th>Stock</b-th>
         <b-th>Precio</b-th>
         <b-th>Cantidad</b-th>
         <b-th>Total</b-th>
@@ -11,12 +13,15 @@
     </b-thead>
     <b-tbody>
       <b-tr v-for="product in productsInCart" :key="product.id" class="align-middle">
+        <b-td> {{ product.id }}</b-td>
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
           <router-link :to="{ name: 'product-detail-id', params: { id: product.id } }">
             <img :src="product.image + '/?random=' + product.id" alt="pizza">
             {{ product.title }}
           </router-link>
         </b-td>
+        <b-td> {{ product.stock }}</b-td>
+
         <b-td>$ {{ product.price }}</b-td>
         <b-td>
           <b-button @click="subtractProductQuantityHandleClick(product.id)" variant="light">
@@ -38,6 +43,8 @@
     <b-tfoot>
       <b-tr variant="light">
         <b-th colspan="3" class="text-end">Total: </b-th>
+        <b-th></b-th>
+        <b-th></b-th>
         <b-th>$ {{ this.cartStore.grandTotal.toFixed(2) }}</b-th>
         <b-th></b-th>
       </b-tr>
@@ -86,8 +93,8 @@ export default {
 
 <style scoped>
 .table-width {
-  min-width: 400px;
-  max-width: 700px;
+  min-width: 400px !important;
+  max-width: 700px !important;
 }
 
 tr td {

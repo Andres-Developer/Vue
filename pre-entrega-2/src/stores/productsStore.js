@@ -39,7 +39,18 @@ const productsStore = {
     this.loading = await loadingWithTimeout(50);
     return response;
   },
-  async updateStock(id, stock) {
+
+  async updateAllProductsStock(productsInCart) {
+    const promises = productsInCart.map(async (product) => {
+      const newStock = product.stock - product.quantity;
+      const response = await this.updateSingleStock(product.id, newStock);
+      return response;
+    });
+    const responses = await Promise.all(promises);
+    return responses;
+  },
+
+  async updateSingleStock(id, stock) {
     const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products/${id}`;
     this.loading = true;

@@ -20,6 +20,10 @@ const cartStore = {
   },
   addProductQuantity(id) {
     const index = this.getIndexOfProduct(id);
+    // Stock validation:
+    if (this.productsInCart[index].quantity >= this.productsInCart[index].stock) {
+      return;      
+    }
     this.productsInCart[index].quantity += 1;
     this.subTotalCalc(index);
   },

@@ -112,11 +112,14 @@ export default {
       this.cartStore.deleteProductFromCart(id);
     },
     addLocalQuantity() {
-      this.localQuantity += 1;
+      if (this.localQuantity < this.product.stock) {
+        this.localQuantity += 1;
+      }
     },
     subtractLocalQuantity() {
-      if (this.localQuantity > 1)
+      if (this.localQuantity > 1) {
         this.localQuantity -= 1;
+      }
     },
   },
   computed: {

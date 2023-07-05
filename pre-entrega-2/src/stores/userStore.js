@@ -1,6 +1,7 @@
 import { getRequest, postRequest, putRequest } from "@/services/httpRequests";
 import { loadingWithTimeout } from "@/utils/loadingTools";
 import cartStore from '@/stores/cartStore';
+import productsStore from '@/stores/productsStore';
 
 const userStore = {
 
@@ -91,6 +92,8 @@ const userStore = {
     this.user.orders.push(order);
 
     const user = await this.editUser(this.user);
+    await productsStore.updateAllProductsStock(order.products);
+
     localStorage.setItem("user", JSON.stringify(this.user));
 
     return user;
