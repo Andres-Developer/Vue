@@ -4,8 +4,7 @@
       <b-navbar-brand to="/" class="fs-3 text-white fw-bold">Pizzería</b-navbar-brand>
       <b-navbar-nav class="ms-auto">
         <div class="container-login-register-cart gap-2 gap-sm-1 d-flex align-items-center ">
-          <div v-if="!this.userStore.isUserAuthenticated"
-            class="user-logged gap-2 gap-sm-1 d-flex align-items-center">
+          <div v-if="!this.userStore.isUserAuthenticated" class="user-logged gap-2 gap-sm-1 d-flex align-items-center">
             <router-link :to="{ name: 'login-user' }" class="me-auto btn btn-success btn-chip">
               Login
             </router-link>
@@ -14,12 +13,15 @@
             </b-nav-item>
           </div>
           <div v-else class="gap-2 gap-sm-1 d-flex align-items-center justify-content-between ">
-            <router-link :to="{ name: this.userStore.user.isAdmin ? 'admin' : 'client' }"
-              class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
-              <div class="btn btn-primary btn-chip">{{this.userStore.user.isAdmin ? 'Administrar' : 'Mis pedidos' }}</div>
-              <!-- <div class="btn btn-success btn-chip">{{ this.userStore.user.firstname }}</div> -->
+            <div v-if="this.userStore.user.isAdmin" class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
+              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin')">{{ 'Administrar' }}</div>
+              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin/self-orders')">{{ 'Mis pedidos' }}</div>
               <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
-            </router-link>
+            </div>
+            <div v-else class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
+              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/client')">{{ 'Mis pedidos' }}</div>
+              <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
+            </div>
             <div type="button" class="btn btn-danger btn-chip" @click="userLogout">logout</div>
           </div>
 

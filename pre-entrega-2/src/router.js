@@ -20,7 +20,7 @@ const routes = [
   { path: "/admin", component: AdminDashboard, name: "admin", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/admin/product/:param", component: ProductCreateEdit, name: "admin-create-product", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/admin/product/edit/:id*", component: ProductCreateEdit, name: "admin-edit-product", meta: { isAuth: true, onlyAdmin: true } },
-  { path: "/admin/orders", component: ClientDashboard, name: "self-orders", meta: { isAuth: true, onlyAdmin: true } },
+  { path: "/admin/self-orders", component: ClientDashboard, name: "self-orders", meta: { isAuth: true, onlyAdmin: true } },
   { path: "/client", component: ClientDashboard, name: "client", meta: { isAuth: true } },
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];
