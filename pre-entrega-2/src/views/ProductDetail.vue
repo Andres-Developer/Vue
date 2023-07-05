@@ -1,6 +1,6 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
-    <b-card v-if="!loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
+    <b-card v-if="!this.productsStore.loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
       <div v-if="product" class="row g-0">
         <div class="col-md-6 d-flex align-items-center justify-content-center p-3">
           <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
@@ -10,35 +10,46 @@
           <b-card-body :title="product.title">
             <b-card-text>
               {{ product.description }}
-              <div v-if="checkSelectedProduct">
-                <div class="mt-4 mb-3 text-success">Has añadido <strong>{{ localQuantity }} </strong> pizzas al carrito
-                  por:</div>
-                <div class="h4"> $ {{ localPrice || product.price }}</div>
-                <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
-                <div class="mt-4 d-flex flex-column gap-3">
-                  <b-button to="/cart" variant="success btn-chip" class="fs-5"> 🛒 ir al carrito</b-button>
-                </div>
-              </div>
-              <div v-else>
-                <div class="d-flex justify-content-center align-items-center mt-5">
-                  <b-button @click="subtractLocalQuantity" variant="light">
-                    -
-                  </b-button>
-                  <div>{{ localQuantity }}</div>
-                  <b-button @click="addLocalQuantity" variant="light">
-                    +
-                  </b-button>
-                  <div class="fs-3"> $ {{ localPrice || product.price }}</div>
-                </div>
-                <b-button variant="danger" @click="[addToCartHandleClick({ ...product, quantity: localQuantity })]"
-                  class="w-100 mt-4 btn-chip">
+              <div v-if="Number(product.stock) === 0">
+                <b-button variant="secondary" class="w-100 btn-chip mt-3" disabled>
                   <div class="d-flex justify-content-center align-items-center gap-2">
                     <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
-                    <div class="fs-5"> Agregar al carrito </div>
+                    <div class="fs-5 "> Agotado </div>
                   </div>
                 </b-button>
               </div>
-              <div @click="()=>$router.push('/')" class="w-100 btn btn-secondary fs-5 mt-3 btn-chip">Seguir comprando</div>
+              <div v-else>
+                <div v-if="checkSelectedProduct">
+                  <div class="mt-4 mb-3 text-success">Has añadido <strong>{{ localQuantity }} </strong> pizzas al carrito
+                    por:</div>
+                  <div class="h4"> $ {{ localPrice || product.price }}</div>
+                  <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
+                  <div class="mt-4 d-flex flex-column gap-3">
+                    <b-button to="/cart" variant="success btn-chip" class="fs-5"> 🛒 ir al carrito</b-button>
+                  </div>
+                </div>
+                <div v-else>
+                  <div class="d-flex justify-content-center align-items-center mt-5">
+                    <b-button @click="subtractLocalQuantity" variant="light">
+                      -
+                    </b-button>
+                    <div>{{ localQuantity }}</div>
+                    <b-button @click="addLocalQuantity" variant="light">
+                      +
+                    </b-button>
+                    <div class="fs-3"> $ {{ localPrice || product.price }}</div>
+                  </div>
+                  <b-button variant="danger" @click="[addToCartHandleClick({ ...product, quantity: localQuantity })]"
+                    class="w-100 mt-4 btn-chip">
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                      <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
+                      <div class="fs-5"> Agregar al carrito </div>
+                    </div>
+                  </b-button>
+                </div>
+              </div>
+              <div @click="() => $router.push('/')" class="w-100 btn btn-secondary fs-5 mt-3 btn-chip">Seguir comprando
+              </div>
             </b-card-text>
           </b-card-body>
         </div>
@@ -53,8 +64,6 @@
 </template>
 
 <script>
-import { getRequest } from '@/services/httpRequests';
-import { loadingWithTimeout } from '@/utils/loadingTools';
 import cartStore from '@/stores/cartStore';
 import productsStore from '@/stores/productsStore';
 
@@ -76,24 +85,19 @@ export default {
     };
   },
   created() {
-    this.getProduct();
+    if (!(typeof (this.id) === 'number')) {
+      console.log("type:", typeof (this.id));
+      return null;
+    }
+    (async () => {
+      this.product = await this.productsStore.getProduct(this.id);
+      this.getProductSelectedFromCart();
+    })();
   },
   mounted() {
   },
 
   methods: {
-    async getProduct() {
-      if (!(typeof (this.id) === 'number')) {
-        console.log("type:", typeof (this.id));
-        return null;
-      }
-      const BASE_URL = process.env.VUE_APP_BASE_URL;
-      const ENDPOINT = `/products/${this.id}`;
-      this.loading = true;
-      this.product = await getRequest(BASE_URL + ENDPOINT);
-      this.loading = await loadingWithTimeout(100);
-      this.getProductSelectedFromCart();
-    },
     getProductSelectedFromCart() {
       if (this.checkSelectedProduct) {
         this.localQuantity = this.getProductFromCart.quantity;
