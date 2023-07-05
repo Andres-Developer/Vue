@@ -14,11 +14,11 @@
         }" placeholder="123456" />
 
       <div class="d-flex mt-4 justify-content-evenly align-items-end">
-        <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset' }"
+        <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset', input: 'btn-chip p-4 d-flex align-items-center' }"
           @click="() => { this.loginFail = false; }" />
         <div>
           <div>¿No tienes cuenta?</div>
-          <b-button to="/register">Registrarme</b-button>
+          <b-button to="/register" class="btn-chip p-4 d-flex align-items-center">Registrarme</b-button>
         </div>
       </div>
     </div>

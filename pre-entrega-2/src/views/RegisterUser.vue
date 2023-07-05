@@ -35,10 +35,10 @@
           confirm: 'Las contraseñas no coinciden',
         }" />
       <div class="d-flex mt-4 justify-content-evenly align-items-end">
-        <FormKit type="submit" label="Registrar" :classes="{ outer: '$reset' }" />
+        <FormKit type="submit" label="Registrar" :classes="{ outer: '$reset', input: 'btn-chip p-4 d-flex align-items-center' }" />
         <div>
           <div>¿Ya estás registrado?</div>
-          <b-button to="/login">Ingresar</b-button>
+          <b-button to="/login" class="btn-chip p-4 d-flex justify-content-center align-items-center">Ingresar</b-button>
         </div>
       </div>
     </div>
