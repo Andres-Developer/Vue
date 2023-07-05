@@ -22,7 +22,7 @@
           </router-link>
         </b-td>
         <b-td>$ {{ product.price }}</b-td>
-        <b-td>
+        <b-td :variant="product.stock === 0 && 'danger'">
           {{ product.stock }}
         </b-td>
         <b-td>
