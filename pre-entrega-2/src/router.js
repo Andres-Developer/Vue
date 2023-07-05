@@ -43,25 +43,19 @@ router.beforeEach((to, from, next) => {
   // console.log("isUserAuthenticated before each: ", isUserAuthenticated);
   // console.log("user before each: ", userStore.user);
 
-  if (to.matched.some(record => record.meta.isAuth)) {
-    if (!isUserAuthenticated) {
-      next('/login');
-    } else {
-      if (userStore.user.isAdmin && to.path === '/client') {
-        next('/admin');
-        return;
-      }
-      if (!userStore.user.isAdmin && (to.matched.some(record => record.meta.onlyAdmin))) {
-        next('/client');
-        return;
-      }
-    }
-  }
-  else {
-    if (isUserAuthenticated && (to.path === '/login' || to.path === '/register')) {
+  if (isUserAuthenticated && to.matched.some(record => record.meta.isAuth)) {
+    if (userStore.user.isAdmin && to.path === '/client') {
       next('/admin');
       return;
     }
+    if (!userStore.user.isAdmin && (to.matched.some(record => record.meta.onlyAdmin))) {
+      next('/client');
+      return;
+    }
+  }
+  else if (isUserAuthenticated && (to.path === '/login' || to.path === '/register')) {
+    next('/admin');
+    return;
   }
   next();
 });
