@@ -8,19 +8,30 @@
     </b-card-text>
     <div class="h4"> $ {{ product.price }}</div>
     <div class="d-flex flex-column gap-2">
-      <b-button variant="primary" :to="{ name: 'product-detail-id', params: { id: product.id } }" class="fs-5 btn-chip">
+      <b-button variant="primary" :to="{ name: 'product-detail-id', params: { id: product.id } }"
+        class="fs-5 btn-chip p-3 d-flex justify-content-center align-items-center">
         + info</b-button>
-      <div v-if="checkSelectedProduct">
-        <b-button variant="success" class="w-100 fs-5 btn-chip">Agregada!</b-button>
-        <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="mt-2">🗑️ Eliminar</div>
-      </div>
-      <div v-else>
-        <b-button variant="danger" @click="[addToCartHandleClick(product)]" class="w-100 btn-chip">
+      <div v-if="Number(product.stock) === 0">
+        <b-button variant="secondary" class="w-100 btn-chip" disabled>
           <div class="d-flex justify-content-center align-items-center gap-2">
             <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
-            <div class="fs-5 "> Agregar al carrito </div>
+            <div class="fs-5 "> Agotado </div>
           </div>
         </b-button>
+      </div>
+      <div v-else>
+        <div v-if="checkSelectedProduct">
+          <b-button variant="success" class="w-100 fs-5 btn-chip">Agregada!</b-button>
+          <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="mt-2">🗑️ Eliminar</div>
+        </div>
+        <div v-else>
+          <b-button variant="danger" @click="[addToCartHandleClick(product)]" class="w-100 btn-chip">
+            <div class="d-flex justify-content-center align-items-center gap-2">
+              <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
+              <div class="fs-5 "> Agregar al carrito </div>
+            </div>
+          </b-button>
+        </div>
       </div>
     </div>
   </b-card>
@@ -73,7 +84,8 @@ export default {
   min-width: 18rem;
   height: 26rem;
 }
-.btn-chip{
+
+.btn-chip {
   height: 2.7rem;
 }
 </style>
