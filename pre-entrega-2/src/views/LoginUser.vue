@@ -1,5 +1,5 @@
 <template>
-  <h2 class="mt-5">Login de usuario</h2>
+  <h2 class="mt-5">Iniciar sesión</h2>
   <FormKit type="form" id="login-user-form" submit-label="Register" @submit="submitHandler" :actions="false"
     v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
     <div class="outer-container">
