@@ -6,7 +6,7 @@
     <div v-if="!loading" class="d-flex mt-5 justify-content-center gap-5">
       <b-button variant="secondary" to="/" class="btn-chip">Seguir comprando</b-button>
       <b-button variant="primary" @click="handleCheckoutClick"
-        :disabled="this.cartStore.productsInCart.length === 0 ? true : false" class="btn-chip">ir a pagar</b-button>
+        :disabled="this.cartStore.productsInCart.length === 0 ? true : false" class="btn-chip">Generar orden</b-button>
     </div>
   </div>
 </template>
