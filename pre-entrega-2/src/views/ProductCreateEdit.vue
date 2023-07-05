@@ -4,11 +4,12 @@
     <FormKit v-if="!loading" type="form" id="product-edition" submit-label="Register" @submit="submitHandler"
       @click="cleanUpdatedMessage" :actions="false" v-model="formData"
       incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
-      <div class="success" v-if="updated || creationSuccess">¡ {{ this.creationSuccess ? 'Creación' : 'Edición' }} exitosa!</div>
+      <div class="success" v-if="updated || creationSuccess">¡ {{ this.creationSuccess ? 'Creación' : 'Edición' }}
+        exitosa!</div>
       <div v-if="product" class="row product-edition-container">
         <div class="col-md-5 d-flex align-items-center justify-content-center p-3">
-          <b-card-img v-if="!this.creationProduct" loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
-            :src="product.image + '/?random=' + product.id" alt="Image" />
+          <b-card-img v-if="!this.creationProduct" loading="lazy" class="product-image rounded-0"
+            @load="$event.target.style.opacity = 1" :src="product.image + '/?random=' + product.id" alt="Image" />
         </div>
         <div class="col-md-7">
           <FormKit v-if="creationSuccess || !this.creationProduct" type="text" name="id" label="id" placeholder=""
@@ -41,7 +42,8 @@
             }" />
           <div class="d-flex mt-4 justify-content-evenly align-items-end">
             <FormKit type="submit" :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
-              :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }" @click="() => { this.loginFail = false; }"/>
+              :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
+              @click="() => { this.loginFail = false; }" />
             <div>
               <b-button to="/admin/products-management" class="btn-chip p-3 d-flex align-items-center">Volver </b-button>
             </div>
@@ -60,8 +62,6 @@
 </template>
 
 <script>
-import { getRequest, postRequest, putRequest } from '@/services/httpRequests';
-import { loadingWithTimeout } from '@/utils/loadingTools';
 import productsStore from '@/stores/productsStore';
 
 
@@ -85,42 +85,38 @@ export default {
     };
   },
   created() {
-    if (this.$route.params.param === 'new' ) {
+    if (this.$route.params.param === 'new') {
       this.product = {};
       this.creationProduct = true;
       return;
     }
-    this.getProduct();
+    if (this.id === null) {
+      return null;
+    }
+    if (!(typeof (this.id) === 'number')) {
+      console.log("type:", typeof (this.id));
+      return null;
+    }
+    (async () => {
+      this.product = await this.productsStore.getProduct(this.id);
+    })();
+
   },
   methods: {
-    async getProduct() {
-      if (this.id === null) {
-        return null;
-      }
-      if (!(typeof (this.id) === 'number')) {
-        console.log("type:", typeof (this.id));
-        return null;
-      }
-      const BASE_URL = process.env.VUE_APP_BASE_URL;
-      const ENDPOINT = `/products/${this.id}`;
-      this.loading = true;
-      this.product = await getRequest(BASE_URL + ENDPOINT);
-      this.loading = await loadingWithTimeout(100);
-    },
     async submitHandler() {
-      const BASE_URL = process.env.VUE_APP_BASE_URL;
       this.creationSuccess = false;
 
-      if(this.creationProduct){
-        const ENDPOINT = `/products`;
-        this.product = await postRequest(BASE_URL + ENDPOINT, this.formData);
+      this.formData.price = Number(this.formData.price);
+      this.formData.stock = Number(this.formData.stock);
+
+      if (this.creationProduct) {
+        this.product = await this.productsStore.createProduct(this.formData);
         this.creationProduct = false;
         this.creationSuccess = true;
         return;
       }
 
-      const ENDPOINT = `/products/${this.id || this.product.id}`;
-      this.product = await putRequest(BASE_URL + ENDPOINT, this.formData);
+      this.product = await this.productsStore.updateProduct(this.id || this.product.id, this.formData); //  this.product.id: is used after creation product to get the id from Api response in this same view
       this.updated = true;
     },
 
@@ -162,9 +158,6 @@ export default {
 }
 
 .product-image {
-  /* height: 16rem;
-  width: 14rem;
-  object-fit: cover; */
   opacity: 0;
   transition: opacity 1s ease;
   max-width: 360px;
