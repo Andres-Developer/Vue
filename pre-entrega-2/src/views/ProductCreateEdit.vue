@@ -1,11 +1,13 @@
 <template>
-  <div class="custom-height container d-flex flex-column justify-content-center align-items-center">
-    <div class="h1">{{ this.creationProduct ? 'Creación' : 'Edición' }} de producto</div>
-    <FormKit v-if="!loading" type="form" id="product-edition" submit-label="Register" @submit="submitHandler"
+  <div class="h1 mt-5">{{ this.creationProduct ? 'Creación' : 'Edición' }} de producto</div>
+  <div v-if="!this.productsStore.loading" class="container d-flex justify-content-center align-items-center">
+    <FormKit type="form" id="product-edition" submit-label="Register" @submit="submitHandler"
       @click="cleanUpdatedMessage" :actions="false" v-model="formData"
-      incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
-      <div class="success" v-if="updated || creationSuccess">¡ {{ this.creationSuccess ? 'Creación' : 'Edición' }}
-        exitosa!</div>
+      incomplete-message="Por favor completa todos los campos">
+      <div class="container-message-confirmation" >
+        <div v-if="updated || creationSuccess" class="success">¡ {{ this.creationSuccess ? 'Creación' : 'Edición' }}
+          exitosa!</div>
+      </div>
       <div v-if="product" class="row product-edition-container">
         <div class="col-md-5 d-flex align-items-center justify-content-center p-3">
           <b-card-img v-if="!this.creationProduct" loading="lazy" class="product-image rounded-0"
@@ -57,8 +59,8 @@
         <div> Debes ingresar una id tipo <strong>numérica</strong> </div>
       </div>
     </FormKit>
-    <div v-else>LOADING...</div>
   </div>
+  <div v-else class="container h5 custom-height d-flex justify-content-center align-items-center">Loading...</div>
 </template>
 
 <script>
@@ -121,7 +123,7 @@ export default {
     },
 
     cleanUpdatedMessage() {
-      this.updated = false;
+      this.updated = false;      
     },
   },
   computed: {
@@ -164,13 +166,17 @@ export default {
 }
 
 .custom-height {
-  height: calc(100vh - 66px)
+  height: calc(100vh - (66px + 45px + 48px + 8px))
+}
+
+.container-message-confirmation{
+ height: 3.5rem;
+
 }
 
 .success {
   padding: 0.75em;
   border-radius: 0.5em;
   background-color: lightgreen;
-  margin: 1em 0;
 }
 </style>
