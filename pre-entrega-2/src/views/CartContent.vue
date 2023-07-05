@@ -2,11 +2,11 @@
   <div class="h1 mt-5 mb-5">Contenido del carrito</div>
   <div class="container">
     <CartProductTable v-if="!loading" />
-    <div v-else>LOADING...</div>
+    <div v-else class="h5 mt-5 pt-5">Loading...</div>
     <div v-if="!loading" class="d-flex mt-5 justify-content-center gap-5">
-      <b-button variant="secondary" to="/">Seguir comprando</b-button>
+      <b-button variant="secondary" to="/" class="btn-chip">Seguir comprando</b-button>
       <b-button variant="primary" @click="handleCheckoutClick"
-        :disabled="this.cartStore.productsInCart.length === 0 ? true : false">ir a pagar</b-button>
+        :disabled="this.cartStore.productsInCart.length === 0 ? true : false" class="btn-chip">ir a pagar</b-button>
     </div>
   </div>
 </template>

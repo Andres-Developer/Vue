@@ -16,7 +16,7 @@
                 <div class="h4"> $ {{ localPrice || product.price }}</div>
                 <div type="button" @click="[deleteToCartHandleClick(product.id)]" class="text-danger">🗑️ Eliminar</div>
                 <div class="mt-4 d-flex flex-column gap-3">
-                  <b-button to="/cart" variant="success" class="fs-5"> 🛒 ir al carrito</b-button>
+                  <b-button to="/cart" variant="success btn-chip" class="fs-5"> 🛒 ir al carrito</b-button>
                 </div>
               </div>
               <div v-else>
@@ -31,24 +31,24 @@
                   <div class="fs-3"> $ {{ localPrice || product.price }}</div>
                 </div>
                 <b-button variant="danger" @click="[addToCartHandleClick({ ...product, quantity: localQuantity })]"
-                  class="mt-4">
+                  class="w-100 mt-4 btn-chip">
                   <div class="d-flex justify-content-center align-items-center gap-2">
                     <img alt="add to cart" src="./../assets/add-to-cart.svg" width="25">
-                    <div class="w-100 fs-5"> Agregar al carrito </div>
+                    <div class="fs-5"> Agregar al carrito </div>
                   </div>
                 </b-button>
               </div>
-              <b-button variant="secondary" to="/" class="w-100 fs-5 mt-3">Seguir comprando</b-button>
+              <div @click="()=>$router.push('/')" class="w-100 btn btn-secondary fs-5 mt-3 btn-chip">Seguir comprando</div>
             </b-card-text>
           </b-card-body>
         </div>
       </div>
-      <div v-else-if="(typeof(this.id) === 'number')"> Producto con id <strong>{{ id }}</strong>:  NO fue encontrado</div>
+      <div v-else-if="(typeof (this.id) === 'number')"> Producto con id <strong>{{ id }}</strong>: NO fue encontrado</div>
       <div v-else> Producto con id: <strong>{{ id }}</strong> no fue encontrado.
         <div> Debes ingresar una id tipo <strong>numérica</strong> </div>
       </div>
     </b-card>
-    <div v-else>LOADING...</div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
@@ -83,9 +83,9 @@ export default {
 
   methods: {
     async getProduct() {
-      if (!(typeof(this.id) === 'number')) {
-        console.log("type:", typeof(this.id));
-        return null
+      if (!(typeof (this.id) === 'number')) {
+        console.log("type:", typeof (this.id));
+        return null;
       }
       const BASE_URL = process.env.VUE_APP_BASE_URL;
       const ENDPOINT = `/products/${this.id}`;
@@ -116,7 +116,7 @@ export default {
   },
   computed: {
     id() {
-      return (Number(this.$route.params.id) || this.$route.params.id );
+      return (Number(this.$route.params.id) || this.$route.params.id);
     },
     checkSelectedProduct() {
       return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
@@ -149,5 +149,13 @@ export default {
 
 .custom-height {
   height: calc(100vh - 66px)
+}
+
+.btn-chip {
+  height: 2.7rem;
+}
+
+.padding {
+  padding: 0.5rem;
 }
 </style>

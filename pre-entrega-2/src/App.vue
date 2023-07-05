@@ -41,5 +41,10 @@ export default {
 body {
   overflow-y: scroll;
 }
+
+.btn-chip {
+  padding: 0.3rem 1rem !important;
+  border-radius: 3rem !important;
+  height: 35px;
+}
 </style>
-./utils/loadingTools

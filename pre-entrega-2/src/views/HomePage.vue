@@ -7,7 +7,7 @@
       <CardItem v-for="product in this.productsStore.products" :key="product.id" :product="product" />
     </div>
   </div>
-  <div v-else>LOADING...</div>
+  <div v-else class="h5 mt-5 pt-5">Loading...</div>
 </template>
 
 <script>

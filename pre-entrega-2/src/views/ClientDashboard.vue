@@ -1,5 +1,5 @@
 <template>
-  <div class="h1 mt-5 mb-5">Mis pedidos</div>
+  <div class="h1 mt-5 mb-5">Mis órdenes</div>
   <OrderTable v-for="order in this.userStore.user?.orders" :key="order.id" :order="order"/>
 </template>
 
