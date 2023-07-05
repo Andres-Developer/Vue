@@ -1,7 +1,9 @@
 <template>
-  <div class="success" v-if="this.deletedSuccess">¡Eliminación exitosa!</div>
+  <div class="d-flex justify-content-center align-items-center container-message-confirmation">
+    <div class="success " v-if="this.deletedSuccess">¡Eliminación exitosa!</div>
+  </div>
   <b-table-simple @click="cleanDeletedMessage" v-if="!this.productsStore.loading" responsive
-    class="container table-width">
+    class="container table-width mt-2">
     <b-thead>
       <b-tr variant="light">
         <b-th>id</b-th>
@@ -118,5 +120,9 @@ a:link {
 
 a:visited {
   color: black;
+}
+
+.success {
+  min-width: 700px;
 }
 </style>

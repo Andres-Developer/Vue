@@ -171,7 +171,6 @@ export default {
 
 .container-message-confirmation{
  height: 3.5rem;
-
 }
 
 .success {
