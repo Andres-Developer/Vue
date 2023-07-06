@@ -46,16 +46,16 @@ const productsStore = {
       const response = await this.updateSingleStock(product.id, newStock);
       return response;
     });
+    this.loading = true;
     const responses = await Promise.all(promises);
+    this.loading = false;
     return responses;
   },
 
   async updateSingleStock(id, stock) {
     const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products/${id}`;
-    this.loading = true;
     const response = await putRequest(BASE_URL + ENDPOINT, { stock });
-    this.loading = await loadingWithTimeout(50);
     return response;
   },
   async createProduct(product) {
