@@ -7,17 +7,15 @@ const productsStore = {
   loading: false,
 
   async getProducts() {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = '/products';
     this.loading = true;
-    this.products = await getRequest(BASE_URL + ENDPOINT);
+    this.products = await getRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(50);
   },
   async getProduct(id) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products/${id}`;
     this.loading = true;
-    const product = await getRequest(BASE_URL + ENDPOINT);
+    const product = await getRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(50);
     return product;
   },
@@ -32,10 +30,9 @@ const productsStore = {
   },
 
   async deleteProductFromAPI(id) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products/${id}`;
     this.loading = true;
-    const response = await deleteRequest(BASE_URL + ENDPOINT);
+    const response = await deleteRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(50);
     return response;
   },
@@ -53,24 +50,21 @@ const productsStore = {
   },
 
   async updateSingleStock(id, stock) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products/${id}`;
-    const response = await putRequest(BASE_URL + ENDPOINT, { stock });
+    const response = await putRequest(ENDPOINT, { stock });
     return response;
   },
   async createProduct(product) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products`;
     this.loading = true;
-    const response = await postRequest(BASE_URL + ENDPOINT, product);
+    const response = await postRequest(ENDPOINT, product);
     this.loading = await loadingWithTimeout(50);
     return response;
   },
   async updateProduct(id, product) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/products/${id}`;
     this.loading = true;
-    const response = await putRequest(BASE_URL + ENDPOINT, product);
+    const response = await putRequest(ENDPOINT, product);
     this.loading = await loadingWithTimeout(50);
     return response;
   }

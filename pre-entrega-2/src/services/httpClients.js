@@ -1,8 +1,10 @@
+const BASE_URL = process.env.VUE_APP_BASE_URL;
+
 const fetchClient = {
   clientName: "FetchClient",
-  async get(url) {
+  async get(endpoint) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(BASE_URL + endpoint);
       if (response.ok) {
         const data = await response.json();
         return data;
@@ -13,7 +15,7 @@ const fetchClient = {
       throw new Error(error + ' in ' + this.clientName);
     }
   },
-  async post(url, body) {
+  async post(endpoint, body) {
     const options = {
       method: "POST",
       mode: "cors",
@@ -26,7 +28,7 @@ const fetchClient = {
     };
 
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(BASE_URL + endpoint, options);
       if (response.ok) {
         const data = await response.json();
         return data;
@@ -37,7 +39,7 @@ const fetchClient = {
       throw new Error(error + ' in ' + this.clientName);
     }
   },
-  async put(url, body) {
+  async put(endpoint, body) {
     const options = {
       method: "PUT",
       mode: "cors",
@@ -50,7 +52,7 @@ const fetchClient = {
     };
 
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(BASE_URL + endpoint, options);
       if (response.ok) {
         const data = await response.json();
         return data;
@@ -61,7 +63,7 @@ const fetchClient = {
       throw new Error(error + ' in ' + this.clientName);
     }
   },
-  async delete(url) {
+  async delete(endpoint) {
     const options = {
       method: "DELETE",
       mode: "cors",
@@ -70,7 +72,7 @@ const fetchClient = {
     };
 
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(BASE_URL + endpoint, options);
       if (response.ok) {
         const data = await response.json();
         return data;

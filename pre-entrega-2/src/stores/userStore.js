@@ -29,12 +29,10 @@ const userStore = {
   },
 
   async loginUser({ email, password }) {
-
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/users?email=${email}`;
 
     this.loading = true;
-    const user = await getRequest(BASE_URL + ENDPOINT);
+    const user = await getRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(1000);
 
     if (user.length === 0) {
@@ -55,18 +53,16 @@ const userStore = {
   },
 
   async registerUser(formData) {
-
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/users?email=${formData.email}`;
 
     this.loading = true;
-    const user = await getRequest(BASE_URL + ENDPOINT);
+    const user = await getRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(1000);
 
     if (user.length !== 0) {
       return false; // User already exists
     }
-    const newUser = await postRequest(BASE_URL + "/users", formData);
+    const newUser = await postRequest("/users", formData);
 
     delete newUser.password; // remove password from user object
     delete newUser.createdAt; // remove createdAt from user object
@@ -100,33 +96,29 @@ const userStore = {
   },
 
   async editUser(userData) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/users/${this.user.id}`;
     this.loading = true;
-    const user = await putRequest(BASE_URL + ENDPOINT, userData);
+    const user = await putRequest(ENDPOINT, userData);
     this.loading = await loadingWithTimeout(1000);
     return user;
   },
 
   async getClientOrders() {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/users`;
     this.loading = true;
-    const users = await getRequest(BASE_URL + ENDPOINT);
+    const users = await getRequest(ENDPOINT);
 
     const userWithOrders = users.filter(user => user.orders.length !== 0);
 
     this.loading = await loadingWithTimeout(1000);
 
-
     return userWithOrders;
   },
 
   async getSingleUser(id) {
-    const BASE_URL = process.env.VUE_APP_BASE_URL;
     const ENDPOINT = `/users/${id}`;
     this.loading = true;
-    const user = await getRequest(BASE_URL + ENDPOINT);
+    const user = await getRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(1000);
     return user;
   }
