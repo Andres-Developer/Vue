@@ -2,7 +2,7 @@
   <div>
     <h2 class="">Estudiantes registrados</h2>
     <div class="outer-container-table mt-4">
-      <b-table-simple responsive class="container table-width">
+      <b-table-simple v-if="!loading" responsive class="container table-width">
         <b-thead>
           <b-tr variant="light">
             <b-th>Id</b-th>
@@ -32,6 +32,9 @@
           </b-tr>
         </b-tfoot>
       </b-table-simple>
+      <div v-else class="d-flex justify-content-center align-items-center">
+        <b-spinner variant="primary" label="Loading..."></b-spinner>
+      </div>
     </div>
   </div>
 </template>
@@ -73,10 +76,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('studentsModule', ['getStudents']),
+    ...mapGetters('studentsModule', ['getStudents', 'getLoadingStatus']),
     students() {
       return this.getStudents;
     },
+    loading() {
+      return this.getLoadingStatus;
+    }
   },
 };
 </script>
