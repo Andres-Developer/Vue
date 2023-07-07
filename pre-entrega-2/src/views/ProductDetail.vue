@@ -87,7 +87,6 @@ export default {
   },
   created() {
     if (!(typeof (this.id) === 'number')) {
-      console.log("type:", typeof (this.id));
       return null;
     }
     (async () => {

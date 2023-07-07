@@ -65,7 +65,6 @@ export default {
   created() {
     (async () => {
       this.clientsWithOrders = await this.userStore.getClientOrders();
-      console.log(this.clientsWithOrders);
     })();
   },
 

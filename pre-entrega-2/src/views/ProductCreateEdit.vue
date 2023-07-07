@@ -96,7 +96,6 @@ export default {
       return null;
     }
     if (!(typeof (this.id) === 'number')) {
-      console.log("type:", typeof (this.id));
       return null;
     }
     (async () => {
