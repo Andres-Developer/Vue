@@ -1,7 +1,5 @@
 <template>
   <div class="container mt-3 d-flex gap-5 justify-content-between">
-    <!-- <StudentRegistration @register-student="registerStudentHandlerSubmit" />
-    <StudentsTable :students="students" /> -->
     <StudentRegistration />
     <StudentsTable />
   </div>
@@ -19,14 +17,9 @@ export default {
   },
   data() {
     return {
-      // students: [],
     };
   },
   methods: {
-    // registerStudentHandlerSubmit(student) {
-    //   this.students.push({ ...student, id: this.students.length + 1 });
-    // },
-
   }
 };
 </script>

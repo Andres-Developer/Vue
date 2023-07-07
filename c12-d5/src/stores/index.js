@@ -1,14 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
+import {studentsModule} from './modules/students';
 
-Vue.use(Vuex);
-
-import { studentsModule } from './studentModule';
-
-const store = new Vuex.Store({
+const store = createStore({
   modules: {
     studentsModule,
   }
 });
 
-export { store };
+export {store};

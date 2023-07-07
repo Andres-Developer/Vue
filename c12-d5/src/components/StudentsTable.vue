@@ -13,7 +13,7 @@
           </b-tr>
         </b-thead>
         <b-tbody>
-          <b-tr v-for="student in getStudentsFromAPI()" :key="student.id" class="align-middle">
+          <b-tr v-for="student in students" :key="student.id" class="align-middle">
             <b-td sticky-column> {{ student.id }}</b-td>
             <b-td> {{ capitalizeWord(student.name) }} </b-td>
             <b-td> {{ student.email }}</b-td>
@@ -37,23 +37,25 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'StudentsTable',
   components: {
   },
   props: {
-    // students: Array,
   },
   data() {
     return {
     };
   },
   created() {
-    this.$store.dispatch('getStudentsFromAPI');
+    (async () => {
+      await this.getStudentsFromAPI();
+    })();
   },
   methods: {
+    ...mapActions('studentsModule', ['getStudentsFromAPI']),
     getSpanishGenders(gender) {
       if (gender === "male") {
         return 'Masculino';
@@ -71,7 +73,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getStudents']),
+    ...mapGetters('studentsModule', ['getStudents']),
+    students() {
+      return this.getStudents;
+    },
   },
 };
 </script>

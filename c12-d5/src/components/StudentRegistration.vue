@@ -48,11 +48,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'StudentRegistration',
-  // emits: ['register-student'],
   components: {
   },
   props: {
@@ -65,14 +64,11 @@ export default {
   },
 
   methods: {
+    ...mapActions('studentsModule', ['registerStudentToAPI', 'getStudentsFromAPI']),
     async submitHandler() {
-      // await new Promise((r) => setTimeout(r, 1000));
-      // console.log("formData: ", this.formData);
-      // this.$emit('register-student', this.formData);
-
-      this.$store.dispatch('registerStudentToAPI', this.formData);
+      await this.registerStudentToAPI(this.formData);
+      await this.getStudentsFromAPI();
       this.submitted = true;
-
       this.resetForm();
     },
     handleEyeIconClick(node) {
