@@ -1,5 +1,14 @@
 const BASE_URL = process.env.VUE_APP_BASE_URL;
 
+import axios from "axios";
+
+const axiosClient = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 const fetchClient = {
   clientName: "FetchClient",
   async get(endpoint) {
@@ -7,7 +16,7 @@ const fetchClient = {
       const response = await fetch(BASE_URL + endpoint);
       if (response.ok) {
         const data = await response.json();
-        return data;
+        return { data };
       } else {
         throw JSON.stringify({ code: response.status, message: response.statusText });
       }
@@ -31,7 +40,7 @@ const fetchClient = {
       const response = await fetch(BASE_URL + endpoint, options);
       if (response.ok) {
         const data = await response.json();
-        return data;
+        return { data };
       } else {
         throw JSON.stringify({ code: response.status, message: response.statusText });
       }
@@ -55,7 +64,7 @@ const fetchClient = {
       const response = await fetch(BASE_URL + endpoint, options);
       if (response.ok) {
         const data = await response.json();
-        return data;
+        return { data };
       } else {
         throw JSON.stringify({ code: response.status, message: response.statusText });
       }
@@ -75,7 +84,7 @@ const fetchClient = {
       const response = await fetch(BASE_URL + endpoint, options);
       if (response.ok) {
         const data = await response.json();
-        return data;
+        return { data };
       } else {
         throw JSON.stringify({ code: response.status, message: response.statusText });
       }
@@ -87,4 +96,4 @@ const fetchClient = {
 
 
 
-export { fetchClient };
+export { axiosClient, fetchClient };
