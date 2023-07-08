@@ -45,7 +45,7 @@ export default {
           this.$router.push({ name: 'login-user' });
           return;
         }
-      } {
+      } else {
         this.loading = true;
         await this.userStore.addOrder();
         this.loading = false;
@@ -59,5 +59,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
