@@ -65,7 +65,8 @@
 </template>
 
 <script>
-import cartStore from '@/stores/cartStore';
+import { mapGetters, mapActions } from 'vuex';
+// import cartStore from '@/stores/cartStore';
 import productsStore from '@/stores/productsStore';
 
 export default {
@@ -77,8 +78,8 @@ export default {
   data() {
     return {
       productsStore,
-      cartStore,
-      productsInCart: cartStore.productsInCart,
+      // cartStore,
+      // productsInCart: cartStore.productsInCart,
       loading: false,
       product: null,
       localQuantity: 1,
@@ -98,6 +99,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('cartModule', ['addProductToCart', 'deleteProductFromCart']),
+
     getProductSelectedFromCart() {
       if (this.checkSelectedProduct) {
         this.localQuantity = this.getProductFromCart.quantity;
@@ -105,10 +108,12 @@ export default {
       }
     },
     addToCartHandleClick(product) {
-      this.cartStore.addProductToCart(product);
+      // this.cartStore.addProductToCart(product);
+      this.addProductToCart(product);
     },
     deleteToCartHandleClick(id) {
-      this.cartStore.deleteProductFromCart(id);
+      // this.cartStore.deleteProductFromCart(id);
+      this.deleteProductFromCart(id);
     },
     addLocalQuantity() {
       if (this.localQuantity < this.product.stock) {
@@ -122,14 +127,19 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('cartModule', ['getProductsInCart', 'getIsSelectedProduct', 'getSingleProductFromCart']),
     id() {
       return (Number(this.$route.params.id) || this.$route.params.id);
     },
     checkSelectedProduct() {
-      return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
+      // return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
+      return this.getIsSelectedProduct(this.product);
+
     },
     getProductFromCart() {
-      return this.productsInCart.find((Eproduct) => Eproduct.id === this.product.id);
+      // return this.productsInCart.find((Eproduct) => Eproduct.id === this.product.id);
+      // return this.getProductsInCart.find((Eproduct) => Eproduct.id === this.product.id);
+      return this.getSingleProductFromCart(this.product);
     },
     totalLocalPrice() {
       return (this.localQuantity * this.product.price).toFixed(2);

@@ -14,12 +14,13 @@
           </div>
           <div v-else class="gap-2 gap-sm-1 d-flex align-items-center justify-content-between ">
             <div v-if="this.userStore.user.isAdmin" class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
-              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin')">{{ 'Administrar' }}</div>
-              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/admin/self-orders')">{{ 'Mis órdenes' }}</div>
+              <div class="btn btn-primary btn-chip" @click="() => $router.push('/admin')">{{ 'Administrar' }}</div>
+              <div class="btn btn-primary btn-chip" @click="() => $router.push('/admin/self-orders')">{{ 'Mis órdenes' }}
+              </div>
               <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
             </div>
             <div v-else class="gap-2 gap-sm-1 gap-md-3 d-flex align-items-center ">
-              <div class="btn btn-primary btn-chip" @click="()=>$router.push('/client')">{{ 'Mis órdenes' }}</div>
+              <div class="btn btn-primary btn-chip" @click="() => $router.push('/client')">{{ 'Mis órdenes' }}</div>
               <img class="user-avatar" :src="this.userStore.user.avatar" alt="">
             </div>
             <div type="button" class="btn btn-danger btn-chip" @click="userLogout">logout</div>
@@ -27,9 +28,8 @@
 
           <b-nav-item :to="{ name: 'cart-content' }" class="me-auto">
             <img alt="cart" src="./../assets/cart-header.svg" width="35">
-            <span v-if="this.cartStore.productCount > 0"
-              class="position-absolute top-3  translate-middle badge rounded-pill bg-danger">
-              {{ this.cartStore.productCount }}
+            <span v-if="this.productCount > 0" class="position-absolute top-3  translate-middle badge rounded-pill bg-danger">
+              {{ this.productCount }}
             </span>
           </b-nav-item>
         </div>
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import cartStore from '@/stores/cartStore';
+import { mapGetters } from 'vuex';
+// import cartStore from '@/stores/cartStore';
 import userStore from '@/stores/userStore';
 
 export default {
@@ -49,7 +50,7 @@ export default {
   },
   data() {
     return {
-      cartStore,
+      // cartStore,
       userStore,
     };
   },
@@ -64,8 +65,14 @@ export default {
       this.userStore.logoutUser();
       this.$router.push({ name: 'home' });
     },
-
   },
+  computed: {
+    ...mapGetters('cartModule', ['getProductCount']),
+    productCount() {
+      return this.getProductCount;
+    }
+  }
+
 };
 </script>
 

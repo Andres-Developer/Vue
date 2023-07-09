@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import cartStore from '@/stores/cartStore';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'CardItem',
@@ -52,21 +52,24 @@ export default {
   },
   data() {
     return {
-      cartStore,
-      productsInCart: cartStore.productsInCart,
     };
   },
   methods: {
+    ...mapActions('cartModule', ['addProductToCart', 'deleteProductFromCart']),
     addToCartHandleClick(product) {
-      this.cartStore.addProductToCart(product);
+      this.addProductToCart(product);
     },
     deleteToCartHandleClick(id) {
-      this.cartStore.deleteProductFromCart(id);
+      this.deleteProductFromCart(id);
     },
   },
   computed: {
+    ...mapGetters('cartModule', ['getProductsInCart', 'getIsSelectedProduct']),
+    productsInCart() {
+      return this.getProductsInCart;
+    },
     checkSelectedProduct() {
-      return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
+      return this.getIsSelectedProduct(this.product);
     },
   },
 };

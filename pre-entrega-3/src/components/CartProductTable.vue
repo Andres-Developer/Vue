@@ -12,7 +12,7 @@
       </b-tr>
     </b-thead>
     <b-tbody>
-      <b-tr v-for="product in productsInCart" :key="product.id" class="align-middle">
+      <b-tr v-for="product in this.productsInCart" :key="product.id" class="align-middle">
         <b-td> {{ product.id }}</b-td>
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
           <router-link :to="{ name: 'product-detail-id', params: { id: product.id } }">
@@ -45,7 +45,7 @@
         <b-th colspan="3" class="text-end">Total: </b-th>
         <b-th></b-th>
         <b-th></b-th>
-        <b-th>$ {{ this.cartStore.grandTotal.toFixed(2) }}</b-th>
+        <b-th>$ {{ this.grandTotal.toFixed(2) }}</b-th>
         <b-th></b-th>
       </b-tr>
     </b-tfoot>
@@ -53,7 +53,8 @@
 </template>
 
 <script>
-import cartStore from '@/stores/cartStore';
+// import cartStore from '@/stores/cartStore';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'CartProductTable',
@@ -65,26 +66,36 @@ export default {
   },
   data() {
     return {
-      cartStore,
-      productsInCart: cartStore.productsInCart,
+      // cartStore,
+      // productsInCart: cartStore.productsInCart,
     };
   },
 
   methods: {
+    ...mapActions('cartModule', ['addProductQuantity', 'subtractProductQuantity', 'deleteProductFromCart']),
+
     addProductQuantityHandleClick(id) {
-      this.cartStore.addProductQuantity(id);
+      this.addProductQuantity(id);
     },
     subtractProductQuantityHandleClick(id) {
-      this.cartStore.subtractProductQuantity(id);
+      this.subtractProductQuantity(id);
     },
     deleteProductHandleClick(id) {
       if (window.confirm("¿Estás seguro de eliminar este producto del carrito?")
       ) {
-        this.cartStore.deleteProductFromCart(id);
+        this.deleteProductFromCart(id);
       }
     },
   },
   computed: {
+    ...mapGetters('cartModule', ['getGrandTotal', 'getProductsInCart']),
+    productsInCart() {
+      return this.getProductsInCart;
+    },
+
+    grandTotal() {
+      return this.getGrandTotal;
+    }
 
   },
 
@@ -92,7 +103,6 @@ export default {
 </script>
 
 <style scoped>
-
 tr td {
   height: 62.5px;
 }

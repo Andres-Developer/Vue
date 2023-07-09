@@ -1,12 +1,8 @@
 const cartStore = {
+  // State
   productsInCart: [],
-  get productCount() {
-    return this.productsInCart.reduce((acc, product) => acc + product.quantity, 0);
-  },
-  get grandTotal() {
-    return this.productsInCart.reduce((acc, product) => acc + product.subtotal, 0);
-  },
 
+  // Mutations
   addProductToCart(product) {
     const isSelected = this.productsInCart.some((Eproduct) => Eproduct.id === product.id);
     if (!isSelected) {
@@ -34,15 +30,23 @@ const cartStore = {
       this.subTotalCalc(index);
     }
   },
-  getIndexOfProduct(id) {
-    return this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+  clearCart() {
+    this.productsInCart = [];
   },
   subTotalCalc(index) {
     this.productsInCart[index].subtotal = this.productsInCart[index].price * this.productsInCart[index].quantity;
   },
-  clearCart() {
-    this.productsInCart = [];
-  }
+
+  //Getters:
+  getIndexOfProduct(id) {
+    return this.productsInCart.findIndex((Eproduct) => Eproduct.id === id);
+  },
+  get productCount() {
+    return this.productsInCart.reduce((acc, product) => acc + product.quantity, 0);
+  },
+  get grandTotal() {
+    return this.productsInCart.reduce((acc, product) => acc + product.subtotal, 0);
+  },
 };
 
 export default cartStore;

@@ -5,17 +5,18 @@
     <div v-else class="h5 mt-5 pt-5">Loading...</div>
     <div v-if="!loading" class="d-flex mt-5 mb-5 justify-content-center gap-5">
       <b-button variant="secondary" to="/" class="btn-chip">Seguir comprando</b-button>
-      <b-button variant="primary" @click="handleCheckoutClick"
-        :disabled="this.cartStore.productsInCart.length === 0 ? true : false" class="btn-chip">Generar orden</b-button>
+      <b-button variant="primary" @click="handleCheckoutClick" :disabled="this.productsInCart.length === 0 ? true : false"
+        class="btn-chip">Generar orden</b-button>
     </div>
   </div>
 </template>
 
 <script>
-import cartStore from '@/stores/cartStore';
+// import cartStore from '@/stores/cartStore';
 import userStore from '@/stores/userStore';
 import CartProductTable from '@/components/CartProductTable.vue';
 
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'CartContent',
@@ -27,18 +28,20 @@ export default {
   },
   metaInfo() {
     return {
-      title: this.cartStore.productCount ? `🛒 Tu compra  (${this.cartStore.productCount})` : `🛒 Tu compra`
+      title: this.productCount ? `🛒 Tu compra  (${this.productCount})` : `🛒 Tu compra`
     };
   },
   data() {
     return {
-      cartStore,
+      // cartStore,
       userStore,
       loading: false,
     };
   },
 
   methods: {
+    ...mapActions('cartModule', ['clearCart']),
+
     async handleCheckoutClick() {
       if (!this.userStore.user) {
         if (confirm('Debes iniciar sesión para poder realizar la compra')) {
@@ -49,12 +52,21 @@ export default {
         this.loading = true;
         await this.userStore.addOrder();
         this.loading = false;
-        this.cartStore.clearCart();
+        // this.cartStore.clearCart();
+        this.clearCart();
         this.$router.push({ name: userStore.user.isAdmin ? 'self-orders' : 'client' });
       }
     },
   },
   computed: {
+    ...mapGetters('cartModule', ['getProductCount', 'getProductsInCart']),
+    productCount() {
+      return this.getProductCount;
+    },
+    productsInCart() {
+      return this.getProductsInCart;
+    }
+
   },
 };
 </script>

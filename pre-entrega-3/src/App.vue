@@ -8,7 +8,9 @@
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
-import cartStore from './stores/cartStore';
+// import cartStore from './stores/cartStore';
+
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -17,15 +19,22 @@ export default {
   },
   metaInfo() {
     return {
-      title: this.cartStore.productCount ? `🍕 Pizzería (${this.cartStore.productCount})` : `🍕 Pizzería`
+      // title: this.cartStore.productCount ? `🍕 Pizzería (${this.cartStore.productCount})` : `🍕 Pizzería`
+      title: this.productCount ? `🍕 Pizzería (${this.productCount})` : `🍕 Pizzería`
     };
   },
   data() {
     return {
-      cartStore,
+      // cartStore,
     };
   },
   created() {
+  },
+  computed: {
+    ...mapGetters('cartModule', ['getProductCount']),
+    productCount() {
+      return this.getProductCount;
+    }
   },
 };
 </script>
@@ -38,6 +47,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 body {
   overflow-y: scroll;
 }
@@ -47,11 +57,12 @@ body {
   border-radius: 3rem !important;
   height: 35px;
 }
+
 .table-width {
   max-width: 900px !important;
 }
 
-.user-avatar{
-  border-radius:50%
+.user-avatar {
+  border-radius: 50%
 }
 </style>
