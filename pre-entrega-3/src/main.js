@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import { store } from './stores';
 import { createMetaManager, plugin as vueMetaPlugin } from 'vue-meta';
 import { plugin, defaultConfig } from "@formkit/vue";
 import "@formkit/themes/genesis";
@@ -12,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 
 createApp(App)
+  .use(store)
   .use(createMetaManager())
   .use(vueMetaPlugin)
   .use(router)
