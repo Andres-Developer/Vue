@@ -172,10 +172,6 @@ export default {
   max-width: 360px;
 }
 
-.custom-height {
-  height: calc(100vh - 66px)
-}
-
 .btn-chip {
   height: 2.7rem;
 }

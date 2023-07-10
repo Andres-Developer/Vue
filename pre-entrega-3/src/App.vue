@@ -52,6 +52,10 @@ body {
   overflow-y: scroll;
 }
 
+.custom-height {
+  height: calc(100vh - 66px)
+}
+
 .btn-chip {
   padding: 0.3rem 1rem !important;
   border-radius: 3rem !important;
