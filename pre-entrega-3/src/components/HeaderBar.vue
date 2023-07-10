@@ -81,21 +81,12 @@ export default {
   height: 66px;
 }
 
-.container-login-register-cart {
-  /* width: 190px; */
-}
-
 @media (min-width: 426px) {
-  .container-login-register-cart {
-    /* width: 200px; */
-  }
-
   .user-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
   }
-
   .btn-chip {
     padding: 0.3rem 1rem !important;
     border-radius: 3rem !important;
