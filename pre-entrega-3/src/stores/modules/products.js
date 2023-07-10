@@ -1,6 +1,6 @@
 import { deleteRequest, getRequest, postRequest, putRequest } from '../../services/httpRequests';
 import { loadingWithTimeout } from '../../utils/loadingTools';
-const ENDPOINT = `/products`;
+const PRODUCTS_ENDPOINT = `/products`;
 
 const productsModule = {
   namespaced: true,
@@ -30,34 +30,34 @@ const productsModule = {
   actions: {
     async createProduct({ commit }, product) {
       commit('setLoading', true);
-      const newProduct = await postRequest(ENDPOINT, product);
+      const newProduct = await postRequest(PRODUCTS_ENDPOINT, product);
       commit('setProduct', newProduct);
       await loadingWithTimeout(50);
       commit('setLoading', false);
     },
     async updateProduct({ commit }, { id, product }) {
       commit('setLoading', true);
-      const updatedProduct = await putRequest(ENDPOINT + `/${id}`, product);
+      const updatedProduct = await putRequest(PRODUCTS_ENDPOINT + `/${id}`, product);
       commit('setProduct', updatedProduct);
       await loadingWithTimeout(50);
       commit('setLoading', false);
     },
     async getProductsFromAPI({ commit }) {
       commit('setLoading', true);
-      const products = await getRequest(ENDPOINT);
+      const products = await getRequest(PRODUCTS_ENDPOINT);
       commit('setProducts', products);
       commit('setLoading', false);
     },
     async getProductFromAPI({ commit }, id) {
       commit('setLoading', true);
-      const product = await getRequest(ENDPOINT + `/${id}`);
+      const product = await getRequest(PRODUCTS_ENDPOINT + `/${id}`);
       commit('setProduct', product);
       await loadingWithTimeout(50);
       commit('setLoading', false);
     },
     async deleteProductFromAPI({ commit, getters }, id) {
       commit('setLoading', true);
-      const deletedProduct = await deleteRequest(ENDPOINT + `/${id}`);
+      const deletedProduct = await deleteRequest(PRODUCTS_ENDPOINT + `/${id}`);
       commit('setDeletedProduct', deletedProduct);
       const index = getters.getIndexOfProduct(id);
       commit('deleteProduct', index);
@@ -66,7 +66,7 @@ const productsModule = {
     },
     async updateAllProductsStock({ commit }, productsInCart) {
       async function updateSingleStock(id, stock) {
-        await putRequest(ENDPOINT + `/${id}`, { stock });
+        await putRequest(PRODUCTS_ENDPOINT + `/${id}`, { stock });
       }
       const promises = productsInCart.map(async (product) => {
         const newStock = product.stock - product.quantity;
