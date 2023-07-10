@@ -1,6 +1,6 @@
 <template>
   <div class="custom-height container d-flex justify-content-center align-items-center">
-    <b-card v-if="!this.productsStore.loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
+    <b-card v-if="!this.loading" no-body class="overflow-hidden" style="width: 640px; max-height: 650px;">
       <div v-if="product" class="row g-0">
         <div class="col-md-6 d-flex flex-column align-items-center justify-content-center p-3">
           <b-card-img loading="lazy" class="product-image rounded-0" @load="$event.target.style.opacity = 1"
@@ -67,7 +67,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 // import cartStore from '@/stores/cartStore';
-import productsStore from '@/stores/productsStore';
+// import productsStore from '@/stores/productsStore';
 
 export default {
   name: 'ProductDetail',
@@ -77,11 +77,11 @@ export default {
   },
   data() {
     return {
-      productsStore,
+      // productsStore,
       // cartStore,
       // productsInCart: cartStore.productsInCart,
-      loading: false,
-      product: null,
+      // loading: false,
+      // product: null,
       localQuantity: 1,
       localPrice: 0,
     };
@@ -91,7 +91,8 @@ export default {
       return null;
     }
     (async () => {
-      this.product = await this.productsStore.getProduct(this.id);
+      // this.product = await this.productsStore.getProductFromAPI(this.id);
+      await this.getProductFromAPI(this.id);
       this.getProductSelectedFromCart();
     })();
   },
@@ -100,6 +101,7 @@ export default {
 
   methods: {
     ...mapActions('cartModule', ['addProductToCart', 'deleteProductFromCart']),
+    ...mapActions('productsModule', ['getProductFromAPI']),
 
     getProductSelectedFromCart() {
       if (this.checkSelectedProduct) {
@@ -128,13 +130,20 @@ export default {
   },
   computed: {
     ...mapGetters('cartModule', ['getProductsInCart', 'getIsSelectedProduct', 'getSingleProductFromCart']),
+    ...mapGetters('productsModule', ['getLoading', 'getProduct']),
+    product() {
+      return this.getProduct;
+    },
+    loading() {
+      return this.getLoading;
+    },
+
     id() {
       return (Number(this.$route.params.id) || this.$route.params.id);
     },
     checkSelectedProduct() {
       // return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
       return this.getIsSelectedProduct(this.product);
-
     },
     getProductFromCart() {
       // return this.productsInCart.find((Eproduct) => Eproduct.id === this.product.id);
@@ -150,7 +159,6 @@ export default {
       this.localPrice = this.totalLocalPrice;
     },
   },
-
 };
 </script>
 

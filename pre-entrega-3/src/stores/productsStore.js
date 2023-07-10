@@ -6,29 +6,14 @@ const productsStore = {
   products: [],
   loading: false,
 
-  async getProducts() {
-    const ENDPOINT = '/products';
-    this.loading = true;
-    this.products = await getRequest(ENDPOINT);
-    this.loading = await loadingWithTimeout(50);
-  },
-  async getProduct(id) {
-    const ENDPOINT = `/products/${id}`;
-    this.loading = true;
-    const product = await getRequest(ENDPOINT);
-    this.loading = await loadingWithTimeout(50);
-    return product;
-  },
+  // Mutations:
   async deleteProduct(id) {
     const response = await this.deleteProductFromAPI(id);
     const index = this.getIndexOfProduct(id);
     this.products.splice(index, 1);
     return response;
   },
-  getIndexOfProduct(id) {
-    return this.products.findIndex((Eproduct) => Eproduct.id === id);
-  },
-
+  // Actions
   async deleteProductFromAPI(id) {
     const ENDPOINT = `/products/${id}`;
     this.loading = true;
@@ -36,7 +21,11 @@ const productsStore = {
     this.loading = await loadingWithTimeout(50);
     return response;
   },
-
+  async updateSingleStock(id, stock) {
+    const ENDPOINT = `/products/${id}`;
+    const response = await putRequest(ENDPOINT, { stock });
+    return response;
+  },
   async updateAllProductsStock(productsInCart) {
     const promises = productsInCart.map(async (product) => {
       const newStock = product.stock - product.quantity;
@@ -48,11 +37,21 @@ const productsStore = {
     this.loading = false;
     return responses;
   },
-
-  async updateSingleStock(id, stock) {
+  // Actions:
+  async getProductsFromAPI() {
+    const ENDPOINT = '/products';
+    this.loading = true;
+    // Mutation
+    this.products = await getRequest(ENDPOINT);
+    this.loading = await loadingWithTimeout(50);
+  },
+  async getProductFromAPI(id) {
     const ENDPOINT = `/products/${id}`;
-    const response = await putRequest(ENDPOINT, { stock });
-    return response;
+    this.loading = true;
+    // Mutation
+    const product = await getRequest(ENDPOINT);
+    this.loading = await loadingWithTimeout(50);
+    return product;
   },
   async createProduct(product) {
     const ENDPOINT = `/products`;
@@ -67,7 +66,13 @@ const productsStore = {
     const response = await putRequest(ENDPOINT, product);
     this.loading = await loadingWithTimeout(50);
     return response;
-  }
+  },
+
+
+  // Getters:
+  getIndexOfProduct(id) {
+    return this.products.findIndex((Eproduct) => Eproduct.id === id);
+  },
 };
 
 export default productsStore;

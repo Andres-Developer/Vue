@@ -2,8 +2,7 @@
   <div class="d-flex justify-content-center align-items-center container-message-confirmation">
     <div class="success " v-if="this.deletedSuccess">¡Eliminación exitosa!</div>
   </div>
-  <b-table-simple @click="cleanDeletedMessage" v-if="!this.productsStore.loading" responsive
-    class="container table-width mt-2">
+  <b-table-simple @click="cleanDeletedMessage" v-if="!this.loading" responsive class="container table-width mt-2">
     <b-thead>
       <b-tr variant="light">
         <b-th>id</b-th>
@@ -15,7 +14,7 @@
       </b-tr>
     </b-thead>
     <b-tbody>
-      <b-tr v-for="product in this.productsStore.products" :key="product.id" class="align-middle">
+      <b-tr v-for="product in this.products" :key="product.id" class="align-middle">
         <b-td><strong>{{ product.id }}</strong></b-td>
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
           <router-link :to="{ name: 'product-detail-id', params: { id: product.id } }">
@@ -54,7 +53,8 @@
 </template>
 
 <script>
-import productsStore from '@/stores/productsStore';
+// import productsStore from '@/stores/productsStore';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'CartProductTable',
@@ -66,16 +66,18 @@ export default {
   },
   data() {
     return {
-      productsStore,
+      // productsStore,
       deletedSuccess: false,
     };
   },
 
   methods: {
+    ...mapActions('productsModule', ['getProductsFromAPI', 'deleteProductFromAPI']),
+
     async deleteProductHandleClick(id) {
       if (window.confirm("¿Estás seguro de eliminar este producto?")
       ) {
-        this.deletedSuccess = await this.productsStore.deleteProduct(id);
+        this.deletedSuccess = await this.deleteProductFromAPI(id);
       }
     },
     editProductHandleClick(id) {
@@ -86,10 +88,19 @@ export default {
     },
   },
   created() {
-    this.productsStore.getProducts();
+    // this.productsStore.getProductsFromAPI();
+    (async () => {
+      await this.getProductsFromAPI();
+    })();
   },
   computed: {
-
+    ...mapGetters('productsModule', ['getLoading', 'getProducts']),
+    products() {
+      return this.getProducts;
+    },
+    loading() {
+      return this.getLoading;
+    },
   },
 
 };

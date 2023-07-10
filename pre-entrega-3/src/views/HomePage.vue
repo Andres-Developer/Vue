@@ -2,9 +2,9 @@
   <div class="container">
     <div class="h1 mt-5 mb-5">Disfruta de nuestras exquisitas Pizzas Artesanales</div>
   </div>
-  <div v-if="!productsStore.loading" class="container-fluid">
+  <div v-if="!this.loading" class="container-fluid">
     <div class="d-flex flex-wrap justify-content-center">
-      <CardItem v-for="product in this.productsStore.products" :key="product.id" :product="product" />
+      <CardItem v-for="product in this.products" :key="product.id" :product="product" />
     </div>
   </div>
   <div v-else class="custom-height container d-flex justify-content-center align-items-center">
@@ -14,7 +14,8 @@
 
 <script>
 import CardItem from '@/components/CardItem.vue';
-import productsStore from '@/stores/productsStore';
+import { mapActions, mapGetters } from 'vuex';
+// import productsStore from '@/stores/productsStore';
 
 export default {
   name: 'HomePage',
@@ -26,17 +27,26 @@ export default {
   },
   data() {
     return {
-      productsStore
+      // productsStore
     };
   },
   created() {
-    this.productsStore.getProducts();
+    // this.productsStore.getProductsFromAPI();
+    this.getProductsFromAPI();
   },
   mounted() {
   },
   methods: {
+    ...mapActions('productsModule', ['getProductsFromAPI']),
   },
   computed: {
+    ...mapGetters('productsModule', ['getLoading', 'getProducts']),
+    loading() {
+      return this.getLoading;
+    },
+    products() {
+      return this.getProducts;
+    }
   },
 };
 </script>
