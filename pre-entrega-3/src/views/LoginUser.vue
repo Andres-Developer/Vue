@@ -49,7 +49,7 @@ export default {
       if (!this.userStore.user) {
         this.loginFail = true;
       }
-      this.$router.push({ name: this.userStore.isAdmin ? 'admin' : 'client' });
+      this.$router.push({ name: this.userStore.user.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {
       node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
