@@ -14,7 +14,8 @@
         }" placeholder="123456" />
 
       <div class="d-flex mt-4 justify-content-evenly align-items-end">
-        <FormKit type="submit" label="Ingresar" :classes="{ outer: '$reset', input: 'btn-chip p-4 d-flex align-items-center' }"
+        <FormKit type="submit" label="Ingresar"
+          :classes="{ outer: '$reset', input: 'btn-chip p-4 d-flex align-items-center' }"
           @click="() => { this.loginFail = false; }" />
         <div>
           <div>¿No tienes cuenta?</div>
@@ -27,7 +28,8 @@
 </template>
 
 <script>
-import userStore from '@/stores/userStore';
+// import userStore from '@/stores/userStore';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'LoginUser',
@@ -37,19 +39,25 @@ export default {
   },
   data() {
     return {
-      userStore,
+      // userStore,
       loginFail: false,
       formData: {}
     };
   },
   methods: {
+    ...mapActions('userModule', ['loginUser']),
     async submitHandler() {
       this.loginFail = false;
-      await this.userStore.loginUser(this.formData);
-      if (!this.userStore.user) {
+      // await this.userStore.loginUser(this.formData);
+      await this.loginUser(this.formData);
+      // if (!this.userStore.user) {
+      //   this.loginFail = true;
+      // }
+      if (!this.user) {
         this.loginFail = true;
       }
-      this.$router.push({ name: this.userStore.user.isAdmin ? 'admin' : 'client' });
+      // this.$router.push({ name: this.userStore.user.isAdmin ? 'admin' : 'client' });
+      this.$router.push({ name: this.user.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {
       node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
@@ -57,6 +65,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('userModule', ['getUser']),
+    user() {
+      return this.getUser;
+    }
   },
 };
 </script>

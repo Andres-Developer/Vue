@@ -35,7 +35,8 @@
           confirm: 'Las contraseñas no coinciden',
         }" />
       <div class="d-flex mt-4 justify-content-evenly align-items-end">
-        <FormKit type="submit" label="Registrar" :classes="{ outer: '$reset', input: 'btn-chip p-4 d-flex align-items-center' }" />
+        <FormKit type="submit" label="Registrar"
+          :classes="{ outer: '$reset', input: 'btn-chip p-4 d-flex align-items-center' }" />
         <div>
           <div>¿Ya estás registrado?</div>
           <b-button to="/login" class="btn-chip p-4 d-flex justify-content-center align-items-center">Ingresar</b-button>
@@ -48,7 +49,8 @@
 
 
 <script>
-import userStore from '@/stores/userStore';
+// import userStore from '@/stores/userStore';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'RegisterUser',
@@ -58,25 +60,34 @@ export default {
   },
   data() {
     return {
-      userStore,
+      // userStore,
       registerFail: false,
       submitted: false,
       formData: {}
     };
   },
   methods: {
+    ...mapActions('userModule', ['registerUser']),
     async submitHandler() {
       this.registerFail = false;
 
       const formDataObject = { ...this.formData }; // {...this.formData} to convert Proxy to object
       delete formDataObject.password_confirm; // remove password_confirm from formDataObject
 
-      await this.userStore.registerUser(formDataObject);
-      if (!this.userStore.user) {
+      // await this.userStore.registerUser(formDataObject);
+      await this.registerUser({ formData: formDataObject });
+
+      // if (!this.userStore.user) {
+      //   this.registerFail = true;
+      //   return;
+      // }
+      if (!this.user) {
         this.registerFail = true;
         return;
       }
-      this.$router.push({ name: this.userStore.isAdmin ? 'admin' : 'client' });
+
+      // this.$router.push({ name: this.userStore.user.isAdmin ? 'admin' : 'client' });
+      this.$router.push({ name: this.user.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {
       node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
@@ -84,6 +95,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('userModule', ['getUser']),
+    user() {
+      return this.getUser;
+    }
   },
 
 };

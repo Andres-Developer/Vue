@@ -8,17 +8,8 @@ const userStore = {
   user: null,
   loading: false,
 
-  get isUserAuthenticated() {
-    return !!this?.user;
-  },
 
-  setUser(user) {
-    this.user = user;
-  },
-  getUser() {
-    return this.user;
-  },
-
+  // Mutations 
   checkUserAuthenticated() {
     this.loadUserFromLocalStorage();
     return this.isUserAuthenticated;
@@ -27,6 +18,8 @@ const userStore = {
   loadUserFromLocalStorage() {
     this.user = JSON.parse(localStorage.getItem('user'));
   },
+
+  // Actions:
 
   async loginUser({ email, password }) {
     const ENDPOINT = `/users?email=${email}`;
@@ -85,6 +78,7 @@ const userStore = {
     order.grandTotal = cartStore.grandTotal;
     order.dateOfPurchase = new Date();
     order.id = this.user.orders.length + 1;
+    
     this.user.orders.push(order);
 
     const user = await this.editUser(this.user);
@@ -108,11 +102,11 @@ const userStore = {
     this.loading = true;
     const users = await getRequest(ENDPOINT);
 
-    const userWithOrders = users.filter(user => user.orders.length !== 0);
+    const usersWithOrders = users.filter(user => user.orders.length !== 0);
 
     this.loading = await loadingWithTimeout(1000);
 
-    return userWithOrders;
+    return usersWithOrders;
   },
 
   async getSingleUser(id) {
@@ -121,7 +115,15 @@ const userStore = {
     const user = await getRequest(ENDPOINT);
     this.loading = await loadingWithTimeout(1000);
     return user;
-  }
+  },
+
+  // Getters:
+  get isUserAuthenticated() {
+    return !!this?.user;
+  },
+  // getUser
+  // getUsersWithOrders
+
 };
 
 export default userStore;

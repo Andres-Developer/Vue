@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import userStore from '@/stores/userStore';
+// import userStore from '@/stores/userStore';
 import { formattedDate } from '@/utils/dateTools';
 
 export default {
@@ -52,7 +52,7 @@ export default {
   },
   data() {
     return {
-      userStore,
+      // userStore,
     };
   },
   methods: {

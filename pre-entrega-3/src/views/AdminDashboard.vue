@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.userStore.isUserAuthenticated">
+  <div v-if="this.isUserAuthenticated && this.user?.isAdmin">
     <div class="h1 mt-5 mb-5">Panel de administración</div>
     <div class="vw-100 d-flex justify-content-center gap-5">
       <BCard title="Edita o crea nuevos productos" img-src="https://picsum.photos/600/300/?image=23" img-alt="Image"
@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import userStore from '@/stores/userStore';
+// import userStore from '@/stores/userStore';
+import { mapGetters } from 'vuex';
 import LoginUser from './LoginUser.vue';
 
 
@@ -35,12 +36,19 @@ export default {
   },
   data() {
     return {
-      userStore,
+      // userStore,
     };
   },
   methods: {
   },
   computed: {
+    ...mapGetters('userModule', ['getUser', 'getIsUserAuthenticate']),
+    user() {
+      return this.getUser;
+    },
+    isUserAuthenticated() {
+      return this.getIsUserAuthenticate;
+    }
   },
 };
 </script>

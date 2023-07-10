@@ -1,9 +1,9 @@
 <template>
   <div class="h1 mt-5 mb-3">Órdenes de clientes</div>
-  <div to="/" class="btn btn-secondary btn-chip mb-5" @click="() => $router.push('/admin')">Volver al panel de administración
-      </div>
-  <b-table-simple @click="cleanDeletedMessage" v-if="!this.userStore.loading" responsive
-    class="container table-width">
+  <div to="/" class="btn btn-secondary btn-chip mb-5" @click="() => $router.push('/admin')">Volver al panel de
+    administración
+  </div>
+  <b-table-simple @click="cleanDeletedMessage" v-if="!this.loading" responsive class="container table-width">
     <b-thead>
       <b-tr variant="light">
         <b-th>id cliente</b-th>
@@ -18,7 +18,7 @@
       <b-tr v-for="client in this.clientsWithOrders" :key="client.id" class="align-middle">
         <b-td><strong>{{ client.id }}</strong></b-td>
         <b-td sticky-column class="d-flex justify-content-start gap-2 align-items-center">
-            <img :src="client.avatar" alt="client" height="60" class="user-avatar">
+          <img :src="client.avatar" alt="client" height="60" class="user-avatar">
         </b-td>
         <b-td> {{ client.firstname + " " + client.lastname }}</b-td>
         <b-td>
@@ -48,7 +48,9 @@
 </template>
 
 <script>
-import userStore from '@/stores/userStore';
+// import userStore from '@/stores/userStore';
+import { mapActions, mapGetters } from 'vuex';
+
 
 export default {
   name: 'ClientOrders',
@@ -58,21 +60,28 @@ export default {
   },
   data() {
     return {
-      userStore,
-      clientsWithOrders: []
+      // userStore,
+      // clientsWithOrders: []
     };
   },
   created() {
     (async () => {
-      this.clientsWithOrders = await this.userStore.getClientOrders();
+      await this.getUsersFromAPI();
+      await this.getClientOrders();
+      // this.clientsWithOrders = await this.userStore.getClientOrders();
     })();
   },
-
   methods: {
-
+    ...mapActions('userModule', ['getUsersFromAPI','getClientOrders'])
   },
   computed: {
-
+    ...mapGetters('userModule', ['getUsersWithOrders', 'getLoading']),
+    clientsWithOrders() {
+      return this.getUsersWithOrders;
+    },
+    loading() {
+      return this.getLoading;
+    }
   },
 
 };
