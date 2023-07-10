@@ -9,9 +9,7 @@ const cartModule = {
       if (!isSelected) {
         const subtotal = product.price * (product.quantity || 1);
         state.productsInCart.push({ ...product, quantity: product.quantity || 1, subtotal });
-        console.log("state productsInCart: ", state.productsInCart);
       }
-
     },
     deleteProductFromCart(state, index) {
       state.productsInCart.splice(index, 1);
