@@ -1,6 +1,6 @@
 <template>
-  <div class="h1 mt-5">{{ this.creationProduct ? 'Creación' : 'Edición' }} de producto</div>
-  <div v-if="!this.loading" class="container d-flex justify-content-center align-items-center">
+  <div class="h1 mt-5">{{ this.creationProduct || this.creationSuccess ? 'Creación' : 'Edición' }} de producto</div>
+  <div v-if="!this.loading || this.clickedSubmit" class="container d-flex justify-content-center align-items-center">
     <FormKit type="form" id="product-edition" submit-label="Register" @submit="submitHandler" @click="cleanUpdatedMessage"
       :actions="false" v-model="formData" incomplete-message="Por favor completa todos los campos">
       <div class="container-message-confirmation">
@@ -16,36 +16,43 @@
         <div class="col-md-7">
           <FormKit v-if="creationSuccess || !this.creationProduct" type="text" name="id" label="id" placeholder=""
             :value="this.product.id" disabled />
-          <FormKit type="text" name="title" label="Nombre del producto" placeholder="Ingresa un nombre"
+          <FormKit type="text" id="title" name="title" label="Nombre del producto" placeholder="Ingresa un nombre"
             :value="this.product.title" validation="required|length:3" validation-visibility="dirty" :validation-messages="{
               length: 'Debes ingresar al menos 3 caracteres',
               required: 'Por favor ingresa un nombre del producto',
             }" />
-          <FormKit type="textarea" name="description" label="Descripción" placeholder="Ingresa una descripción"
-            :value="this.product.description" validation="required|length:3" validation-visibility="dirty"
-            :validation-messages="{
+          <FormKit type="textarea" id="description" name="description" label="Descripción"
+            placeholder="Ingresa una descripción" :value="this.product.description" validation="required|length:3"
+            validation-visibility="dirty" :validation-messages="{
               length: 'Debes ingresar al menos 3 caracteres',
               required: 'Por favor ingresa un descripción del producto',
             }" />
-          <FormKit type="number" name="price" label="Precio" placeholder="Ingresa un precio" :value="this.product.price"
-            min="1" validation="required|min:1" validation-visibility="dirty" :validation-messages="{
+          <FormKit type="number" id="price" name="price" label="Precio" placeholder="Ingresa un precio"
+            :value="this.product.price" min="1" validation="required|min:1" validation-visibility="dirty"
+            :validation-messages="{
               min: 'El precio debe ser mayor',
               required: 'Por favor ingresa un precio del producto',
             }" />
-          <FormKit type="number" name="stock" label="Stock" placeholder="Ingresa un stock" :value="this.product.stock"
-            min="0" validation="required|min:0" validation-visibility="dirty" :validation-messages="{
+          <FormKit type="number" id="stock" name="stock" label="Stock" placeholder="Ingresa un stock"
+            :value="this.product.stock" min="0" validation="required|min:0" validation-visibility="dirty"
+            :validation-messages="{
               min: 'El stock debe ser mayor',
               required: 'Por favor ingresa un stock del producto',
             }" />
-          <FormKit type="url" name="image" label="Imagen" placeholder="Ingresa una imagen" :value="this.product.image"
-            validation="required|url" validation-visibility="dirty" :validation-messages="{
+          <FormKit type="url" id="image" name="image" label="Imagen" placeholder="Ingresa una imagen"
+            :value="this.product.image" validation="required|url" validation-visibility="dirty" :validation-messages="{
               url: 'Debes ingresar una url válida',
               required: 'Por favor ingresa un imagen del producto',
             }" />
           <div class="d-flex mt-4 justify-content-evenly align-items-end">
-            <FormKit type="submit" :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
+            <FormKit v-if="this.creationProduct || !this.creationSuccess" type="submit"
+              :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
               :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
               @click="() => { this.loginFail = false; }" />
+            <FormKit v-else type="button" label="Crear otro producto"
+              :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
+              @click="() => { this.resetForm(); this.creationProduct = true; this.creationSuccess = false; }"
+              :disabled="false" />
             <div>
               <b-button to="/admin/products-management" class="btn-chip p-3 d-flex align-items-center">Volver </b-button>
             </div>
@@ -66,31 +73,26 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-// import productsStore from '@/stores/productsStore';
-
-
 export default {
   name: 'ProductCreateEdit',
   components: {
-
   },
   props: {
-
   },
   data() {
     return {
-      // productsStore,
-      // loading: false,
-      // product: null,
       updated: false,
       creationProduct: false,
       creationSuccess: false,
-      formData: {}
+      formData: {},
+      isDisabled: false,
+      componentKey: 0,
+      clickedSubmit: false,
     };
   },
   created() {
     if (this.$route.params.param === 'new') {
-      // this.product = {};
+      this.clearProduct();
       this.creationProduct = true;
       return;
     }
@@ -101,28 +103,35 @@ export default {
       return null;
     }
     (async () => {
-      // this.product = await this.productsStore.getProductFromAPI(this.id);
       await this.getProductFromAPI(this.id);
     })();
 
   },
   methods: {
-    ...mapActions('productsModule', ['getProductFromAPI', 'createProduct', 'updateProduct']),
+    ...mapActions('productsModule', ['getProductFromAPI', 'createProduct', 'updateProduct', 'clearProduct']),
+    resetForm() {
+      this.$formkit.get('title').input();
+      this.$formkit.get('description').input();
+      this.$formkit.get('price').input();
+      this.$formkit.get('stock').input();
+      this.$formkit.get('image').input();
+    },
     async submitHandler() {
+      this.clickedSubmit = true;
       this.creationSuccess = false;
 
       this.formData.price = Number(this.formData.price);
       this.formData.stock = Number(this.formData.stock);
 
       if (this.creationProduct) {
-        // this.product = await this.productsStore.createProduct(this.formData);
         await this.createProduct(this.formData);
+        this.isDisabled = true;
         this.creationProduct = false;
         this.creationSuccess = true;
+        this.$forceUpdate();
         return;
       }
-      // this.product = await this.productsStore.updateProduct(this.id || this.product.id, this.formData); //  this.product.id: is used after creation product to get the id from Api response in this same view
-      await this.updateProduct({id: this.id || this.product.id, product: this.formData}); //  this.product.id: is used after creation product to get the id from Api response in this same view
+      await this.updateProduct({ id: this.id || this.product.id, product: this.formData }); //  this.product.id: is used after creation product to get the id from Api response in this same view
       this.updated = true;
     },
 
@@ -133,7 +142,7 @@ export default {
   computed: {
     ...mapGetters('productsModule', ['getLoading', 'getProduct']),
     product() {
-      return this.getProduct;
+      return this.getProduct || {};
     },
     loading() {
       return this.getLoading;
