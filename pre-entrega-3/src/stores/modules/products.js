@@ -77,6 +77,9 @@ const productsModule = {
       await Promise.all(promises);
       commit('setLoading', false);
     },
+    async clearProduct({ commit }) {
+      commit('setProduct', null);
+    }
   },
   getters: {
     getIndexOfProduct(state) {
