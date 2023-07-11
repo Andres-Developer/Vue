@@ -5,7 +5,12 @@
       Volver al panel de administración </div>
     <div v-else class="btn btn-secondary btn-chip mb-5" @click="() => $router.push('/')">Volver al listado de productos
     </div>
-    <OrderTable v-for="order in this.user?.orders" :key="order.id" :order="order" />
+    <div v-if="this.user?.orders?.length > 0">
+      <OrderTable v-for="order in this.user?.orders" :key="order.id" :order="order" />
+    </div>
+    <div v-else class="h4 mb-5"> 
+      {{ this.user?.firstname }} tienes {{ this.user?.orders?.length }} órdenes de compra
+    </div>
     <div v-if="this.user.isAdmin" class="btn btn-secondary btn-chip mb-5" @click="() => $router.push('/admin')">
       Volver al panel de administración </div>
     <div v-else class="btn btn-secondary btn-chip mb-5" @click="() => $router.push('/')">Volver al listado de productos
