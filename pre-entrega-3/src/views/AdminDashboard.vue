@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import userStore from '@/stores/userStore';
 import { mapGetters } from 'vuex';
 import LoginUser from './LoginUser.vue';
 
@@ -36,7 +35,6 @@ export default {
   },
   data() {
     return {
-      // userStore,
     };
   },
   methods: {

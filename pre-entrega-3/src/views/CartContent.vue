@@ -12,8 +12,6 @@
 </template>
 
 <script>
-// import cartStore from '@/stores/cartStore';
-// import userStore from '@/stores/userStore';
 import CartProductTable from '@/components/CartProductTable.vue';
 
 import { mapActions, mapGetters } from 'vuex';
@@ -33,9 +31,6 @@ export default {
   },
   data() {
     return {
-      // cartStore,
-      // userStore,
-      // loading: false,
     };
   },
 
@@ -44,20 +39,6 @@ export default {
     ...mapActions('userModule', ['addOrder']),
 
     async handleCheckoutClick() {
-      //   if (!this.userStore.user) {
-      //     if (confirm('Debes iniciar sesión para poder realizar la compra')) {
-      //       this.$router.push({ name: 'login-user' });
-      //       return;
-      //     }
-      //   } else {
-      //     this.loading = true;
-      //     await this.userStore.addOrder();
-      //     this.loading = false;
-      //     // this.cartStore.clearCart();
-      //     this.clearCart();
-      //     this.$router.push({ name: userStore.user.isAdmin ? 'self-orders' : 'client' });
-      //   }
-      // },
       if (!this.user) {
         if (confirm('Debes iniciar sesión para poder realizar la compra')) {
           this.$router.push({ name: 'login-user' });

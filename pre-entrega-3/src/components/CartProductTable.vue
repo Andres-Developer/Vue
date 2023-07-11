@@ -53,7 +53,6 @@
 </template>
 
 <script>
-// import cartStore from '@/stores/cartStore';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -66,8 +65,6 @@ export default {
   },
   data() {
     return {
-      // cartStore,
-      // productsInCart: cartStore.productsInCart,
     };
   },
 

@@ -48,7 +48,6 @@
 </template>
 
 <script>
-// import userStore from '@/stores/userStore';
 import { mapActions, mapGetters } from 'vuex';
 
 
@@ -60,15 +59,12 @@ export default {
   },
   data() {
     return {
-      // userStore,
-      // clientsWithOrders: []
     };
   },
   created() {
     (async () => {
       await this.getUsersFromAPI();
       await this.getClientOrders();
-      // this.clientsWithOrders = await this.userStore.getClientOrders();
     })();
   },
   methods: {

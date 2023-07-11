@@ -53,7 +53,6 @@
 </template>
 
 <script>
-// import productsStore from '@/stores/productsStore';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -66,7 +65,6 @@ export default {
   },
   data() {
     return {
-      // productsStore,
       deletedSuccess: false,
     };
   },
@@ -88,7 +86,6 @@ export default {
     },
   },
   created() {
-    // this.productsStore.getProductsFromAPI();
     (async () => {
       await this.getProductsFromAPI();
     })();

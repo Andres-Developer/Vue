@@ -15,7 +15,6 @@
 <script>
 import CardItem from '@/components/CardItem.vue';
 import { mapActions, mapGetters } from 'vuex';
-// import productsStore from '@/stores/productsStore';
 
 export default {
   name: 'HomePage',
@@ -27,11 +26,9 @@ export default {
   },
   data() {
     return {
-      // productsStore
     };
   },
   created() {
-    // this.productsStore.getProductsFromAPI();
     this.getProductsFromAPI();
   },
   mounted() {

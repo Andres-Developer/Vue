@@ -18,7 +18,6 @@
 </template>
 
 <script>
-// import userStore from '@/stores/userStore';
 import { mapGetters } from 'vuex';
 import LoginUser from './LoginUser.vue';
 import OrderTable from '@/components/OrderTable.vue';
@@ -33,7 +32,6 @@ export default {
   },
   data() {
     return {
-      // userStore,
     };
   },
   methods: {

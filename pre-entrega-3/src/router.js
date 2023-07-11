@@ -5,7 +5,6 @@ import CartContentVue from "./views/CartContent.vue";
 import ProductDetail from "./views/ProductDetail.vue";
 import LoginUser from "./views/LoginUser.vue";
 import RegisterUser from "./views/RegisterUser.vue";
-// import userStore from "./stores/userStore";
 import { store } from './stores';
 import AdminDashboard from "./views/AdminDashboard.vue";
 import ProductsManagement from "./views/ProductsManagement.vue";
@@ -40,30 +39,9 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  // const isUserAuthenticated = userStore.checkUserAuthenticated();
   const isUserAuthenticated = store.getters['userModule/getIsUserAuthenticate'];
   const user = store.getters['userModule/getUser'];
-
-  // console.log("isUserAuthenticated before each: ", isUserAuthenticated);
-  // console.log("user before each: ", userStore.user);
-  // console.log("user before each: ", user);
-  // console.log("user.isAdmin before each: ", user?.isAdmin);
-
-  // if (isUserAuthenticated && to.matched.some(record => record.meta.isAuth)) {
-  //   if (userStore.user.isAdmin && to.path === '/client') {
-  //     next('/admin');
-  //     return;
-  //   }
-  //   if (!userStore.user.isAdmin && (to.matched.some(record => record.meta.onlyAdmin))) {
-  //     next('/client');
-  //     return;
-  //   }
-  // }
-  // else if (isUserAuthenticated && (to.path === '/login' || to.path === '/register')) {
-  //   next('/admin');
-  //   return;
-  // }
-  // next();
+  
   if (isUserAuthenticated && to.matched.some(record => record.meta.isAuth)) {
     if (user.isAdmin && to.path === '/client') {
       next('/admin');

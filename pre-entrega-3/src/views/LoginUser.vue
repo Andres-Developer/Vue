@@ -28,7 +28,6 @@
 </template>
 
 <script>
-// import userStore from '@/stores/userStore';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -39,7 +38,6 @@ export default {
   },
   data() {
     return {
-      // userStore,
       loginFail: false,
       formData: {}
     };
@@ -48,15 +46,10 @@ export default {
     ...mapActions('userModule', ['loginUser']),
     async submitHandler() {
       this.loginFail = false;
-      // await this.userStore.loginUser(this.formData);
       await this.loginUser(this.formData);
-      // if (!this.userStore.user) {
-      //   this.loginFail = true;
-      // }
       if (!this.user) {
         this.loginFail = true;
       }
-      // this.$router.push({ name: this.userStore.user.isAdmin ? 'admin' : 'client' });
       this.$router.push({ name: this.user.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {

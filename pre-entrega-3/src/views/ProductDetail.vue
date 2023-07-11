@@ -66,8 +66,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-// import cartStore from '@/stores/cartStore';
-// import productsStore from '@/stores/productsStore';
 
 export default {
   name: 'ProductDetail',
@@ -77,11 +75,6 @@ export default {
   },
   data() {
     return {
-      // productsStore,
-      // cartStore,
-      // productsInCart: cartStore.productsInCart,
-      // loading: false,
-      // product: null,
       localQuantity: 1,
       localPrice: 0,
     };
@@ -91,7 +84,6 @@ export default {
       return null;
     }
     (async () => {
-      // this.product = await this.productsStore.getProductFromAPI(this.id);
       await this.getProductFromAPI(this.id);
       this.getProductSelectedFromCart();
     })();
@@ -110,11 +102,9 @@ export default {
       }
     },
     addToCartHandleClick(product) {
-      // this.cartStore.addProductToCart(product);
       this.addProductToCart(product);
     },
     deleteToCartHandleClick(id) {
-      // this.cartStore.deleteProductFromCart(id);
       this.deleteProductFromCart(id);
     },
     addLocalQuantity() {
@@ -142,12 +132,9 @@ export default {
       return (Number(this.$route.params.id) || this.$route.params.id);
     },
     checkSelectedProduct() {
-      // return this.productsInCart.some((Eproduct) => Eproduct.id === this.product.id);
       return this.getIsSelectedProduct(this.product);
     },
     getProductFromCart() {
-      // return this.productsInCart.find((Eproduct) => Eproduct.id === this.product.id);
-      // return this.getProductsInCart.find((Eproduct) => Eproduct.id === this.product.id);
       return this.getSingleProductFromCart(this.product);
     },
     totalLocalPrice() {

@@ -49,7 +49,6 @@
 
 
 <script>
-// import userStore from '@/stores/userStore';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -60,7 +59,6 @@ export default {
   },
   data() {
     return {
-      // userStore,
       registerFail: false,
       submitted: false,
       formData: {}
@@ -74,19 +72,13 @@ export default {
       const formDataObject = { ...this.formData }; // {...this.formData} to convert Proxy to object
       delete formDataObject.password_confirm; // remove password_confirm from formDataObject
 
-      // await this.userStore.registerUser(formDataObject);
       await this.registerUser({ formData: formDataObject });
 
-      // if (!this.userStore.user) {
-      //   this.registerFail = true;
-      //   return;
-      // }
       if (!this.user) {
         this.registerFail = true;
         return;
       }
 
-      // this.$router.push({ name: this.userStore.user.isAdmin ? 'admin' : 'client' });
       this.$router.push({ name: this.user.isAdmin ? 'admin' : 'client' });
     },
     handleEyeIconClick(node) {

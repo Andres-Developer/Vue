@@ -25,7 +25,6 @@
 <script>
 import OrderTable from '@/components/OrderTable.vue';
 import { mapActions, mapGetters } from 'vuex';
-// import userStore from '@/stores/userStore';
 
 export default {
   name: 'ClientOrdersList',
@@ -36,14 +35,11 @@ export default {
   },
   data() {
     return {
-      // userStore,
-      // singleUser: null,
       clientOrders: [],
     };
   },
   created() {
     (async () => {
-      // this.singleUser = await this.userStore.getSingleUser(this.id);
       await this.getClientFromAPI(this.id);
       this.clientOrders = this.client?.orders;
     })();

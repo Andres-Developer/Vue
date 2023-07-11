@@ -8,7 +8,6 @@
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
-// import cartStore from './stores/cartStore';
 
 import { mapGetters } from 'vuex';
 
@@ -19,13 +18,11 @@ export default {
   },
   metaInfo() {
     return {
-      // title: this.cartStore.productCount ? `🍕 Pizzería (${this.cartStore.productCount})` : `🍕 Pizzería`
       title: this.productCount ? `🍕 Pizzería (${this.productCount})` : `🍕 Pizzería`
     };
   },
   data() {
     return {
-      // cartStore,
     };
   },
   created() {

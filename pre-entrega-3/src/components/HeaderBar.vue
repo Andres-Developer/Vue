@@ -42,8 +42,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-// import cartStore from '@/stores/cartStore';
-// import userStore from '@/stores/userStore';
 
 export default {
   name: "HeaderBar",
@@ -51,12 +49,9 @@ export default {
   },
   data() {
     return {
-      // cartStore,
-      // userStore,
     };
   },
   created() {
-    // this.userStore.checkUserAuthenticated();
     this.loadUserFromLocalStorage();
   },
   methods: {
@@ -66,7 +61,6 @@ export default {
       this.$router.push({ name: 'admin' });
     },
     userLogout() {
-      // this.userStore.logoutUser();
       this.logoutUser();
       this.$router.push({ name: 'home' });
     },
