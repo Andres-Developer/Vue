@@ -1,4 +1,4 @@
-# Pre Entrega-2: Pizzería en Vue
+# Pre Entrega-3: Pizzería with Vue and Vuex
 
 ## Project setup
 ```
