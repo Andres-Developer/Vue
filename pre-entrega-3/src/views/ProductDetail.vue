@@ -132,10 +132,10 @@ export default {
       return (Number(this.$route.params.id) || this.$route.params.id);
     },
     checkSelectedProduct() {
-      return this.getIsSelectedProduct(this.product);
+      return this.getIsSelectedProduct(this.product.id);
     },
     getProductFromCart() {
-      return this.getSingleProductFromCart(this.product);
+      return this.getSingleProductFromCart(this.product.id);
     },
     totalLocalPrice() {
       return (this.localQuantity * this.product.price).toFixed(2);

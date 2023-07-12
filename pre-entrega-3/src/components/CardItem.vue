@@ -69,7 +69,7 @@ export default {
       return this.getProductsInCart;
     },
     checkSelectedProduct() {
-      return this.getIsSelectedProduct(this.product);
+      return this.getIsSelectedProduct(this.product.id);
     },
   },
 };

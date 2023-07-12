@@ -74,13 +74,13 @@ const cartModule = {
       return state.productsInCart.reduce((acc, product) => acc + product.subtotal, 0);
     },
     getIsSelectedProduct(state) {
-      return function (product) {
-        return state.productsInCart.some((Eproduct) => Eproduct.id === product.id);
+      return function (id) {
+        return state.productsInCart.some((Eproduct) => Eproduct.id === id);
       };
     },
     getSingleProductFromCart(state){
-      return function (product) {
-        return state.productsInCart.find((Eproduct) => Eproduct.id === product.id);        
+      return function (id) {
+        return state.productsInCart.find((Eproduct) => Eproduct.id === id);        
       }
     }
   }
