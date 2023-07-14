@@ -1,3 +1,28 @@
+<script setup>
+import { ref, reactive } from 'vue';
+import { useStore } from 'vuex';
+import { reset } from '@formkit/core';
+
+const submitted = ref(false);
+const formData = reactive({});
+
+const store = useStore();
+const module = 'studentsModule';
+const registerStudentToAPI = (formData) => store.dispatch(`${module}/registerStudentToAPI`, formData);
+const getStudentsFromAPI = () => store.dispatch(`${module}/getStudentsFromAPI`);
+const resetForm = () => reset('student-registration');
+
+const submitHandler = async () => {
+  await registerStudentToAPI(formData);
+  await getStudentsFromAPI();
+  submitted.value = true;
+  resetForm();
+};
+
+const cleanSuccessSubmitMessage = () => submitted.value = false;
+
+</script>
+
 <template>
   <div>
     <h2 class="">Registro de nuevo estudiante</h2>
@@ -47,46 +72,7 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
 
-export default {
-  name: 'StudentRegistration',
-  components: {
-  },
-  props: {
-  },
-  data() {
-    return {
-      submitted: false,
-      formData: {}
-    };
-  },
-
-  methods: {
-    ...mapActions('studentsModule', ['registerStudentToAPI', 'getStudentsFromAPI']),
-    async submitHandler() {
-      await this.registerStudentToAPI(this.formData);
-      await this.getStudentsFromAPI();
-      this.submitted = true;
-      this.resetForm();
-    },
-    handleEyeIconClick(node) {
-      node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
-      node.props.type = node.props.type === 'password' ? 'text' : 'password';
-    },
-    resetForm() {
-      this.$formkit.reset('student-registration');
-    },
-    cleanSuccessSubmitMessage() {
-      this.submitted = false;
-    }
-  },
-  computed: {
-    ...mapGetters(['getLoadingStatus']),
-  },
-};
-</script>
 
 <style>
 .my-wrapper,

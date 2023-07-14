@@ -17,7 +17,6 @@ const studentsModule = {
   },
   actions: {
     async getStudentsFromAPI({ commit }) {
-      console.log("BASe URL", BASE_URL);
       commit('setLoading', true);
       const response = await axios.get(BASE_URL + '/students');
       commit('setStudents', response.data);

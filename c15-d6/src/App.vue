@@ -1,28 +1,14 @@
+<script setup>
+import StudentRegistration from './components/StudentRegistration.vue';
+import StudentsTable from './components/StudentsTable.vue';
+</script>
+
 <template>
   <div class="container mt-3 d-flex gap-5 justify-content-between">
     <StudentRegistration />
     <StudentsTable />
   </div>
 </template>
-
-<script>
-import StudentRegistration from './components/StudentRegistration.vue';
-import StudentsTable from './components/StudentsTable.vue';
-
-export default {
-  name: 'App',
-  components: {
-    StudentRegistration,
-    StudentsTable
-  },
-  data() {
-    return {
-    };
-  },
-  methods: {
-  }
-};
-</script>
 
 <style>
 #app {

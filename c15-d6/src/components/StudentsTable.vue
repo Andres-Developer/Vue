@@ -1,3 +1,33 @@
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const module = 'studentsModule';
+const getStudentsFromAPI = () => store.dispatch(`${module}/getStudentsFromAPI`);
+const students = computed(() => store.getters[`${module}/getStudents`]);
+const loading = computed(() => store.getters[`${module}/getLoadingStatus`]);
+
+getStudentsFromAPI();
+
+const getSpanishGenders = (gender) => {
+  if (gender === "male") {
+    return 'Masculino';
+  }
+  if (gender === "female") {
+    return 'Femenino';
+  }
+  if (gender === "non_binary") {
+    return 'No binario';
+  }
+  return 'Prefiere no decirlo';
+};
+const capitalizeWord = (word) => {
+  return (word && word[0].toUpperCase() + word.slice(1)) || "";
+};
+
+</script>
+
 <template>
   <div>
     <h2 class="">Estudiantes registrados</h2>
@@ -26,7 +56,7 @@
         <b-tfoot>
           <b-tr variant="light">
             <b-th></b-th>
-            <b-th colspan="2" class="text-end">Total alumnos: {{ this.students.length }}</b-th>
+            <b-th colspan="2" class="text-end">Total alumnos: {{ students.length }}</b-th>
             <b-th></b-th>
             <b-th></b-th>
           </b-tr>
@@ -39,53 +69,7 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
 
-export default {
-  name: 'StudentsTable',
-  components: {
-  },
-  props: {
-  },
-  data() {
-    return {
-    };
-  },
-  created() {
-    (async () => {
-      await this.getStudentsFromAPI();
-    })();
-  },
-  methods: {
-    ...mapActions('studentsModule', ['getStudentsFromAPI']),
-    getSpanishGenders(gender) {
-      if (gender === "male") {
-        return 'Masculino';
-      }
-      if (gender === "female") {
-        return 'Femenino';
-      }
-      if (gender === "non_binary") {
-        return 'No binario';
-      }
-      return 'Prefiere no decirlo';
-    },
-    capitalizeWord(word) {
-      return (word && word[0].toUpperCase() + word.slice(1)) || "";
-    }
-  },
-  computed: {
-    ...mapGetters('studentsModule', ['getStudents', 'getLoadingStatus']),
-    students() {
-      return this.getStudents;
-    },
-    loading() {
-      return this.getLoadingStatus;
-    }
-  },
-};
-</script>
 
 <style scoped>
 .outer-container-table {
