@@ -49,8 +49,9 @@
         </div>
       </div>
       <div v-else>
-        <div class="h2 mt-5 mb-5 text-primary"> ¡Orden generada satisfactoriamente! </div>
-        <div class="h5 mt-5"> Redirigiendo al listado de órdenes de compra...</div>
+        <div class="h2 mt-5 text-primary"> ¡Gracias por tu compra! </div>
+        <div class="h4 mb-5 text-secondary">Orden generada satisfactoriamente </div>
+        <div class="h4 mt-5"> Redirigiendo al listado de órdenes de compra...</div>
       </div>
     </div>
     <div v-else>
