@@ -1,8 +1,8 @@
 
 <template>
-  <h2 class="mt-5">Registro de nuevo usuario</h2>
+  <h2 class="mt-5 mb-4">Registro de nuevo usuario</h2>
   <FormKit type="form" id="registration-user-form" submit-label="Register" @submit="submitHandler" :actions="false"
-    v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
+    v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset ' }">
     <div class="outer-container">
       <h5 class="mb-5">Diligencia el siguiente formulario para registrarte</h5>
       <FormKit type="text" name="firstname" label="Nombre" placeholder="Ingresa tu nombre"
@@ -125,9 +125,7 @@ export default {
   width: 100%;
 }
 
-.my-form {
-  margin-top: 50PX;
-}
+
 
 
 

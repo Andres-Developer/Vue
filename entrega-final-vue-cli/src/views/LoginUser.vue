@@ -1,7 +1,7 @@
 <template>
-  <h2 class="mt-5">Iniciar sesión</h2>
+  <h2 class="mt-5 mb-5">Iniciar sesión</h2>
   <FormKit type="form" id="login-user-form" submit-label="Register" @submit="submitHandler" :actions="false"
-    v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset my-form' }">
+    v-model="formData" incomplete-message="Por favor completa todos los campos" :classes="{ form: '$reset ' }">
     <div class="outer-container">
       <FormKit type="text" name="email" label="e-mail" placeholder="admin@gmail.com o cliente@gmail.com"
         validation="required|email" validation-visibility="dirty" :validation-messages="{

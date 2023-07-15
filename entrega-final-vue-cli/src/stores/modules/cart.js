@@ -2,6 +2,7 @@ const cartModule = {
   namespaced: true,
   state: {
     productsInCart: [],
+    isReadyForCheckout: false,
   },
   mutations: {
     addProductToCart(state, product, isSelected) {
@@ -33,6 +34,9 @@ const cartModule = {
     clearCart(state) {
       state.productsInCart = [];
     },
+    setIsReadyForCheckout(state, value) {
+      state.isReadyForCheckout = value;
+    },
     // subTotalCalc(state, index) {
     //   state.productsInCart[index].subtotal = state.productsInCart[index].price * state.productsInCart[index].quantity;
     // },
@@ -53,6 +57,9 @@ const cartModule = {
     subtractProductQuantity({ commit, getters }, id) {
       const index = getters.getIndexOfProduct(id);
       commit('subtractProductQuantity', index);
+    },
+    setIsReadyForCheckout({ commit }, value) {
+      commit('setIsReadyForCheckout', value);
     },
     clearCart({ commit }) {
       commit('clearCart');
@@ -78,10 +85,13 @@ const cartModule = {
         return state.productsInCart.some((Eproduct) => Eproduct.id === id);
       };
     },
-    getSingleProductFromCart(state){
+    getIsReadyForCheckout(state) {
+      return state.isReadyForCheckout;
+    },
+    getSingleProductFromCart(state) {
       return function (id) {
-        return state.productsInCart.find((Eproduct) => Eproduct.id === id);        
-      }
+        return state.productsInCart.find((Eproduct) => Eproduct.id === id);
+      };
     }
   }
 };

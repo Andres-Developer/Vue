@@ -1,6 +1,6 @@
 <template>
   <b-table-simple responsive class="container mb-5">
-    <b-thead>
+    <b-thead v-if="order.dateOfPurchase">
       <b-tr variant="light">
         <b-th>Fecha de creación: </b-th>
         <b-th colspan="2">{{ this.formattedDate(order.dateOfPurchase) }}</b-th>

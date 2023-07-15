@@ -83,8 +83,9 @@ const userModule = {
       const userLoaded = JSON.parse(localStorage.getItem('user'));
       commit('setUser', userLoaded);
     },
-    async addOrder({ commit, getters, dispatch, rootState }) {
+    async addOrder({ commit, getters, dispatch, rootState }, billingDetails) {
       const order = {};
+      order.billingDetails = billingDetails;
       order.products = rootState.cartModule.productsInCart;
       order.grandTotal = rootState.cartModule.productsInCart.reduce((acc, product) => acc + product.subtotal, 0);
       order.dateOfPurchase = new Date();

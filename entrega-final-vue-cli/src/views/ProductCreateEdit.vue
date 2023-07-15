@@ -48,18 +48,18 @@
                 required: 'Por favor ingresa un imagen del producto',
               }" />
             <div class="d-flex mt-4 justify-content-evenly align-items-end">
-              <FormKit v-if="this.creationProduct || !this.creationSuccess" type="submit"
-                :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
-                :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
-                @click="() => { this.loginFail = false; }" />
-              <FormKit v-else type="button" label="Crear otro producto"
-                :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
-                @click="() => { this.resetForm(); this.creationProduct = true; this.creationSuccess = false; }"
-                :disabled="false" />
               <div>
                 <b-button to="/admin/products-management" class="btn-chip p-3 d-flex align-items-center">Volver
                 </b-button>
               </div>
+              <FormKit v-if="this.creationProduct || !this.creationSuccess" type="submit"
+                :label="this.creationProduct ? 'Crear producto' : 'Actualizar'"
+                :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
+                @click="() => { this.loginFail = false; }" />                
+              <FormKit v-else type="button" label="Crear otro producto"
+                :classes="{ outer: '$reset', input: 'btn-chip p-3 d-flex align-items-center' }"
+                @click="() => { this.resetForm(); this.creationProduct = true; this.creationSuccess = false; }"
+                :disabled="false" />
             </div>
           </div>
         </div>
